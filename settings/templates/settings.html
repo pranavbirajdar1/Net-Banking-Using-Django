@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Settings - Net Banking</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f7f9fb;
+        }
+        .sidebar {
+            height: 100vh;
+            background-color: #343a40;
+            color: white;
+        }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            padding: 15px;
+            display: block;
+        }
+        .sidebar a:hover {
+            background-color: #495057;
+        }
+        .settings-content {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .navbar-custom {
+            background-color: #007bff;
+        }
+        .navbar-custom .navbar-brand,
+        .navbar-custom .nav-link {
+            color: white;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">BankLogo</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Notifications <span class="badge bg-warning text-dark">3</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url "settings" %}">Settings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url "profile" %}">Profile</a>
+                    </li>
+                   
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar p-0">
+                <a href="{% url "userdashboard" %}">Dashboard</a>
+                <a href="{% url "accounts" %}">Accounts</a>
+                <a href="{% url "fundtransfer" %}">Fund Transfer</a>
+                <a href="{% url "payment" %}">Payments</a>
+                <a href="{% url "investment" %}">Investments</a>
+                <a href="#{% url "statement" %}">Statements</a>
+                <a href="{% url "support" %}">Support</a>
+                <a href="{% url 'nominee' %}">Nominees</a> <!-- Added Nominee link -->
+                <a href="{% url 'logout' %}">Logout</a>
+            </div>
+
+            <!-- Settings Content -->
+            <div class="col-md-10 p-4">
+                <h3>Settings</h3>
+
+                <!-- Profile Settings -->
+                <div class="settings-content mb-4">
+                    <h5>Profile Picture</h5>
+                    <form>
+                        <div class="mb-3">
+                            <label for="profilePicture" class="form-label">Upload Profile Picture</label>
+                            <input class="form-control" type="file" id="profilePicture">
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Personal Information -->
+                <div class="settings-content mb-4">
+                    <h5>Personal Information</h5>
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label for="username">Username</label>
+                                <input type="text" id="username" class="form-control" placeholder="Enter your username" value="[UserName]" required>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" class="form-control" placeholder="Enter your email" value="[UserEmail]" required>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6 form-group">
+                                <label for="phoneNumber">Phone Number</label>
+                                <input type="tel" id="phoneNumber" class="form-control" placeholder="Enter your phone number" value="[UserPhoneNumber]" required>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="dob">Date of Birth</label>
+                                <input type="date" id="dob" class="form-control" value="[UserDOB]" required>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary">Save Personal Info</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Notification Preferences -->
+                <div class="settings-content mb-4">
+                    <h5>Notification Preferences</h5>
+                    <form>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="emailNotifications" checked>
+                            <label class="form-check-label" for="emailNotifications">
+                                Email Notifications
+                            </label>
+                        </div>
+                        <div class="form-check mt-2">
+                            <input class="form-check-input" type="checkbox" id="smsNotifications" checked>
+                            <label class="form-check-label" for="smsNotifications">
+                                SMS Notifications
+                            </label>
+                        </div>
+                        <div class="form-check mt-2">
+                            <input class="form-check-input" type="checkbox" id="pushNotifications">
+                            <label class="form-check-label" for="pushNotifications">
+                                Push Notifications
+                            </label>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary">Save Preferences</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Security Settings -->
+                <div class="settings-content mb-4">
+                    <h5>Security Settings</h5>
+                    <form>
+                        <div class="mb-3">
+                            <label for="currentPassword" class="form-label">Current Password</label>
+                            <input type="password" id="currentPassword" class="form-control" placeholder="Enter your current password" required>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label for="newPassword">New Password</label>
+                                <input type="password" id="newPassword" class="form-control" placeholder="Enter your new password" required>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="confirmNewPassword">Confirm New Password</label>
+                                <input type="password" id="confirmNewPassword" class="form-control" placeholder="Confirm your new password" required>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary">Change Password</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Language Preferences -->
+                <div class="settings-content">
+                    <h5>Language Preferences</h5>
+                    <form>
+                        <div class="mb-3">
+                            <label for="language" class="form-label">Select Language</label>
+                            <select id="language" class="form-select">
+                                <option selected>English</option>
+                                <option>Spanish</option>
+                                <option>French</option>
+                                <option>German</option>
+                                <option>Chinese</option>
+                            </select>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary">Save Language Preferences</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

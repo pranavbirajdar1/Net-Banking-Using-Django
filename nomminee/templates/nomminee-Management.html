@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Nominee Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f7f9fb;
+        }
+        .sidebar {
+            height: 100vh;
+            background-color: #343a40;
+            color: white;
+        }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            padding: 15px;
+            display: block;
+        }
+        .sidebar a:hover {
+            background-color: #495057;
+        }
+        .table-responsive {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .alert {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">BankLogo</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Notifications <span class="badge bg-warning text-dark">3</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'settings' %}">Settings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar p-0">
+                <a href="{% url 'userdashboard' %}">Dashboard</a>
+                <a href="{% url 'accounts' %}">Accounts</a>
+                <a href="{% url 'fundtransfer' %}">Fund Transfer</a>
+                <a href="{% url 'payment' %}">Payments</a>
+                <a href="{% url 'investment' %}">Investments</a>
+                <a href="{% url 'statement' %}">Statements</a>
+                <a href="{% url 'support' %}">Support</a>
+                <a href="{% url 'nominee' %}">Nominees</a>
+                <a href="{% url 'logout' %}">Logout</a>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-10 p-4">
+                <h1>Nominee Management</h1>
+                <p>Manage your nominees below:</p>
+                <div class="alert alert-success" id="success-alert">Action was successful!</div>
+                <div class="alert alert-danger" id="error-alert">Something went wrong!</div>
+
+                <!-- Nominee Table -->
+                <div class="table-responsive">
+                    <table class="table table-striped" id="nomineeTable">
+                        <thead>
+                            <tr>
+                                <th onclick="sortTable(0)">Name</th>
+                                <th onclick="sortTable(1)">Relationship</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Dynamic content will be injected here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Add New Nominee Button -->
+                <div class="d-grid gap-2 mt-4">
+                    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#addNomineeModal">Add New Nominee</button>
+                </div>
+
+                <!-- Modal for Adding New Nominee -->
+                <div class="modal fade" id="addNomineeModal" tabindex="-1" aria-labelledby="addNomineeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="addNomineeModalLabel">Add New Nominee</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="addNomineeForm">
+                                    <div class="mb-3">
+                                        <label for="newNomineeName" class="form-label">Nominee Name</label>
+                                        <input type="text" class="form-control" id="newNomineeName" required>
+                                        <div class="invalid-feedback">Please enter a name.</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="newRelationship" class="form-label">Relationship</label>
+                                        <input type="text" class="form-control" id="newRelationship" required>
+                                        <div class="invalid-feedback">Please enter a relationship.</div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" id="saveNomineeBtn">Save Nominee</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal for Editing Nominee -->
+                <div class="modal fade" id="editNomineeModal" tabindex="-1" aria-labelledby="editNomineeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editNomineeModalLabel">Edit Nominee</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="editNomineeForm">
+                                    <input type="hidden" id="editNomineeIndex">
+                                    <div class="mb-3">
+                                        <label for="editNomineeName" class="form-label">Nominee Name</label>
+                                        <input type="text" class="form-control" id="editNomineeName" required>
+                                        <div class="invalid-feedback">Please enter a name.</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="editRelationship" class="form-label">Relationship</label>
+                                        <input type="text" class="form-control" id="editRelationship" required>
+                                        <div class="invalid-feedback">Please enter a relationship.</div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" id="updateNomineeBtn">Save Changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal for Viewing Nominee Details -->
+                <div class="modal fade" id="viewNomineeModal" tabindex="-1" aria-labelledby="viewNomineeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="viewNomineeModalLabel">Nominee Details</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p id="viewNomineeInfo"></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Batch Action -->
+                <div class="d-grid gap-2 mt-4">
+                    <button class="btn btn-danger" id="deleteSelectedBtn">Delete Selected</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let nominees = [];
+
+        document.getElementById('saveNomineeBtn').addEventListener('click', () => {
+            const name = document.getElementById('newNomineeName').value.trim();
+            const relationship = document.getElementById('newRelationship').value.trim();
+            if (name && relationship) {
+                nominees.push({ name, relationship });
+                renderNominees();
+                showAlert('success');
+                document.getElementById('addNomineeForm').reset();
+                $('#addNomineeModal').modal('hide');
+            } else {
+                showAlert('error');
+            }
+        });
+
+        function renderNominees() {
+            const tbody = document.querySelector('#nomineeTable tbody');
+            tbody.innerHTML = '';
+            nominees.forEach((nominee, index) => {
+                const row = `<tr>
+                    <td>${nominee.name}</td>
+                    <td>${nominee.relationship}</td>
+                    <td>
+                        <button class="btn btn-info btn-sm" onclick="openEditModal(${index})">Edit</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteNominee(${index})">Delete</button>
+                        <button class="btn btn-secondary btn-sm" onclick="viewNominee(${index})">View</button>
+                    </td>
+                </tr>`;
+                tbody.insertAdjacentHTML('beforeend', row);
+            });
+        }
+
+        function openEditModal(index) {
+            const nominee = nominees[index];
+            document.getElementById('editNomineeName').value = nominee.name;
+            document.getElementById('editRelationship').value = nominee.relationship;
+            document.getElementById('editNomineeIndex').value = index;
+            $('#editNomineeModal').modal('show');
+        }
+
+        document.getElementById('updateNomineeBtn').addEventListener('click', () => {
+            const index = document.getElementById('editNomineeIndex').value;
+            const name = document.getElementById('editNomineeName').value.trim();
+            const relationship = document.getElementById('editRelationship').value.trim();
+            if (name && relationship) {
+                nominees[index] = { name, relationship };
+                renderNominees();
+                showAlert('success');
+                $('#editNomineeModal').modal('hide');
+            } else {
+                showAlert('error');
+            }
+        });
+
+        function deleteNominee(index) {
+            if (confirm('Are you sure you want to delete this nominee?')) {
+                nominees.splice(index, 1);
+                renderNominees();
+                showAlert('success');
+            }
+        }
+
+        function viewNominee(index) {
+            const nominee = nominees[index];
+            document.getElementById('viewNomineeInfo').innerText = `Name: ${nominee.name}\nRelationship: ${nominee.relationship}`;
+            $('#viewNomineeModal').modal('show');
+        }
+
+        function showAlert(type) {
+            const alert = document.getElementById(`${type}-alert`);
+            alert.style.display = 'block';
+            setTimeout(() => {
+                alert.style.display = 'none';
+            }, 3000);
+        }
+
+        document.getElementById('deleteSelectedBtn').addEventListener('click', () => {
+            const selectedIndices = [];
+            nominees.forEach((_, index) => {
+                const checkbox = document.getElementById(`selectNominee${index}`);
+                if (checkbox && checkbox.checked) {
+                    selectedIndices.push(index);
+                }
+            });
+            if (selectedIndices.length > 0 && confirm('Are you sure you want to delete selected nominees?')) {
+                nominees = nominees.filter((_, index) => !selectedIndices.includes(index));
+                renderNominees();
+                showAlert('success');
+            } else {
+                showAlert('error');
+            }
+        });
+
+        function sortTable(colIndex) {
+            nominees.sort((a, b) => {
+                if (a[colIndex] < b[colIndex]) return -1;
+                if (a[colIndex] > b[colIndex]) return 1;
+                return 0;
+            });
+            renderNominees();
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+{% include "footer.html" %}
+</html>
