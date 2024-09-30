@@ -34,5 +34,6 @@ urlpatterns = [
     path('userProfil/', include('userProfile.urls')),
     path('suppor/', include('support.urls')),
     path('nomine/', include('nomminee.urls')),
+    path('api/', include('apii.urls')),
     
 ]

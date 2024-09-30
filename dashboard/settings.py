@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     "unfold.contrib.guardian",  # optional, if django-guardian package is used
     "unfold.contrib.simple_history",  # optional, if django-simple-history package is used
     
-    
-    
+    'rest_framework',
+    'django_extensions',
     'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     #Custom Apps
     'userdash','accounts','fundtransfer','index','investments',
     'payments','settings','statements','support',
-    'userProfile','nomminee',
+    'userProfile','nomminee','apii',
 ]
 
 MIDDLEWARE = [
