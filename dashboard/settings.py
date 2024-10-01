@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     "unfold.contrib.guardian",  # optional, if django-guardian package is used
     "unfold.contrib.simple_history",  # optional, if django-simple-history package is used
     
-    'rest_framework',
+     'rest_framework',
     'django_extensions',
     'crispy_forms',
     'django.contrib.admin',
