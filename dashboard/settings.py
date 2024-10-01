@@ -42,6 +42,7 @@ INSTALLED_APPS = [
      'rest_framework',
     'django_extensions',
     'crispy_forms',
+     #'debug_toolbar',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -56,6 +57,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    #debug  tool bar 
+    #'debug_toolbar.middleware.DebugToolbarMiddleware',
+    
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -64,6 +68,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
+
+
+
 
 ROOT_URLCONF = 'dashboard.urls'
 
@@ -137,5 +146,18 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#EMAIL ADD THESE TO ENVIORNMENT VARIABLES
+
+
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "demosonimail2023@gmail.com"
+EMAIL_HOST_PASSWORD = "viwqqknrrhurlohg"
+REGISTERED_EMAIL = 'demosonimail2023@gmail.com'  # Replace with your actual email
+
+
+
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

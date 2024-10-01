@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Support page for Net Banking. Contact us for any inquiries.">
     <title>Support - Net Banking</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -57,12 +58,11 @@
                         <a class="nav-link" href="#">Notifications <span class="badge bg-warning text-dark">3</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url "settings" %}">Settings</a>
+                        <a class="nav-link" href="{% url 'settings' %}">Settings</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url "profile" %}">Profile</a>
+                        <a class="nav-link" href="{% url 'profile' %}">Profile</a>
                     </li>
-                    
                 </ul>
             </div>
         </div>
@@ -72,14 +72,14 @@
         <div class="row">
             <!-- Sidebar -->
             <div class="col-md-2 sidebar p-0">
-                <a href="{% url "userdashboard" %}">Dashboard</a>
-                <a href="{% url "accounts" %}">Accounts</a>
-                <a href="{% url "fundtransfer" %}">Fund Transfer</a>
-                <a href="{% url "payment" %}">Payments</a>
-                <a href="{% url "investment" %}">Investments</a>
-                <a href="#{% url "statement" %}">Statements</a>
-                <a href="{% url "support" %}">Support</a>
-                <a href="{% url 'nominee' %}">Nominees</a> <!-- Added Nominee link -->
+                <a href="{% url 'userdashboard' %}">Dashboard</a>
+                <a href="{% url 'accounts' %}">Accounts</a>
+                <a href="{% url 'fundtransfer' %}">Fund Transfer</a>
+                <a href="{% url 'payment' %}">Payments</a>
+                <a href="{% url 'investment' %}">Investments</a>
+                <a href="{% url 'statement' %}">Statements</a>
+                <a href="{% url 'support' %}">Support</a>
+                <a href="{% url 'nominee' %}">Nominees</a>
                 <a href="{% url 'logout' %}">Logout</a>
             </div>
 
@@ -87,34 +87,34 @@
             <div class="col-md-10 p-4">
                 <h3>Support</h3>
                 {% if message %}
-                <div class="alert alert-info">{{ message }}</div>
-            {% endif %}
-        
+                    <div class="alert alert-info">{{ message }}</div>
+                {% endif %}
 
                 <!-- Contact Form -->
                 <div class="content mb-4">
                     <h5>Contact Us</h5>
                     <form action="{% url 'support' %}" method="POST">
+                        {% csrf_token %}
                         <div class="row">
                             <div class="col-md-6 form-group">
                                 <label for="name">Name</label>
-                                <input type="text" id="name" class="form-control" placeholder="Your name" required>
+                                <input type="text" id="name" name="name" class="form-control" placeholder="Your name" required>
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="email">Email</label>
-                                <input type="email" id="email" class="form-control" placeholder="Your email" required>
+                                <input type="email" id="email" name="email" class="form-control" placeholder="Your email" required>
                             </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-12 form-group">
                                 <label for="subject">Subject</label>
-                                <input type="text" id="subject" class="form-control" placeholder="Subject of your inquiry" required>
+                                <input type="text" id="subject" name="subject" class="form-control" placeholder="Subject of your inquiry" required>
                             </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-12 form-group">
                                 <label for="message">Message</label>
-                                <textarea id="message" class="form-control" rows="5" placeholder="Your message" required></textarea>
+                                <textarea id="message" name="message" class="form-control" rows="5" placeholder="Your message" required></textarea>
                             </div>
                         </div>
                         <div class="row mt-4">
