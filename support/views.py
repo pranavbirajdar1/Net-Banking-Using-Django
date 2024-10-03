@@ -24,16 +24,22 @@ def support(request):
 from django.shortcuts import render
 from django.core.mail import send_mail
 from django.conf import settings
+from django.contrib.auth.models import User
+from .models import Support
 
 def support(request):
     # Replace this with the actual registered email logic
     registered_email = settings.REGISTERED_EMAIL  # Make sure to set this in your settings.py
 
     if request.method == 'POST':
+        
         name = request.POST.get('name')
         email = request.POST.get('email')
         subject = request.POST.get('subject')
         message = request.POST.get('message')
+        
+        
+       
         
         # Create email body
         email_body = (

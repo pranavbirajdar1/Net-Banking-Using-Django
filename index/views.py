@@ -36,7 +36,7 @@ def signup(request):
 
             messages.success(request, 'Account created successfully!')
             login(request, user)  # Log the user in after signup
-            return redirect('home')  # Redirect to home or another page as needed
+            return redirect('login')  # Redirect to home or another page as needed
         else:
             messages.error(request, 'Please correct the errors below.')
 

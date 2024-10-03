@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class ContactUs(models.Model):
+class Support(models.Model):
     id = models.BigAutoField(verbose_name='ID',primary_key=True)
     name =models.CharField(max_length=50,verbose_name='Name')
     email = models.EmailField()
@@ -14,3 +14,4 @@ class ContactUs(models.Model):
     def save(self, *args, **kwargs):
         # Capitalize names and format pan before saving
         self.name= self.name.capitalize()
+        
