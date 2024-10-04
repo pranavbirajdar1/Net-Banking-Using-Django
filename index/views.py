@@ -62,6 +62,9 @@ def signup(request):
 def index(request):
     return render(request, 'index.html')
 
+def acknowledge(request):
+    return render(request, 'acknowledge.html')
+
 
    
 def login_view(request):
@@ -88,5 +91,5 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    messages.success(request, 'You have logged out successfully.')
+    #messages.success(request, 'You have logged out successfully.')
     return redirect('home')  # Redirect to login page or another page as needed

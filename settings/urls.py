@@ -4,6 +4,7 @@ urlpatterns = [
     
     
     path('settings/',settings , name="settings"),
+    path('delAck/',deleteacc , name="deleteuseracknowledge"),
     
    
     

@@ -38,7 +38,11 @@ def support(request):
         subject = request.POST.get('subject')
         message = request.POST.get('message')
         
-        
+        new_support = Support(name = name ,
+                              email = email,
+                              subject = subject ,
+                              message = message)
+        new_support.save()
        
         
         # Create email body
