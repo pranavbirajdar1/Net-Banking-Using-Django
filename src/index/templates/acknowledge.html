@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Net Banking User Agreement</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Net Banking User Agreement</h1>
+        </header>
+        
+        <section class="introduction">
+            <h2>Introduction</h2>
+            <p>Welcome to our Net Banking service! Please read this User Agreement carefully. By using our net banking services, you agree to the terms outlined below.</p>
+        </section>
+
+        <section class="terms">
+            <h2>Terms of Service</h2>
+            <ul>
+                <li>You must be a <u><b> living thing</b> </u> . If in case you are the "Alien" we reccomend STAY AWAY</li>
+               
+                <li>You agree to maintain the confidentiality of your login credentials </li>
+                <li>You are responsible for all transactions made through your account.</li>
+                <li>You can request account deletion if you want to all the information related to you will be deleted</li>
+            </ul>
+        </section>
+
+        <section class="security">
+            <h2>Security Measures</h2>
+            <p>We implement various security measures to protect your information, including encryption and two-factor authentication. However, you must also take precautions, such as:</p>
+            <ul>
+                <li>Using strong passwords and changing them regularly.</li>
+                <li>Avoiding public Wi-Fi for banking transactions.</li>
+            </ul>
+        </section>
+
+        <section class="privacy">
+            <h2>Privacy Policy</h2>
+            <p>Your privacy is important to us. We collect and use your information as outlined in our <a href="#" class="link">Privacy Policy</a>.</p>
+        </section>
+
+        <section class="actions">
+            <h2>Actions</h2>
+            <p>By clicking below, you acknowledge that you have read, understood, and agreed to the Net Banking User Agreement.</p>
+            <a href="{% url "signup" %}" class="agree">I Agree</a>
+            <a href="{% url "home" %}" class="disagree">I Do Not Agree</a>
+        </section>
+    </div>
+</body>
+</html>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    h1 {
+        color: #333;
+    }
+    
+    h2 {
+        color: #444;
+    }
+    
+    .introduction, .terms, .privacy, .actions {
+        margin-bottom: 20px;
+    }
+    
+    p {
+        color: #555;
+    }
+    
+    ul {
+        list-style-type: disc;
+        padding-left: 20px;
+    }
+    
+    .link {
+        color: #3498db;
+        text-decoration: none;
+    }
+    
+    .link:hover {
+        text-decoration: underline;
+    }
+    
+    a {
+        display: inline-block;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        margin: 10px;
+        font-size: 16px;
+        text-decoration: none;
+        color: white;
+        transition: background-color 0.3s;
+    }
+    
+    .agree {
+        background-color: #28a745;
+    }
+    
+    .agree:hover {
+        background-color: #218838;
+    }
+    
+    .disagree {
+        background-color: #dc3545;
+    }
+    
+    .disagree:hover {
+        background-color: #c82333;
+    }
+    
+</style>

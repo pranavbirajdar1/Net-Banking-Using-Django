@@ -19,7 +19,7 @@
             top: 0;
             padding-top: 20px;
         }
-        .sidebar a {
+        .sidebar a ,b {
             color: white;
             text-decoration: none;
             padding: 15px;
@@ -124,7 +124,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url "profile" %}">Profile</a>
                     </li>
-                   
+                    <li class="nav-item">
+                        <b> {% now "SHORT_DATE_FORMAT" %} </B>
+                     </li>
                 </ul>
             </div>
         </div>

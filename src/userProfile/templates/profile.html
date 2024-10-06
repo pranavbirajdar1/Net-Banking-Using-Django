@@ -15,7 +15,7 @@
             background-color: #343a40;
             color: white;
         }
-        .sidebar a {
+        .sidebar a , b{
             color: white;
             text-decoration: none;
             padding: 15px;
@@ -68,7 +68,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url "profile" %}">Profile</a>
                     </li>
-                    
+                    <li class="nav-item">
+                        <b> {% now "SHORT_DATE_FORMAT" %} </B>
+                     </li>
                 </ul>
             </div>
         </div>
@@ -104,10 +106,12 @@
                             </form>
                         </div>
                         <div class="col-md-9">
-                            <h5><p>  {{ user.username }}  </p></h5>
+                            <h5><p>  {{ user.username | upper}}  </p></h5>
+                            {% if user.is_authenticated %}
                             <p><strong>Email:</strong>  {{con.email}} </p>
                             <p><strong>Phone:</strong> {{con.contact}}</p>
                             <p><strong>Date of Birth:</strong> {{c.dob}}</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -118,8 +122,8 @@
                     <form>
                         <div class="row">
                             <div class="col-md-6 form-group">
-                                <label for="username">{{user.username}}</label>
-                                <input type="text" id="username" class="form-control" placeholder="Enter your username" value="[UserName]" required>
+                                <label for="username">UserName</label>
+                                <input type="text" id="username" class="form-control" placeholder="Enter your username" value="{{user.username | upper }}" required>
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="email">Email Address</label>
