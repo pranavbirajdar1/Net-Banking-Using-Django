@@ -5,7 +5,7 @@ def profile(request):
     user = request.user
     
     try:
-        cust = CustomerPersonalInfo.objects.get(user=user)  # Assuming a one-to-one relationship
+        cust = CustomerPersonalInfo.objects.get(user=user) 
     except CustomerPersonalInfo.DoesNotExist:
         cust = None
 

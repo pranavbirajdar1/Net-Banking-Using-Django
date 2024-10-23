@@ -107,11 +107,11 @@
                         </div>
                         <div class="col-md-9">
                             <h5><p>  {{ user.username | upper}}  </p></h5>
-                            {% if user.is_authenticated %}
-                            <p><strong>Email:</strong>  {{con.email}} </p>
+                            
+                            <p><strong>Email:</strong>  {{con.email }} </p>
                             <p><strong>Phone:</strong> {{con.contact}}</p>
                             <p><strong>Date of Birth:</strong> {{c.dob}}</p>
-                            {% endif %}
+                           
                         </div>
                     </div>
                 </div>
@@ -127,17 +127,17 @@
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="email">Email Address</label>
-                                <input type="email" id="email" class="form-control" placeholder="Enter your email" value="[UserEmail]" required>
+                                <input type="email" id="email" class="form-control" placeholder="Enter your email" value=" {{con.email }}" required>
                             </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-6 form-group">
                                 <label for="phoneNumber">Phone Number</label>
-                                <input type="tel" id="phoneNumber" class="form-control" placeholder="Enter your phone number" value="[UserPhoneNumber]" required>
+                                <input type="tel" id="phoneNumber" class="form-control" placeholder="Enter your phone number" value="{{con.contact}}" required>
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="dob">Date of Birth</label>
-                                <input type="date" id="dob" class="form-control" value="[UserDOB]" required>
+                                <input type="date" id="dob" class="form-control" value=" {{c.dob}} " required>
                             </div>
                         </div>
                         <div class="row mt-3">
