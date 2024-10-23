@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Nominee Management</title>
+    <title>Net Banking Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -30,12 +30,11 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
         }
-        .table-container {
+        .graph {
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            margin-top: 20px;
         }
         .navbar-custom {
             background-color: #007bff;
@@ -61,10 +60,10 @@
                         <a class="nav-link" href="#">Notifications <span class="badge bg-warning text-dark">3</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'settings' %}">Settings</a>
+                        <a class="nav-link" href="#">Settings</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+                        <a class="nav-link" href="#">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -75,49 +74,71 @@
         <div class="row">
             <!-- Sidebar -->
             <div class="col-md-2 sidebar p-0">
-                <a href="{% url 'userdashboard' %}">Dashboard</a>
-                <a href="{% url 'accounts' %}">Accounts</a>
-                <a href="{% url 'fundtransfer' %}">Fund Transfer</a>
-                <a href="{% url 'payment' %}">Payments</a>
-                <a href="{% url 'investment' %}">Investments</a>
-                <a href="{% url 'statement' %}">Statements</a>
-                <a href="{% url 'support' %}">Support</a>
-                <a href="{% url 'nominee' %}">Nominees</a>
-                <a href="{% url 'logout' %}">Logout</a>
+                <a href="#">Dashboard</a>
+                <a href="#">Accounts</a>
+                <a href="#">Fund Transfer</a>
+                <a href="#">Payments</a>
+                <a href="#">Investments</a>
+                <a href="#">Statements</a>
+                <a href="#">Support</a>
             </div>
 
-            <!-- Main Content -->
+            <!-- Main Dashboard -->
             <div class="col-md-10 p-4">
-                <h1>Nominee Management</h1>
-                
-                <div class="table-container">
-                    <h5>Nominee List</h5>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Relationship</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for nominee in nominees %}
-                            <tr>
-                                <td>{{ nominee.name }}</td>
-                                <td>{{ nominee.relationship }}</td>
-                                <td>
-                                    <a href="{% url 'view_nominee' nominee.id %}" class="btn btn-info btn-sm">View</a>
-                                    <a href="{% url 'edit_nominee' nominee.id %}" class="btn btn-warning btn-sm">Edit</a>
-                                    <a href="{% url 'delete_nominee' nominee.id %}" class="btn btn-danger btn-sm">Delete</a>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                <h3>Welcome, [User Name]</h3>
+
+                <!-- Account Summary -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="account-summary">
+                            <h5>Total Balance</h5>
+                            <p><strong>$15,300.50</strong></p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="account-summary">
+                            <h5>Recent Transactions</h5>
+                            <ul>
+                                <li>Deposit: $500 - 12/09/2024</li>
+                                <li>Withdrawal: $200 - 10/09/2024</li>
+                                <li>Transfer: $1,000 - 09/09/2024</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="account-summary">
+                            <h5>Credit Card Balance</h5>
+                            <p><strong>$2,800</strong> due on 30/09/2024</p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="d-grid gap-2 mt-4">
-                    <a href="{% url 'nominee' %}" class="btn btn-primary">Add New Nominee</a>
+                <!-- Graph Section -->
+                <div class="row mt-4">
+                    <div class="col-md-8">
+                        <div class="graph">
+                            <h5>Monthly Spending</h5>
+                            <!-- Replace with a real graph -->
+                            <p>[Graph Placeholder]</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="graph">
+                            <h5>Spending Categories</h5>
+                            <!-- Replace with a pie chart -->
+                            <p>[Pie Chart Placeholder]</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button class="btn btn-primary me-md-2" type="button">Transfer Money</button>
+                            <button class="btn btn-secondary" type="button">Pay Bills</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -125,5 +146,4 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-{% include "footer.html" %}
 </html>
