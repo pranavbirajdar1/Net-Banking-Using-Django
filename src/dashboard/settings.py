@@ -42,13 +42,14 @@ INSTALLED_APPS = [
      'rest_framework',
     'django_extensions',
     'crispy_forms',
-     #'debug_toolbar',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "debug_toolbar",   # for debug toolbar
+
     
     #Custom Apps
     'userdash','accounts','fundtransfer','index','investments',
@@ -57,9 +58,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    #debug  tool bar 
-    #'debug_toolbar.middleware.DebugToolbarMiddleware',
-    
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -161,3 +160,9 @@ REGISTERED_EMAIL = 'demosonimail2023@gmail.com'  # Replace with your actual emai
 
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+INTERNAL_IPS = [
+   
+    "127.0.0.1",
+   
+]
+STATIC_URL = "static/"
