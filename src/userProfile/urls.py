@@ -3,8 +3,9 @@ from .views import *
 urlpatterns = [
     
     
-    #path('profile/',profile , name="profile"),
+   
     path('profile/<int:id>/',profile , name="profile_update"),
+    path('profile/update/<int:id>/',update , name="profile_updated"),
     
    
     

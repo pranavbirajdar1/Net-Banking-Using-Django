@@ -126,7 +126,7 @@
                         </div>
                     </div>
                 </div>
-                <form method="POST" action="{% url 'profile_update' user.id %}">  <!-- Set the action URL correctly -->
+                <form method="POST" action="{% url 'profile_updated' user.id %}">  <!-- Set the action URL correctly -->
                     {% csrf_token %}
                     <!-- Personal Information -->
                     <div class="profile-card mb-4">
@@ -200,7 +200,7 @@
                         </div>
                     </div>
                 </form>
-                <form method="POST" action="{% url 'profile_update' user.id %}">  <!-- Set the action URL correctly -->
+                <form method="POST" action="{% url 'profile_updated' user.id %}">  <!-- Set the action URL correctly -->
                     {% csrf_token %}
                     <!-- Address Information -->
                     <div class="profile-card mb-4">
@@ -241,7 +241,7 @@
                         </div>
                     </div>
                 </form>
-                <form method="POST" action="{% url 'profile_update' user.id %}">  <!-- Set the action URL correctly -->
+                <form method="POST" action="{% url 'profile_updated' user.id %}">  <!-- Set the action URL correctly -->
                     {% csrf_token %}
                     <!-- Contact Information -->
                     <div class="profile-card mb-4">
@@ -266,7 +266,7 @@
                         </div>
                     </div>
                 </form>
-                <form method="POST" action="{% url 'profile_update' user.id %}">  <!-- Set the action URL correctly -->
+                <form method="POST" action="{% url 'profile_updated' user.id %}">  <!-- Set the action URL correctly -->
                     {% csrf_token %}
                     <!-- Contact Preferences -->
                     <div class="profile-card mb-4">
