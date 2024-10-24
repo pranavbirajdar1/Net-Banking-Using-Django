@@ -12,7 +12,7 @@ class CustomerPersonalInfoForm(forms.ModelForm):
             'nationality', 'account_type'
         ]
         widgets = {
-            'dob': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'dob': forms.DateInput(attrs={'type': 'datetime-local', 'class': 'form-control'}),
             'annual_income': forms.NumberInput(attrs={'min': 0, 'class': 'form-control'}),
             'pan': forms.TextInput(attrs={'maxlength': 15, 'class': 'form-control', 'placeholder': 'ABCDE1234F'}),
             'aadhaar': forms.TextInput(attrs={'maxlength': 12, 'class': 'form-control', 'placeholder': '1234-5678-9012'}),
