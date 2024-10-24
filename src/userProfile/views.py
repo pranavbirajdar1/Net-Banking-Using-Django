@@ -49,7 +49,7 @@ def update(request, id):
         t = request.POST.get('contacttype', '')
 
         try:
-            with transaction.atomic():
+            #with transaction.atomic():
                 # Update CustomerPersonalInfo
                 newpersonal = get_object_or_404(CustomerPersonalInfo, user_id=id)
                 newpersonal.first_name = a
