@@ -5,17 +5,17 @@ def profile(request):
     user = request.user
     
     try:
-        cust = CustomerPersonalInfo.objects.get(user=user) 
+        cust = CustomerPersonalInfo.objects.select_related('user').get(user=user) 
     except CustomerPersonalInfo.DoesNotExist:
         cust = None
 
     try:
-        contact = Contact.objects.get(user=user)
+        contact = Contact.objects.select_related('user').get(user=user)
     except Contact.DoesNotExist:
         contact = None
 
     try:
-        add = AddressInfo.objects.get(user=user)
+        add = AddressInfo.objects.select_related('user').get(user=user)
     except AddressInfo.DoesNotExist:
         add = None
 
