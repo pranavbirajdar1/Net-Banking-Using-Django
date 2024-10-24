@@ -1,3 +1,5 @@
 from django.db import models
+from model_utils.fields import UUIDField
 
-# Create your models here.
+class MyAppModel(models.Model):
+    uuid = UUIDField(primary_key=True, version=4, editable=False)
