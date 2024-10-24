@@ -96,7 +96,7 @@
                 <a href="{% url "fundtransfer" %}">Fund Transfer</a>
                 <a href="{% url "payment" %}">Payments</a>
                 <a href="{% url "investment" %}">Investments</a>
-                <a href="#{% url "statement" %}">Statements</a>
+                <a href="{% url "statement" %}">Statements</a>
                 <a href="{% url "support" %}">Support</a>
                 <a href="{% url 'nominee' %}">Nominees</a> <!-- Added Nominee link -->
                 <a href="{% url 'logout' %}">Logout</a>
@@ -212,7 +212,7 @@
                             </div>
                             <div class="col-md-6 form-group">
                                 <label>House NO:</label>
-                                <input type="text" id="hono" name="hono" class="form-control" value="{{ add.house_no | capfirst }}">
+                                <input type="text" name="hono" class="form-control" value="{{ add.house_no | capfirst }}">
                             </div>
                             <div class="col-md-6 form-group">
                                 <label>Street</label>

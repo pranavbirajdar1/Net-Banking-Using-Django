@@ -27,18 +27,18 @@ def profile(request,id):
         g = request.POST['occupation']
         h = request.POST['email']
         i = request.POST['phone']
-        j = request.POST['hono']
-        me = request.POST['street']
-        k = request.POST['city']
-        l = request.POST['state']
-        m = request.POST['country']
-        n = request.POST['pincode']
-        o = request.POST['addresstype']
-        p = request.POST['username']
-        q = request.POST['annum']
-        r = request.POST['nationality']
-        s = request.POST['title']
-        t = request.POST['contacttype']
+        hono = request.POST.get('hono')
+        me = request.POST.get('street')
+        k = request.POST.get('city')
+        l = request.POST.get('state')
+        m = request.POST.get('country')
+        n = request.POST.get('pincode')
+        o = request.POST.get('addresstype')
+        p = request.POST.get('username')
+        q = request.POST.get('annum')
+        r = request.POST.get('nationality')
+        s = request.POST.get('title')
+        t = request.POST.get('contacttype')
         try:
             with transaction.atomic():
                 # Update CustomerPersonalInfo
@@ -65,7 +65,7 @@ def profile(request,id):
                 # Update AddressInfo
                 newadd = AddressInfo.objects.get(id=id)
                 newadd.address_type = o
-                newadd.house_no = j
+                newadd.house_no = hono
                 newadd.street = me
                 newadd.city = k
                 newadd.state = l
