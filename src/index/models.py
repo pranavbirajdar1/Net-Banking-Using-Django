@@ -47,7 +47,7 @@ class CustomerPersonalInfo(models.Model):
     pan = models.CharField(max_length=15, unique=True, verbose_name="PAN")
     aadhaar = models.CharField(max_length=12, unique=True, verbose_name="Aadhaar Card")
     occupation = models.CharField(max_length=13, choices=OCCUPATION_CHOICES, verbose_name="Occupation")
-    annual_income = models.IntegerField(verbose_name="Annual Income")
+    annual_income = models.DecimalField(decimal_places=2,max_digits=10,verbose_name="Annual Income")
     nationality = models.CharField(max_length=19, verbose_name="Nationality")
     account_opening_date_time = models.DateTimeField(auto_now_add=True)
     account_type = models.CharField(max_length=22, choices=ACCOUNT_TYPE_CHOICES, verbose_name="Account Type")

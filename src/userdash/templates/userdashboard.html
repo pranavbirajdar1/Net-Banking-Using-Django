@@ -62,7 +62,7 @@
                     <a class="nav-link" href="{% url "settings" %}">Settings</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url "profile" %}">Profile</a>
+                    <a class="nav-link" href="{% url "profile_update" user.id %}">Profile</a>
                 </li>
                 <li class="nav-item">
                     <b> {% now "SHORT_DATE_FORMAT" %} </B>
