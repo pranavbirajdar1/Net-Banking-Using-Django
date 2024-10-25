@@ -148,6 +148,11 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+GRAPH_MODELS = {
+    'all_applications': True ,
+    'all_models' : True
+}
+
 #EMAIL ADD THESE TO ENVIORNMENT VARIABLES
 
 
