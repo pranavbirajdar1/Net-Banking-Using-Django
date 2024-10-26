@@ -36,6 +36,7 @@ urlpatterns = [
     path('suppor/', include('support.urls')),
     path('nomine/', include('nomminee.urls')),
     path('api/', include('apii.urls')),
+    path('loan/', include('loan.urls')),
     
 ]
 
