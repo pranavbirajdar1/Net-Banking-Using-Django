@@ -1,3 +1,14 @@
 {
-  "recommendations": ["sourcery.sourcery"]
+  "recommendations": [
+    "sourcery.sourcery",
+    "batisteo.vscode-django",
+    "emeric-defay.django-factory",
+    "bibhasdn.django-snippets",
+    "almahdi.code-django",
+    "bibhasdn.django-html",
+    "shamanu4.django-intellisense",
+    "ritwickdey.liveserver",
+    "ms-python.python",
+    "ms-python.debugpy"
+  ]
 }
