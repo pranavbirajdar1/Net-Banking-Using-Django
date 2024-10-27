@@ -22,8 +22,9 @@ from django.urls import path,include
 urlpatterns = [
     
     
-    path('admin/', admin.site.urls),
-     path('', include('index.urls')),
+    path('dj-admin/', admin.site.urls),
+    path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
+    path('', include('index.urls')),
     path('userdashboar/', include('userdash.urls')),
     path('account/', include('accounts.urls')),
     path('investme/', include('investments.urls')),
