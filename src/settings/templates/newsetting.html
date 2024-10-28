@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Banking App Settings</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f4f7f9;
+        color: #333;
+      }
+      .sidebar {
+        height: 100vh;
+        background-color: #343a40;
+        color: white;
+        position: sticky;
+        top: 0;
+        padding-top: 20px;
+      }
+      .sidebar a {
+        color: white;
+        text-decoration: none;
+        padding: 15px;
+        display: block;
+        transition: background-color 0.3s;
+      }
+      .sidebar a:hover {
+        background-color: #495057;
+      }
+      .navbar-custom {
+        background-color: #007bff;
+      }
+      .navbar-custom .navbar-brand,
+      .navbar-custom .nav-link {
+        color: white;
+      }
+      .container {
+        margin-top: 2rem;
+      }
+      h1 {
+        text-align: center;
+        color: #007acc;
+        margin-bottom: 2rem;
+      }
+      .settings-section {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+        transition: transform 0.2s ease;
+      }
+      .settings-section:hover {
+        transform: translateY(-5px);
+      }
+      .section-title {
+        color: #007acc;
+        font-size: 1.25rem;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+      }
+      .section-title:before {
+        content: "⚙";
+        margin-right: 0.5rem;
+      }
+      .section-content {
+        margin-top: 1rem;
+        line-height: 1.5;
+      }
+      .collapse-toggle {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+      <div class="container-fluid">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="29"
+          height="25"
+          fill="grey"
+          class="bi bi-bank"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="m8 0 6.61 3h.89a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H15v7a.5.5 0 0 1 .485.38l.5 2a.498.498 0 0 1-.485.62H.5a.498.498 0 0 1-.485-.62l.5-2A.5.5 0 0 1 1 13V6H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 3h.89zM3.777 3h8.447L8 1zM2 6v7h1V6zm2 0v7h2.5V6zm3.5 0v7h1V6zm2 0v7H12V6zM13 6v7h1V6zm2-1V4H1v1zm-.39 9H1.39l-.25 1h13.72z"
+          />
+        </svg>
+        <a class="navbar-brand" href="#">BankLogo</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-end"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="#"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="25"
+                  height="25"
+                  fill="white"
+                  class="bi bi-bell-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2m.995-14.901a1 1 0 1 0-1.99 0A5 5 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901"
+                  /></svg
+              ></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'settings' %}"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="25"
+                  height="25"
+                  fill="white"
+                  class="bi bi-gear"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"
+                  />
+                  <path
+                    d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"
+                  /></svg
+              ></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'profile_update' user.id %}"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="25"
+                  height="25"
+                  fill="white"
+                  class="bi bi-person-square"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                  <path
+                    d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"
+                  /></svg
+              ></a>
+            </li>
+            <li class="nav-item">
+              <b> {% now "SHORT_DATE_FORMAT" %} </b>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 sidebar">
+          <h5 class="text-center">Dashboard</h5>
+          <a href="{% url 'home' %}">Home</a>
+          <a href="{% url 'about' %}">About</a>
+          <a href="{% url 'settings' %}">Settings</a>
+          <a href="{% url 'reports' %}">Reports</a>
+          <a href="{% url 'logout' %}">Logout</a>
+        </div>
+
+        <div class="col-md-9">
+          <div class="container mt-3">
+            <h1>Banking App Settings</h1>
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+              <!-- Profile & Personal Information -->
+              <div class="col">
+                <div class="settings-section">
+                  <div
+                    class="section-title"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#profileSection"
+                  >
+                    Profile & Personal Information
+                  </div>
+                  <div id="profileSection" class="collapse section-content">
+                    <ul>
+                      <li>Edit Profile</li>
+                      <li>Address Management</li>
+                      <li>Language Preferences</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Security & Login Settings -->
+              <div class="col">
+                <div class="settings-section">
+                  <div
+                    class="section-title"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#securitySection"
+                  >
+                    Security & Login Settings
+                  </div>
+                  <div id="securitySection" class="collapse section-content">
+                    <ul>
+                      <li>Change Password</li>
+                      <li>Two-Factor Authentication (2FA)</li>
+                      <li>Biometric Login</li>
+                      <li>Security Questions</li>
+                      <li>Device Management</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Notification Preferences -->
+              <div class="col">
+                <div class="settings-section">
+                  <div
+                    class="section-title"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#notificationsSection"
+                  >
+                    Notification Preferences
+                  </div>
+                  <div
+                    id="notificationsSection"
+                    class="collapse section-content"
+                  >
+                    <ul>
+                      <li>Email Notifications</li>
+                      <li>SMS Alerts</li>
+                      <li>Push Notifications</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Account Management -->
+              <div class="col">
+                <div class="settings-section">
+                  <div
+                    class="section-title"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#accountSection"
+                  >
+                    Account Management
+                  </div>
+                  <div id="accountSection" class="collapse section-content">
+                    <ul>
+                      <li>Linked Accounts</li>
+                      <li>Account Alias/Nickname</li>
+                      <li>Currency Preferences</li>
+                      <li>Manage Payees</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Privacy & Data Sharing -->
+              <div class="col">
+                <div class="settings-section">
+                  <div
+                    class="section-title"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#privacySection"
+                  >
+                    Privacy & Data Sharing
+                  </div>
+                  <div id="privacySection" class="collapse section-content">
+                    <ul>
+                      <li>Data Sharing Preferences</li>
+                      <li>Personalization Settings</li>
+                      <li>Download Data</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Transaction Settings -->
+              <div class="col">
+                <div class="settings-section">
+                  <div
+                    class="section-title"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#transactionSection"
+                  >
+                    Transaction Settings
+                  </div>
+                  <div id="transactionSection" class="collapse section-content">
+                    <ul>
+                      <li>Spending Limits</li>
+                      <li>Payment Preferences</li>
+                      <li>Recurring Payments</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card Settings -->
+              <div class="col">
+                <div class="settings-section">
+                  <div
+                    class="section-title"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#cardSection"
+                  >
+                    Card Settings
+                  </div>
+                  <div id="cardSection" class="collapse section-content">
+                    <ul>
+                      <li>Card Activation/Deactivation</li>
+                      <li>Set PIN</li>
+                      <li>Spending Alerts</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Additional Settings -->
+              <div class="col">
+                <div class="settings-section">
+                  <div
+                    class="section-title"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#additionalSection"
+                  >
+                    Additional Settings
+                  </div>
+                  <div id="additionalSection" class="collapse section-content">
+                    <ul>
+                      <li>Transaction & Spending Insights</li>
+                      <li>Investment Account Settings</li>
+                      <li>Loan Management & Preferences</li>
+                      <li>Insurance Settings</li>
+                      <li>Business Account Features</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
