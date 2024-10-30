@@ -197,3 +197,12 @@ LOGGING = {
         },
     },
 }
+
+
+#Session related settings
+
+SESSION_COOKIE_AGE = 600  # Expire after 10 minutes of inactivity
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+SESSION_SAVE_EVERY_REQUEST = True
