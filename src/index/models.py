@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from model_utils import FieldTracker
+
 
 # Gender choices
 GENDERC = [
@@ -52,6 +54,8 @@ class CustomerPersonalInfo(models.Model):
     account_opening_date_time = models.DateTimeField(auto_now_add=True)
     account_type = models.CharField(max_length=22, choices=ACCOUNT_TYPE_CHOICES, verbose_name="Account Type")
 
+    tracker = FieldTracker()  # Tracks all fields on the model
+
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
@@ -75,6 +79,8 @@ class AddressInfo(models.Model):
     state = models.CharField(max_length=20, verbose_name="State")
     country = models.CharField(max_length=20, verbose_name="Country")
     pincode = models.IntegerField(verbose_name="Pincode")
+    tracker = FieldTracker()  # Tracks all fields on the model
+
 
     def __str__(self):
         return f"Address: {self.house_no}, {self.city}"
@@ -95,6 +101,7 @@ class Contact(models.Model):
     contact_type = models.CharField(max_length=20, verbose_name='Contact Type')
     contact = models.BigIntegerField(verbose_name='Contact')
     email = models.EmailField(verbose_name="Email")
+    tracker = FieldTracker()  # Tracks all fields on the model
 
     def __str__(self):
         return f"Contact: {self.contact} ({self.email})"
@@ -104,6 +111,7 @@ class SecurityQuestion(models.Model):
     user = models.OneToOneField(User, verbose_name='Security Question', on_delete=models.CASCADE, default=1)
     question = models.CharField(max_length=50, choices=SECURITY_QUESTIONS, verbose_name='Security Question')
     answer = models.CharField(max_length=100, verbose_name='Answer')
+    tracker = FieldTracker()  # Tracks all fields on the model
 
     def __str__(self):
         return f"Security Question for {self.user.first_name} {self.user.last_name}"
