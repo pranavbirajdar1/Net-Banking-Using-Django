@@ -9,6 +9,8 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+import os
+from django.contrib.messages import constants as  messages
 
 from pathlib import Path
 
@@ -38,7 +40,7 @@ INSTALLED_APPS = [
     "unfold.contrib.import_export",  # optional, if django-import-export package is used
     "unfold.contrib.guardian",  # optional, if django-guardian package is used
     "unfold.contrib.simple_history",  # optional, if django-simple-history package is used
-    'admin_honeypot',
+    'admin_honeypot', 
     'silk',
      'rest_framework',
     'django_extensions',
@@ -153,6 +155,13 @@ GRAPH_MODELS = {
     'all_models' : True
 }
 
+MESSAGE_TAGS = {
+    messages.DEBUG: 'secondary',
+    messages.INFO: 'info',
+    messages.SUCCESS: 'success',
+    messages.WARNING: 'warning',
+    messages.ERROR: 'danger',
+}
 #EMAIL ADD THESE TO ENVIORNMENT VARIABLES
 
 
@@ -168,7 +177,7 @@ REGISTERED_EMAIL = 'demosonimail2023@gmail.com'  # Replace with your actual emai
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 INTERNAL_IPS = [
-   
+   "localhost",
     "127.0.0.1",
    
 ]

@@ -49,7 +49,6 @@ MarkupSafe==2.1.5
 multipledispatch==1.0.0
 mysql-connector-python==8.3.0
 npm==0.1.1
-numpy==1.26.4
 oauthlib==3.2.2
 optional-django==0.1.0
 packaging==24.1

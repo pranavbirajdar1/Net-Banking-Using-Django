@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login ,logout, authenticate
+from django.contrib.auth import login ,logout, authenticate 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import CustomerPersonalInfoForm, AddressInfoForm, ContactForm, SecurityQuestionForm
@@ -88,5 +88,9 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    messages.success(request, 'You have logged out successfully.')
+    if logout:
+        messages.success(request, 'You have logged out successfully.')
+    else:
+        messages.error(request, 'Failed to log out.')
+
     return redirect('home')  # Redirect to login page or another page as needed

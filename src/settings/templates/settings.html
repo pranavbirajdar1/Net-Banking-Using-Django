@@ -1,158 +1,230 @@
 {% extends "base.html" %}
 
-{% block title %}Settings{% endblock title %}
+{% block title %}Settings{% endblock title  %}
 
 {% block css %}
-    <style>
-        
-        .settings-content {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-        }
-        
-        .form-group {
-            margin-bottom: 1rem;
-        }
+
+<style>
+      
+      .container {
+        margin-top: 2rem;
+      }
+      h1 {
+        text-align: center;
+        color: #007acc;
+        margin-bottom: 2rem;
+      }
+      .settings-section {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+        transition: transform 0.2s ease;
+      }
+      .settings-section:hover {
+        transform: translateY(-5px);
+      }
+      .section-title {
+        color: #007acc;
+        font-size: 1.25rem;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+      }
+      .section-title:before {
+        content: "⚙";
+        margin-right: 0.5rem;
+      }
+      .section-content {
+        margin-top: 1rem;
+        line-height: 1.5;
+      }
+      .collapse-toggle {
+        display: none;
+      }
     </style>
     {% endblock css %}
 
-{% block body %}
 
-            <!-- Settings Content -->
-            <div class="col-md-10 p-4">
-                <h3>Settings</h3>
+ {% block body %}
 
-                <!-- Profile Settings -->
-                <div class="settings-content mb-4">
-                    <h5>Profile Picture</h5>
-                    <form>
-                        <div class="mb-3">
-                            <label for="profilePicture" class="form-label">Upload Profile Picture</label>
-                            <input class="form-control" type="file" id="profilePicture">
-                        </div>
-                    </form>
+
+        <div class="col-md-9">
+          <div class="container mt-3">
+            <h1>Banking App Settings</h1>
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+              <!-- Profile & Personal Information -->
+              <div class="col">
+                <div class="settings-section">
+                  <div
+                    class="section-title"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#profileSection"
+                  >
+                    Profile & Personal Information
+                  </div>
+                  <div id="profileSection" class="collapse section-content">
+                    <ul>
+                      <li>Edit Profile</li>
+                      <li>Address Management</li>
+                      <li>Language Preferences</li>
+                    </ul>
+                  </div>
                 </div>
+              </div>
 
-                <!-- Personal Information -->
-                <div class="settings-content mb-4">
-                    <h5>Personal Information</h5>
-                    <form>
-                        <div class="row">
-                            <div class="col-md-6 form-group">
-                                {% if user.is_authenticated %}
-                                <label for="username">Username</label>
-                                <input type="text" id="username" class="form-control" placeholder="Enter your username" value="{{user.username | upper}}" required>
-                                {% endif %}
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label for="email">Email Address</label>
-                                <input type="email" id="email" class="form-control" placeholder="Enter your email" value="[UserEmail]" required>
-                            </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-md-6 form-group">
-                                <label for="phoneNumber">Phone Number</label>
-                                <input type="tel" id="phoneNumber" class="form-control" placeholder="Enter your phone number" value="[UserPhoneNumber]" required>
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label for="dob">Date of Birth</label>
-                                <input type="date" id="dob" class="form-control" value="[UserDOB]" required>
-                            </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-md-12">
-                                <button type="submit" class="btn btn-primary">Save Personal Info</button>
-                            </div>
-                        </div>
-                    </form>
+              <!-- Security & Login Settings -->
+              <div class="col">
+                <div class="settings-section">
+                  <div
+                    class="section-title"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#securitySection"
+                  >
+                    Security & Login Settings
+                  </div>
+                  <div id="securitySection" class="collapse section-content">
+                    <ul>
+                      <li>Change Password</li>
+                      <li>Two-Factor Authentication (2FA)</li>
+                      <li>Biometric Login</li>
+                      <li>Security Questions</li>
+                      <li>Device Management</li>
+                    </ul>
+                  </div>
                 </div>
+              </div>
 
-                <!-- Notification Preferences -->
-                <div class="settings-content mb-4">
-                    <h5>Notification Preferences</h5>
-                    <form>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="emailNotifications" checked>
-                            <label class="form-check-label" for="emailNotifications">
-                                Email Notifications
-                            </label>
-                        </div>
-                        <div class="form-check mt-2">
-                            <input class="form-check-input" type="checkbox" id="smsNotifications" checked>
-                            <label class="form-check-label" for="smsNotifications">
-                                SMS Notifications
-                            </label>
-                        </div>
-                        <div class="form-check mt-2">
-                            <input class="form-check-input" type="checkbox" id="pushNotifications">
-                            <label class="form-check-label" for="pushNotifications">
-                                Push Notifications
-                            </label>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-md-12">
-                                <button type="submit" class="btn btn-primary">Save Preferences</button>
-                            </div>
-                        </div>
-                    </form>
+              <!-- Notification Preferences -->
+              <div class="col">
+                <div class="settings-section">
+                  <div
+                    class="section-title"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#notificationsSection"
+                  >
+                    Notification Preferences
+                  </div>
+                  <div
+                    id="notificationsSection"
+                    class="collapse section-content"
+                  >
+                    <ul>
+                      <li>Email Notifications</li>
+                      <li>SMS Alerts</li>
+                      <li>Push Notifications</li>
+                    </ul>
+                  </div>
                 </div>
+              </div>
 
-                <!-- Security Settings -->
-                <div class="settings-content mb-4">
-                    <h5>Security Settings</h5>
-                    <form>
-                        <div class="mb-3">
-                            <label for="currentPassword" class="form-label">Current Password</label>
-                            <input type="password" id="currentPassword" class="form-control" placeholder="Enter your current password" required>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 form-group">
-                                <label for="newPassword">New Password</label>
-                                <input type="password" id="newPassword" class="form-control" placeholder="Enter your new password" required>
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label for="confirmNewPassword">Confirm New Password</label>
-                                <input type="password" id="confirmNewPassword" class="form-control" placeholder="Confirm your new password" required>
-                            </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-md-12">
-                                <button type="submit" class="btn btn-primary">Change Password</button>
-                            </div>
-                        </div>
-                    </form>
+              <!-- Account Management -->
+              <div class="col">
+                <div class="settings-section">
+                  <div
+                    class="section-title"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#accountSection"
+                  >
+                    Account Management
+                  </div>
+                  <div id="accountSection" class="collapse section-content">
+                    <ul>
+                      <li>Linked Accounts</li>
+                      <li>Account Alias/Nickname</li>
+                      <li>Currency Preferences</li>
+                      <li>Manage Payees</li>
+                    </ul>
+                  </div>
                 </div>
+              </div>
 
-                <!-- Language Preferences -->
-                <div class="settings-content">
-                    <h5>Language Preferences</h5>
-                    <form>
-                        <div class="mb-3">
-                            <label for="language" class="form-label">Select Language</label>
-                            <select id="language" class="form-select">
-                                <option selected>English</option>
-                                <option>Spanish</option>
-                                <option>French</option>
-                                <option>German</option>
-                                <option>Chinese</option>
-                            </select>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-md-12">
-                                <button type="submit" class="btn btn-primary">Save Language Preferences</button>
-                            </div>
-                        </div>
-                    </form>
+              <!-- Privacy & Data Sharing -->
+              <div class="col">
+                <div class="settings-section">
+                  <div
+                    class="section-title"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#privacySection"
+                  >
+                    Privacy & Data Sharing
+                  </div>
+                  <div id="privacySection" class="collapse section-content">
+                    <ul>
+                      <li>Data Sharing Preferences</li>
+                      <li>Personalization Settings</li>
+                      <li>Download Data</li>
+                    </ul>
+                  </div>
                 </div>
+              </div>
 
+              <!-- Transaction Settings -->
+              <div class="col">
+                <div class="settings-section">
+                  <div
+                    class="section-title"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#transactionSection"
+                  >
+                    Transaction Settings
+                  </div>
+                  <div id="transactionSection" class="collapse section-content">
+                    <ul>
+                      <li>Spending Limits</li>
+                      <li>Payment Preferences</li>
+                      <li>Recurring Payments</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card Settings -->
+              <div class="col">
+                <div class="settings-section">
+                  <div
+                    class="section-title"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#cardSection"
+                  >
+                    Card Settings
+                  </div>
+                  <div id="cardSection" class="collapse section-content">
+                    <ul>
+                      <li>Card Activation/Deactivation</li>
+                      <li>Set PIN</li>
+                      <li>Spending Alerts</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Additional Settings -->
+              <div class="col">
+                <div class="settings-section">
+                  <div
+                    class="section-title"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#additionalSection"
+                  >
+                    Additional Settings
+                  </div>
+                  <div id="additionalSection" class="collapse section-content">
+                    <ul>
+                      <li>Transaction & Spending Insights</li>
+                      <li>Investment Account Settings</li>
+                      <li>Loan Management & Preferences</li>
+                      <li>Insurance Settings</li>
+                      <li>Business Account Features</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
-
-
-{% endblock body %}
+    {% endblock body %}
