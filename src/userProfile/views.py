@@ -2,8 +2,11 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.db import transaction
 from django.contrib import messages
 from index.models import CustomerPersonalInfo, Contact, AddressInfo, User
-
+from django.contrib.auth.decorators import login_required
 # Profile view (unchanged)
+
+
+@login_required
 def profile(request, id):
     user = request.user
 

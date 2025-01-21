@@ -26,7 +26,11 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth.models import User
 from .models import Support
+from django.contrib.auth.decorators import login_required
 
+
+
+@login_required
 def support(request):
     # Replace this with the actual registered email logic
     registered_email = settings.REGISTERED_EMAIL  # Make sure to set this in your settings.py

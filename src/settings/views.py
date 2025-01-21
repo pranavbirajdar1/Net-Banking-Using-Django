@@ -1,8 +1,10 @@
 from django.shortcuts import render,get_object_or_404
 from index.models import *
 # Create your views here.
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def settings(request):
     user = request.user
     per = get_object_or_404(CustomerPersonalInfo ,user=user)
