@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import CustomerPersonalInfoForm, AddressInfoForm, ContactForm, SecurityQuestionForm
 from django.contrib.auth.forms import AuthenticationForm
+
 def signup(request):
     if request.method == 'POST':
         user_form = UserCreationForm(request.POST)
@@ -94,3 +95,9 @@ def logout_view(request):
         messages.error(request, 'Failed to log out.')
 
     return redirect('home')  # Redirect to login page or another page as needed
+
+
+def forgotPassword(request):
+    return render(request, 'forgotPassword.html')
+
+    pass
