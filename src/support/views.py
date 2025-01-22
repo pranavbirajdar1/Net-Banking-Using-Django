@@ -21,17 +21,26 @@ def support(request):
 '''
 
 
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth.models import User
 from .models import Support
 from django.contrib.auth.decorators import login_required
+from index.models import Contact,CustomerPersonalInfo
 
 
 
 @login_required
 def support(request):
+    user = request.user
+    name=get_object_or_404(CustomerPersonalInfo,user=user)
+    email=get_object_or_404(Contact,user=user)
+    info = {
+    'name': name,
+    'email': email
+          }
+    
     # Replace this with the actual registered email logic
     registered_email = settings.REGISTERED_EMAIL  # Make sure to set this in your settings.py
 
@@ -65,5 +74,23 @@ def support(request):
         except Exception as e:
             return render(request, 'support2.html', {'message': f'Error sending email: {str(e)}'})
 
-    return render(request, 'support2.html')
+    return render(request, 'support.html' ,info)
 
+
+#@login_required
+def supportt2(request):
+   user = request.user
+   name=get_object_or_404(CustomerPersonalInfo,user=user)
+   email=get_object_or_404(Contact,user=user)
+   info = {
+    'name': name,
+    'email': email
+          }
+   if request.method == 'POST':
+       name = request.POST.get('name')
+       email = request.POST.get('email')
+       subject = request.POST.get('subject')
+       message = request.POST.get('message')
+       
+   
+   return render(request, 'support2.html',info)
