@@ -32,6 +32,7 @@
                 <div class="content mb-4">
                     <h5>Contact Us</h5>
                     <form action="{% url 'support' %}" method="POST">
+                        {% csrf_token %}
                         <div class="row">
                             <div class="col-md-6 form-group">
                                 <label for="name">Name</label>
