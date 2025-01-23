@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect,get_object_or_404
 from index.models import *
 from index.models import *
 from django.contrib.auth.decorators import login_required
@@ -11,3 +11,10 @@ def userdashboard(request):
 
 
 
+from .models import NewsLetter
+@login_required
+def newsletter(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        NewsLetter.objects.create(email=email)
+    return redirect(request.META.get('HTTP_REFERER'))

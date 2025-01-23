@@ -1,6 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
 from model_utils import FieldTracker
+from django.contrib import admin
+
+# Status choices
+ACCOUNT_STATUS = [
+    ('active', 'Active'),
+    ('inactive', 'Inactive'),
+    ('suspended', 'Suspended'),
+    ('closed', 'Closed'),
+]
 
 
 # Gender choices
@@ -31,7 +40,6 @@ SECURITY_QUESTIONS = [
     ('first_pet', 'What was the name of your first pet?'),
     # Add more questions here as needed
 ]
-
 class CustomerPersonalInfo(models.Model):
     index = models.BigAutoField(db_index=True, primary_key=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Personal Details', default=1)
@@ -115,3 +123,37 @@ class SecurityQuestion(models.Model):
 
     def __str__(self):
         return f"Security Question for {self.user.first_name} {self.user.last_name}"
+
+
+class IsAuthenticated(models.Model):
+    isverified = models.BooleanField(verbose_name="Is Authenticated  ?" , default=False)
+    otp = models.CharField(max_length=6,verbose_name="Otp")
+    
+    
+    
+    
+class AccountDetails(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    user = models.OneToOneField(User, verbose_name='Account Details', on_delete=models.CASCADE, default=1,related_name='account_details')
+    account_number = models.CharField(max_length=20, verbose_name='Account Number')
+    account_type = CustomerPersonalInfo.account_type
+    account_status = models.CharField(max_length=20, verbose_name='Account Status', choices=ACCOUNT_STATUS,default='active')
+    account_balance = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Account')
+    ifsc = models.CharField(max_length=11,verbose_name='IFSC CODE',default='LACF0001234')
+    tracker = FieldTracker() 
+    
+    
+    
+    
+    starting_account_number = 1000  # Starting number
+    def __str__(self):
+        return self.account_number
+    
+    def __init__(self):
+        self.account_number = AccountDetails.starting_account_number
+        AccountDetails.starting_account_number += 1
+        
+        
+    
+    # Sequential Account Number (like an Auto-Increment)                
+                                          

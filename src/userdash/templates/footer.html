@@ -36,8 +36,9 @@
                 <!-- Newsletter Signup -->
                 <div class="footer-column">
                     <h5>Newsletter</h5>
-                    <form action="#" method="post">
-                        <input type="email" class="footer-input" placeholder="Your email address" required />
+                    <form action="{% url "nletter" %}" method="post">
+                        {% csrf_token %}
+                        <input type="email" name="email" class="footer-input" placeholder="Your email address" required />
                         <button type="submit" class="footer-button">Subscribe</button>
                     </form>
                 </div>

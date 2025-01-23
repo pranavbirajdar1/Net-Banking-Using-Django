@@ -76,21 +76,3 @@ def support(request):
 
     return render(request, 'support.html' ,info)
 
-
-#@login_required
-def supportt2(request):
-   user = request.user
-   name=get_object_or_404(CustomerPersonalInfo,user=user)
-   email=get_object_or_404(Contact,user=user)
-   info = {
-    'name': name,
-    'email': email
-          }
-   if request.method == 'POST':
-       name = request.POST.get('name')
-       email = request.POST.get('email')
-       subject = request.POST.get('subject')
-       message = request.POST.get('message')
-       
-   
-   return render(request, 'support2.html',info)

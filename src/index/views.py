@@ -5,6 +5,7 @@ from django.contrib import messages
 from .forms import CustomerPersonalInfoForm, AddressInfoForm, ContactForm, SecurityQuestionForm
 from django.contrib.auth.forms import AuthenticationForm
 
+
 def signup(request):
     if request.method == 'POST':
         user_form = UserCreationForm(request.POST)
@@ -98,6 +99,7 @@ def logout_view(request):
 
 
 def forgotPassword(request):
+    
     return render(request, 'forgotPassword.html')
 
     pass
