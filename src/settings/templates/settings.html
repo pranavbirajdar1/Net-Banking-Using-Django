@@ -2,229 +2,229 @@
 
 {% block title %}Settings{% endblock title  %}
 
-{% block css %}
+{% block css %} 
+
 
 <style>
-      
-      .container {
-        margin-top: 2rem;
-      }
-      h1 {
-        text-align: center;
-        color: #007acc;
-        margin-bottom: 2rem;
-      }
-      .settings-section {
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        padding: 1.5rem;
-        transition: transform 0.2s ease;
-      }
-      .settings-section:hover {
-        transform: translateY(-5px);
-      }
-      .section-title {
-        color: #007acc;
-        font-size: 1.25rem;
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-      }
-      .section-title:before {
-        content: "⚙";
-        margin-right: 0.5rem;
-      }
-      .section-content {
-        margin-top: 1rem;
-        line-height: 1.5;
-      }
-      .collapse-toggle {
-        display: none;
-      }
-    </style>
-    {% endblock css %}
+    .container {
+      margin-top: 2rem;
+    }
+    h1 {
+      text-align: center;
+      color: #007acc;
+      margin-bottom: 2rem;
+    }
+    .settings-section {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+      transition: transform 0.2s ease;
+    }
+    .settings-section:hover {
+      transform: translateY(-5px);
+    }
+    .section-title {
+      color: #007acc;
+      font-size: 1.25rem;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+    .section-title:before {
+      content: "⚙";
+      margin-right: 0.5rem;
+    }
+    .section-content {
+      margin-top: 1rem;
+      line-height: 1.5;
+    }
+    .collapse-toggle {
+      display: none;
+    }
+    .settings-section ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    .settings-section ul li {
+      margin: 10px 0;
+    }
+    .settings-section ul li a {
+      text-decoration: none;
+      color: #333;
+      display: flex;
+      align-items: center;
+      font-size: 1.1rem;
+    }
+    .settings-section ul li a:hover {
+      color: #007acc;
+    }
+    .settings-section ul li a i {
+      margin-right: 0.5rem;
+    }
+    .checkbox-container {
+      display: flex;
+      align-items: center;
+    }
+    .checkbox-container input {
+      margin-right: 10px;
+    }
+  </style>
+  {% endblock css %}
 
 
- {% block body %}
-
-
-        <div class="col-md-9">
-          <div class="container mt-3">
-            <h1>Banking App Settings</h1>
-            <div class="row row-cols-1 row-cols-md-2 g-4">
-              <!-- Profile & Personal Information -->
-              <div class="col">
-                <div class="settings-section">
-                  <div
-                    class="section-title"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#profileSection"
-                  >
-                    Profile & Personal Information
-                  </div>
-                  <div id="profileSection" class="collapse section-content">
-                    <ul>
-                      <li>Edit Profile</li>
-                      <li>Address Management</li>
-                      <li>Language Preferences</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Security & Login Settings -->
-              <div class="col">
-                <div class="settings-section">
-                  <div
-                    class="section-title"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#securitySection"
-                  >
-                    Security & Login Settings
-                  </div>
-                  <div id="securitySection" class="collapse section-content">
-                    <ul>
-                      <li>Change Password</li>
-                      <li>Two-Factor Authentication (2FA)</li>
-                      <li>Biometric Login</li>
-                      <li>Security Questions</li>
-                      <li>Device Management</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Notification Preferences -->
-              <div class="col">
-                <div class="settings-section">
-                  <div
-                    class="section-title"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#notificationsSection"
-                  >
-                    Notification Preferences
-                  </div>
-                  <div
-                    id="notificationsSection"
-                    class="collapse section-content"
-                  >
-                    <ul>
-                      <li>Email Notifications</li>
-                      <li>SMS Alerts</li>
-                      <li>Push Notifications</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Account Management -->
-              <div class="col">
-                <div class="settings-section">
-                  <div
-                    class="section-title"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#accountSection"
-                  >
-                    Account Management
-                  </div>
-                  <div id="accountSection" class="collapse section-content">
-                    <ul>
-                      <li>Linked Accounts</li>
-                      <li>Account Alias/Nickname</li>
-                      <li>Currency Preferences</li>
-                      <li>Manage Payees</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Privacy & Data Sharing -->
-              <div class="col">
-                <div class="settings-section">
-                  <div
-                    class="section-title"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#privacySection"
-                  >
-                    Privacy & Data Sharing
-                  </div>
-                  <div id="privacySection" class="collapse section-content">
-                    <ul>
-                      <li>Data Sharing Preferences</li>
-                      <li>Personalization Settings</li>
-                      <li>Download Data</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Transaction Settings -->
-              <div class="col">
-                <div class="settings-section">
-                  <div
-                    class="section-title"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#transactionSection"
-                  >
-                    Transaction Settings
-                  </div>
-                  <div id="transactionSection" class="collapse section-content">
-                    <ul>
-                      <li>Spending Limits</li>
-                      <li>Payment Preferences</li>
-                      <li>Recurring Payments</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Card Settings -->
-              <div class="col">
-                <div class="settings-section">
-                  <div
-                    class="section-title"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#cardSection"
-                  >
-                    Card Settings
-                  </div>
-                  <div id="cardSection" class="collapse section-content">
-                    <ul>
-                      <li>Card Activation/Deactivation</li>
-                      <li>Set PIN</li>
-                      <li>Spending Alerts</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Additional Settings -->
-              <div class="col">
-                <div class="settings-section">
-                  <div
-                    class="section-title"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#additionalSection"
-                  >
-                    Additional Settings
-                  </div>
-                  <div id="additionalSection" class="collapse section-content">
-                    <ul>
-                      <li>Transaction & Spending Insights</li>
-                      <li>Investment Account Settings</li>
-                      <li>Loan Management & Preferences</li>
-                      <li>Insurance Settings</li>
-                      <li>Business Account Features</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
+  {% block body %}
+  <div class="col-md-9">
+    <div class="container mt-3">
+      <h1>Banking App Settings</h1>
+      <div class="row row-cols-1 row-cols-md-2 g-4">
+        <!-- Profile & Personal Information -->
+        <div class="col">
+          <div class="settings-section">
+            <div class="section-title" data-bs-toggle="collapse" data-bs-target="#profileSection">
+              <i class="fas fa-user"></i> Profile & Personal Information
+            </div>
+            <div id="profileSection" class="collapse section-content">
+              <ul>
+                <li><a href="{% url "profile_updated" id=user.id %}"><i class="fas fa-edit"></i> Edit Profile</a></li>
+                <li><a href="{% url "address_updated" user.id %}"><i class="fas fa-map-marker-alt"></i> Address Management</a></li>
+                <li><a href="{% url "contact_updated" user.id %}"><i class="fas fa-language"></i> Contact Management</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Security & Login Settings -->
+        <div class="col">
+          <div class="settings-section">
+            <div class="section-title" data-bs-toggle="collapse" data-bs-target="#securitySection">
+              <i class="fas fa-lock"></i> Security & Login Settings
+            </div>
+            <div id="securitySection" class="collapse section-content">
+              <ul>
+                <li><a href="/security/change-password"><i class="fas fa-key"></i> Change Password</a></li>
+                <li><a href="/security/2fa"><i class="fas fa-shield-alt"></i> Two-Factor Authentication (2FA)</a></li>
+                <li><a href="/security/biometric"><i class="fas fa-fingerprint"></i> Biometric Login</a></li>
+                <li><a href="/security/questions"><i class="fas fa-question-circle"></i> Security Questions</a></li>
+                <li><a href="/security/devices"><i class="fas fa-desktop"></i> Device Management</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Notification Preferences -->
+        <div class="col">
+          <div class="settings-section">
+            <div class="section-title" data-bs-toggle="collapse" data-bs-target="#notificationsSection">
+              <i class="fas fa-bell"></i> Notification Preferences
+            </div>
+            <div id="notificationsSection" class="collapse section-content">
+              <ul>
+                <li class="checkbox-container">
+                  <input type="checkbox" id="emailNotif" checked />
+                  <label for="emailNotif"><i class="fas fa-envelope"></i> Email Notifications</label>
+                </li>
+                <li class="checkbox-container">
+                  <input type="checkbox" id="smsNotif" />
+                  <label for="smsNotif"><i class="fas fa-sms"></i> SMS Alerts</label>
+                </li>
+                <li class="checkbox-container">
+                  <input type="checkbox" id="pushNotif" checked />
+                  <label for="pushNotif"><i class="fas fa-mobile-alt"></i> Push Notifications</label>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Account Management -->
+        <div class="col">
+          <div class="settings-section">
+            <div class="section-title" data-bs-toggle="collapse" data-bs-target="#accountSection">
+              <i class="fas fa-credit-card"></i> Account Management
+            </div>
+            <div id="accountSection" class="collapse section-content">
+              <ul>
+                <li><a href="/accounts/linked"><i class="fas fa-link"></i> Linked Accounts</a></li>
+                <li><a href="/accounts/alias"><i class="fas fa-tag"></i> Account Alias/Nickname</a></li>
+                <li><a href="/accounts/currency"><i class="fas fa-dollar-sign"></i> Currency Preferences</a></li>
+                <li><a href="/accounts/payees"><i class="fas fa-users"></i> Manage Payees</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Privacy & Data Sharing -->
+        <div class="col">
+          <div class="settings-section">
+            <div class="section-title" data-bs-toggle="collapse" data-bs-target="#privacySection">
+              <i class="fas fa-user-shield"></i> Privacy & Data Sharing
+            </div>
+            <div id="privacySection" class="collapse section-content">
+              <ul>
+                <li><a href="/privacy/data-sharing"><i class="fas fa-share-alt"></i> Data Sharing Preferences</a></li>
+                <li><a href="/privacy/personalization"><i class="fas fa-cogs"></i> Personalization Settings</a></li>
+                <li><a href="/privacy/download"><i class="fas fa-download"></i> Download Data</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Transaction Settings -->
+        <div class="col">
+          <div class="settings-section">
+            <div class="section-title" data-bs-toggle="collapse" data-bs-target="#transactionSection">
+              <i class="fas fa-credit-card"></i> Transaction Settings
+            </div>
+            <div id="transactionSection" class="collapse section-content">
+              <ul>
+                <li><a href="/transactions/limits"><i class="fas fa-chart-line"></i> Spending Limits</a></li>
+                <li><a href="/transactions/preferences"><i class="fas fa-cogs"></i> Payment Preferences</a></li>
+                <li><a href="/transactions/recurring"><i class="fas fa-sync-alt"></i> Recurring Payments</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Card Settings -->
+        <div class="col">
+          <div class="settings-section">
+            <div class="section-title" data-bs-toggle="collapse" data-bs-target="#cardSection">
+              <i class="fas fa-credit-card"></i> Card Settings
+            </div>
+            <div id="cardSection" class="collapse section-content">
+              <ul>
+                <li><a href="/card/activation"><i class="fas fa-check-circle"></i> Card Activation/Deactivation</a></li>
+                <li><a href="/card/pin"><i class="fas fa-key"></i> Set PIN</a></li>
+                <li><a href="/card/spending-alerts"><i class="fas fa-bell"></i> Spending Alerts</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Additional Settings -->
+        <div class="col">
+          <div class="settings-section">
+            <div class="section-title" data-bs-toggle="collapse" data-bs-target="#additionalSection">
+              <i class="fas fa-cogs"></i> Additional Settings
+            </div>
+            <div id="additionalSection" class="collapse section-content">
+              <ul>
+                <li><a href="/settings/insights"><i class="fas fa-chart-bar"></i> Transaction & Spending Insights</a></li>
+                <li><a href="/settings/investments"><i class="fas fa-piggy-bank"></i> Investment Account Settings</a></li>
+                <li><a href="/settings/loans"><i class="fas fa-credit-card"></i> Loan Management & Preferences</a></li>
+                <li><a href="/settings/insurance"><i class="fas fa-shield-alt"></i> Insurance Settings</a></li>
+                <li><a href="/settings/business"><i class="fas fa-briefcase"></i> Business Account Features</a></li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
 
-    {% endblock body %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  {% endblock %}
+  
