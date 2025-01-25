@@ -205,7 +205,7 @@
             </div>
           </div>
         </form>
-        <form method="POST" action="{% url 'profile_updated' user.id %}">
+        <form method="POST" action="{% url 'address_updated' user.id %}">
           <!-- Set the action URL correctly -->
           {% csrf_token %}
           <!-- Address Information -->
@@ -296,7 +296,7 @@
             </div>
           </div>
         </form>
-        <form method="POST" action="{% url 'profile_updated' user.id %}">
+        <form method="POST" action="{% url 'contact_updated' user.id %}">
           <!-- Set the action URL correctly -->
           {% csrf_token %}
           <!-- Contact Information -->

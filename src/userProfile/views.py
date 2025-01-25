@@ -26,6 +26,7 @@ def profile(request, id):
 
 
 # Update view
+@login_required
 def update(request, id):
     if request.method == 'POST':
         # Get all the fields, use '' as a default for missing data
@@ -96,11 +97,77 @@ def update(request, id):
 
                 # Success message
                 messages.success(request, 'Profile updated successfully!')
-                return redirect('profile_update', id=id)
+                return redirect('profile_updatedcontact_updated', id=id)
 
         except Exception as e:
              # Handle any errors, rollback the transaction
                 messages.error(request, f"An error occurred: {str(e)}")
 
     # If not a POST request, redirect back
-    return redirect('profile_update', id=id)
+    return redirect('profile_updatedcontact_updated', id=id)
+
+
+
+@login_required
+def addupdate(request,id):
+    if request.method == 'POST':
+        hono = request.POST.get('hono', '')
+        me = request.POST.get('street', '')
+        k = request.POST.get('city', '')
+        l = request.POST.get('state', '')
+        m = request.POST.get('country', '')
+        n = request.POST.get('pincode', None)  # Handle pincode as optional
+        o = request.POST.get('addresstype', '')
+        
+        try:
+            with transaction.atomic():        
+        # Update AddressInfo
+                newadd = get_object_or_404(AddressInfo, user_id=id)
+                newadd.address_type = o
+                newadd.house_no = hono
+                newadd.street = me
+                newadd.city = k
+                newadd.state = l
+                newadd.country = m
+                # Handle pincode validation - only save if it's not empty
+                if n and n.isdigit():
+                    newadd.pincode = int(n)
+                else:
+                    newadd.pincode = None  # Or some default value if pincode can be optional
+                newadd.save()
+                                # Success message
+                                
+                messages.success(request, 'Address updated successfully!')
+                return redirect('address_updated', id=id)
+        
+        except Exception as e:
+             # Handle any errors, rollback the transaction
+                messages.error(request, f"An error occurred: {str(e)}")
+        
+    return redirect('address_updated', id=id)
+
+
+def conupdate(request,id):
+    if request.method == 'POST':
+        t = request.POST.get('contacttype', '')
+        h = request.POST.get('contact_email', '')
+        i = request.POST.get('contact', '')
+        
+        try:
+            #with transaction.atomic():
+            
+            # Update Contact
+                newcontact = get_object_or_404(Contact, user_id=id)
+                newcontact.contact_type = t
+                newcontact.contact = i
+                newcontact.email = h
+                newcontact.save()
+            
+                messages.success(request, 'Contact updated successfully!')
+                return redirect('contact_updated', id=id)
+        
+        except Exception as e:
+             # Handle any errors, rollback the transaction
+                messages.error(request, f"An error occurred: {str(e)}")
+        
+    return redirect('contact_updated', id=id)
