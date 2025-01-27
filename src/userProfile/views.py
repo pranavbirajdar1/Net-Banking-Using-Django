@@ -103,8 +103,9 @@ def update(request, id):
              # Handle any errors, rollback the transaction
                 messages.error(request, f"An error occurred: {str(e)}")
 
+    else:
     # If not a POST request, redirect back
-    return redirect('profile_updatedcontact_updated', id=id)
+        return render(request,'perinfo.html')
 
 
 
@@ -143,8 +144,10 @@ def addupdate(request,id):
         except Exception as e:
              # Handle any errors, rollback the transaction
                 messages.error(request, f"An error occurred: {str(e)}")
-        
-    return redirect('address_updated', id=id)
+    
+    
+    else:
+        return render(request,'addinfo.html')
 
 
 def conupdate(request,id):
@@ -169,5 +172,16 @@ def conupdate(request,id):
         except Exception as e:
              # Handle any errors, rollback the transaction
                 messages.error(request, f"An error occurred: {str(e)}")
+    
+    
+    else:    
+        return render(request,'coninfo.html')
+    
+    
+    
+def conpref(request,id):
+    if request.method == 'POST':
+        t = request.POST.get('emailNotifications', '')
+        h = request.POST.get('smsNotifications', '')
+        i = request.POST.get('contact', '')
         
-    return redirect('contact_updated', id=id)
