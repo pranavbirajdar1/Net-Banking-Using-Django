@@ -282,16 +282,9 @@
                   value="update_address"
                   class="btn btn-primary"
                 >
-                  Make Changes
+                Save
                 </button>
-                <button
-                  type="submit"
-                  name="action"
-                  value="add_address"
-                  class="btn btn-primary"
-                >
-                  Add New Address
-                </button>
+         
               </div>
             </div>
           </div>
@@ -337,60 +330,55 @@
                   value="update_contact"
                   class="btn btn-primary"
                 >
-                  Make Changes
+                  Save
                 </button>
-                <button
-                  type="submit"
-                  name="action"
-                  value="add_contact"
-                  class="btn btn-primary"
-                >
-                  Add New Contact
-                </button>
+           
               </div>
             </div>
           </div>
         </form>
-        <form method="POST" action="{% url 'profile_updated' user.id %}">
-          <!-- Set the action URL correctly -->
+        <form method="POST" action="{% url 'contact_pref' user.id %}">
           {% csrf_token %}
           <!-- Contact Preferences -->
           <div class="profile-card mb-4">
-            <h5>Contact Preferences</h5>
-            <div class="form-group">
-              <label for="emailNotifications">Email Notifications</label>
-              <select
-                id="emailNotifications"
-                name="emailNotifications"
-                class="form-select"
-              >
-                <option value="all">All</option>
-                <option value="important">Important Only</option>
-                <option value="none">None</option>
-              </select>
-            </div>
-            <div class="form-group mt-3">
-              <label for="smsNotifications">SMS Notifications</label>
-              <select
-                id="smsNotifications"
-                name="smsNotifications"
-                class="form-select"
-              >
-                <option value="all">All</option>
-                <option value="important">Important Only</option>
-                <option value="none">None</option>
-              </select>
-            </div>
-            <button
-              type="submit"
-              name="action"
-              value="save_preferences"
-              class="btn btn-primary mt-3"
-            >
-              Save Preferences
-            </button>
+              <h5>Contact Preferences</h5>
+              
+              <div class="form-group">
+                  <label for="emailNotifications">Email Notifications</label>
+                  {% if pref %}
+                      <p>{{ pref.emailnotification }}</p>
+                  {% else %}
+                      <p>No email preferences set.</p>
+                  {% endif %}
+      
+                  <select id="emailNotifications" name="emailNotifications" class="form-select">
+                      <option value="all" {% if pref and pref.emailnotification == 'all' %}selected{% endif %}>All</option>
+                      <option value="important" {% if pref and pref.emailnotification == 'important' %}selected{% endif %}>Important Only</option>
+                      <option value="none" {% if pref and pref.emailnotification == 'none' %}selected{% endif %}>None</option>
+                  </select>
+              </div>
+      
+              <div class="form-group mt-3">
+                  <label for="smsNotifications">SMS Notifications</label>
+                  {% if pref %}
+                      <p>{{ pref.smsnotification }}</p>
+                  {% else %}
+                      <p>No SMS preferences set.</p>
+                  {% endif %}
+      
+                  <select id="smsNotifications" name="smsNotifications" class="form-select">
+                      <option value="all" {% if pref and pref.smsnotification == 'all' %}selected{% endif %}>All</option>
+                      <option value="important" {% if pref and pref.smsnotification == 'important' %}selected{% endif %}>Important Only</option>
+                      <option value="none" {% if pref and pref.smsnotification == 'none' %}selected{% endif %}>None</option>
+                  </select>
+              </div>
+      
+              <button type="submit" name="action" value="save_preferences" class="btn btn-primary mt-3">
+                  Save Preferences
+              </button>
           </div>
-        </form>
+      </form>
+      
 
         <!-- Two-Factor Authentication -->
         <div class="profile-card mb-4">

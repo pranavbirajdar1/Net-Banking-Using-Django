@@ -51,7 +51,7 @@
   
    
   
-        <form method="POST" action="{% url 'profile_updated' user.id %}">
+        <form method="POST" action="{% url 'contactPREF' user.id %}">
           <!-- Set the action URL correctly -->
           {% csrf_token %}
           <!-- Contact Preferences -->

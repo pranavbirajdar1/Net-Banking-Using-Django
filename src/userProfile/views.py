@@ -2,7 +2,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.db import transaction
 from django.contrib import messages
 from index.models import CustomerPersonalInfo, Contact, AddressInfo, User
+from .models import ContactPreference 
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
+
 # Profile view (unchanged)
 
 
@@ -14,12 +17,18 @@ def profile(request, id):
     cust = get_object_or_404(CustomerPersonalInfo, user=user)
     contact = get_object_or_404(Contact, user=user)
     add = get_object_or_404(AddressInfo, user=user)
+    try:
+        pref = get_object_or_404(ContactPreference, user=user)
 
+    except Http404:
+        # Handle case where no ContactPreference is found for the user
+        pref = None
     context = {
         'user': user,
         'c': cust,
         'con': contact,
         'add': add,
+        'pref': pref,
     }
 
     return render(request, 'profile.html', context)
@@ -105,7 +114,7 @@ def update(request, id):
 
     else:
     # If not a POST request, redirect back
-        return render(request,'perinfo.html')
+        return redirect('profile_updatedcontact_updated', id=id)
 
 
 
@@ -147,7 +156,7 @@ def addupdate(request,id):
     
     
     else:
-        return render(request,'addinfo.html')
+        return redirect('address_updated', id=id)
 
 
 def conupdate(request,id):
@@ -175,13 +184,27 @@ def conupdate(request,id):
     
     
     else:    
-        return render(request,'coninfo.html')
-    
-    
-    
-def conpref(request,id):
+        return redirect('contact_updated', id=id)
+ 
+ 
+
+@login_required
+def conpref(request, id):
     if request.method == 'POST':
-        t = request.POST.get('emailNotifications', '')
-        h = request.POST.get('smsNotifications', '')
-        i = request.POST.get('contact', '')
-        
+        email_notifications = request.POST.get('emailNotifications', '')
+        sms_notifications = request.POST.get('smsNotifications', '')
+        try:
+            with transaction.atomic():
+                contact_preference = get_object_or_404(ContactPreference, id=id)
+                contact_preference.emailnotification = email_notifications
+                contact_preference.smsnotification = sms_notifications
+                contact_preference.save()
+                messages.success(request, 'Contact preference updated successfully!')
+                return redirect('contact_pref', id=id)
+
+        except Exception as e:
+            messages.error(request, f"An error occurred: {str(e)}")
+            return redirect('contact_pref', id=id)
+
+    else:
+        return redirect('contact_pref', id=id )
