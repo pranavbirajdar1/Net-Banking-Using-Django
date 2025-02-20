@@ -4,13 +4,6 @@ from django.contrib.auth.models import User
 from model_utils import FieldTracker
 from django.contrib import admin
 
-# Status choices
-ACCOUNT_STATUS = [
-    ('active', 'Active'),
-    ('inactive', 'Inactive'),
-    ('suspended', 'Suspended'),
-    ('closed', 'Closed'),
-]
 
 
 # Gender choices
@@ -141,12 +134,16 @@ class AccountDetails(models.Model):
         default=uuid.uuid4  # Automatically generate a UUID if not provided
     )
     account_type = CustomerPersonalInfo.account_type
-    account_status = models.CharField(max_length=20, verbose_name='Account Status', choices=ACCOUNT_STATUS,default='active')
+    account_status = models.CharField(max_length=20, verbose_name='Account Status',default='active')
     account_balance = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Account')
     ifsc = models.CharField(max_length=11,verbose_name='IFSC CODE',default='LACF0001234')
     tracker = FieldTracker() 
     
-    
+    def save(self, *args, **kwargs):
+        # Automatically set the isverified field based on the user's authentication status
+        self.account_status = self.user.is_active
+        super(AccountDetails, self).save(*args, **kwargs)  # Call the superclass's save method to save the instance
+
     
                
                                           
