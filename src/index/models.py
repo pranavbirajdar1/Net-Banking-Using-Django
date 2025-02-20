@@ -1,4 +1,5 @@
 from django.db import models
+import uuid
 from django.contrib.auth.models import User
 from model_utils import FieldTracker
 from django.contrib import admin
@@ -18,6 +19,7 @@ GENDERC = [
     ('Female', 'Female'),
     ('Other', 'Other'),
 ]
+
 
 # Occupation choices
 OCCUPATION_CHOICES = [
@@ -125,17 +127,19 @@ class SecurityQuestion(models.Model):
         return f"Security Question for {self.user.first_name} {self.user.last_name}"
 
 
-class IsAuthenticated(models.Model):
-    isverified = models.BooleanField(verbose_name="Is Authenticated  ?" , default=False)
-    otp = models.CharField(max_length=6,verbose_name="Otp")
-    
     
     
     
 class AccountDetails(models.Model):
     id = models.BigAutoField(primary_key=True)
     user = models.OneToOneField(User, verbose_name='Account Details', on_delete=models.CASCADE, default=1,related_name='account_details')
-    account_number = models.CharField(max_length=20, verbose_name='Account Number')
+    account_number = models.UUIDField(
+        db_index=True,
+        editable=False,
+        unique=True,
+        help_text="Account Number",
+        default=uuid.uuid4  # Automatically generate a UUID if not provided
+    )
     account_type = CustomerPersonalInfo.account_type
     account_status = models.CharField(max_length=20, verbose_name='Account Status', choices=ACCOUNT_STATUS,default='active')
     account_balance = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Account')
@@ -144,16 +148,5 @@ class AccountDetails(models.Model):
     
     
     
-    
-    starting_account_number = 1000  # Starting number
-    def __str__(self):
-        return self.account_number
-    
-    def __init__(self):
-        self.account_number = AccountDetails.starting_account_number
-        AccountDetails.starting_account_number += 1
-        
-        
-    
-    # Sequential Account Number (like an Auto-Increment)                
+               
                                           
