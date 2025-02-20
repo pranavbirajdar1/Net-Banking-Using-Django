@@ -213,8 +213,18 @@
                 <li><a href="/settings/insights"><i class="fas fa-chart-bar"></i> Transaction & Spending Insights</a></li>
                 <li><a href="/settings/investments"><i class="fas fa-piggy-bank"></i> Investment Account Settings</a></li>
                 <li><a href="/settings/loans"><i class="fas fa-credit-card"></i> Loan Management & Preferences</a></li>
-                <li><a href="/settings/insurance"><i class="fas fa-shield-alt"></i> Insurance Settings</a></li>
-                <li><a href="/settings/business"><i class="fas fa-briefcase"></i> Business Account Features</a></li>
+                
+                <li>
+                  <a href="{% url 'deactivation' user.id %}" onclick="confirmDeactivation(event)">
+                      <i class="fas fa-user-slash"></i> Deactivate Account
+                  </a>
+              </li>
+
+                <li>
+                  <a href="{% url "deletion" user.id %}" onclick="confirmDeletion(event)">
+                      <i class="fas fa-trash-alt"></i> Delete Account
+                  </a>
+              </li>
               </ul>
             </div>
           </div>
@@ -223,6 +233,32 @@
     </div>
   </div>
 
+
+  <script type="text/javascript">
+    // JavaScript function to show the confirmation dialog
+    function confirmDeactivation(event) {
+        var confirmation = confirm("Are you sure you want to deactivate your account?");
+        
+        if (!confirmation) {
+            // Prevent the link from being followed if the user clicks "Cancel"
+            event.preventDefault();
+        }
+    }
+
+
+        // JavaScript function to show the confirmation dialog
+        function confirmDeletion(event) {
+          var confirmation = confirm("Are you sure you want to delete your account? This action cannot be undone.");
+          
+          if (!confirmation) {
+              // Prevent the link from being followed if the user clicks "Cancel"
+              event.preventDefault();
+          }
+      }
+
+
+
+</script>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
