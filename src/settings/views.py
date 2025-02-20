@@ -164,7 +164,7 @@ def addupdated(request,id):
     else:
         return render(request,'addinfo.html',context)
 
-
+@login_required
 def conupdated(request,id):
     user = request.user
 
@@ -212,4 +212,21 @@ def conupdated(request,id):
 
 
 
-    
+@login_required   
+def deactivate_acc(request,id):
+    if request.user.id == id:
+        isactive = get_object_or_404(User, id=id)
+        isactive.is_active = False
+        isactive.save()
+        messages.success(request, 'Account deactivated successfully!')
+        return redirect('home')
+
+from django.contrib.auth import logout
+@login_required
+def delete_account(request,id):
+    if request.user.id == id:
+        user = get_object_or_404(User, id=id)
+        logout(request)
+        user.delete()
+        return redirect('home')
+        
