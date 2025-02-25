@@ -90,11 +90,6 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    if logout:
-        messages.success(request, 'You have logged out successfully.')
-    else:
-        messages.error(request, 'Failed to log out.')
-
     return redirect('home')  # Redirect to login page or another page as needed
 
 
