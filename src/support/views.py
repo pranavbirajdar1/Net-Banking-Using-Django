@@ -40,7 +40,7 @@ def support(request,id):
     'name': name,
     'email': email
           }
-    user2 = User.objects.get(id=id)
+    
     
     
     # Replace this with the actual registered email logic
@@ -58,7 +58,7 @@ def support(request,id):
             email=email,
             subject=subject,
             message=message,
-            senderid= user2
+            sendername = request.user.id
         )
        
         
