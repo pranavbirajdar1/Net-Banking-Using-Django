@@ -3,7 +3,7 @@ from .views import *
 urlpatterns = [
     
     
-    path('support/',support , name="support"),
+   path('support/<int:id>/', support, name='support'),
     #path('supportt/',supportt2 , name="supportt"),
     
     

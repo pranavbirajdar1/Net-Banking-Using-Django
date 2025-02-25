@@ -91,7 +91,7 @@
                 <a href="{% url "payment" %}">Payments</a>
                 <a href="{% url "investment" %}">Investments</a>
                 <a href="{% url "statement" %}">Statements</a>
-                <a href="{% url "support" %}">Support</a>
+                <a href="{% url "support" user.id %}">Support</a>
                 <a href="{% url 'nominee' %}">Nominees</a> <!-- Added Nominee link -->
                 <a href="{% url 'loan' %}">Loan</a>
                 <a href="{% url 'logout' %}">

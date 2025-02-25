@@ -32,7 +32,7 @@ from index.models import Contact,CustomerPersonalInfo
 
 
 @login_required
-def support(request):
+def support(request,id):
     user = request.user
     name=get_object_or_404(CustomerPersonalInfo,user=user)
     email=get_object_or_404(Contact,user=user)
@@ -40,6 +40,8 @@ def support(request):
     'name': name,
     'email': email
           }
+    user2 = User.objects.get(id=id)
+    
     
     # Replace this with the actual registered email logic
     registered_email = settings.REGISTERED_EMAIL  # Make sure to set this in your settings.py
@@ -51,7 +53,13 @@ def support(request):
         subject = request.POST.get('subject')
         message = request.POST.get('message')
         
-        
+        Support.objects.create(
+            name=name,
+            email=email,
+            subject=subject,
+            message=message,
+            senderid= user2
+        )
        
         
         # Create email body

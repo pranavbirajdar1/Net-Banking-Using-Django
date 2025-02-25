@@ -7,7 +7,7 @@ class Support(models.Model):
     email = models.EmailField()
     subject =models.TextField(max_length=300)
     message =models.TextField(max_length=400)
-    
+    senderid = models.IntegerField(editable=False)
     def __str__(self):
         return f"{self.name} {self.subject}"
     
