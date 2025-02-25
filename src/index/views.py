@@ -93,8 +93,3 @@ def logout_view(request):
     return redirect('home')  # Redirect to login page or another page as needed
 
 
-def forgotPassword(request):
-    
-    return render(request, 'forgotPassword.html')
-
-    pass
