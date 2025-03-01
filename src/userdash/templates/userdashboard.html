@@ -32,7 +32,11 @@
                     <div class="col-md-4">
                         <div class="account-summary">
                             <h5>Total Balance</h5>
-                            <p><strong>$15,300.50</strong></p>
+                            {% if balance %}
+                            <p><strong>${{ balance.current_balance }}</strong></p>
+                        {% else %}
+                            <p><strong>$</strong></p>
+                        {% endif %}
                         </div>
                     </div>
                     <div class="col-md-4">
