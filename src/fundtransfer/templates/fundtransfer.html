@@ -46,34 +46,23 @@
                     <form>
                         <!-- From Account -->
                         <div class="row mb-3">
-                            <div class="col-md-6 form-group">
-                                <label for="fromAccount">From Account</label>
-                                <div class="input-group">
-                                    <select id="fromAccount" class="form-select" required>
-                                        <option value="" disabled selected>Select account</option>
-                                        <option value="savings">Savings Account</option>
-                                        <option value="checking">Checking Account</option>
-                                        <option value="credit">Credit Card</option>
-                                    </select>
-                                    <span class="input-group-text"><i class="bi bi-wallet"></i></span>
-                                </div>
-                                <div class="invalid-feedback">
-                                    Please select a valid account.
-                                </div>
-                            </div>
+                           
 
-                            <!-- To Account -->
                             <div class="col-md-6 form-group">
                                 <label for="toAccount">To Account</label>
                                 <div class="input-group">
-                                    <input type="text" id="toAccount" class="form-control" placeholder="Enter account number" required>
+                                    <select id="username" name="username" class="form-control" required>
+                                        <option value="" disabled selected>Select a User</option>
+                                        {% for u in users %}
+                                            <option value="{{ u.id }}">{{ u.username }}</option>
+                                        {% endfor %}
+                                    </select>
                                     <span class="input-group-text"><i class="bi bi-person"></i></span>
                                 </div>
                                 <div class="invalid-feedback">
-                                    Please enter a valid account number.
+                                    Please select a valid Username.
                                 </div>
                             </div>
-                        </div>
 
                         <!-- Amount -->
                         <div class="row mb-3">
@@ -81,57 +70,17 @@
                                 <label for="amount">Amount</label>
                                 <div class="input-group">
                                     <span class="input-group-text">$</span>
-                                    <input type="number" id="amount" class="form-control" placeholder="Enter amount" required>
+                                    <input type="number" id="amount" name="amount" class="form-control" placeholder="Enter amount" required>
                                 </div>
                                 <div class="invalid-feedback">
                                     Please enter a valid amount.
                                 </div>
                             </div>
 
-                            <!-- Transfer Date -->
-                            <div class="col-md-6 form-group">
-                                <label for="transferDate">Transfer Date</label>
-                                <input type="date" id="transferDate" class="form-control" required>
-                                <div class="invalid-feedback">
-                                    Please select a valid date.
-                                </div>
-                            </div>
                         </div>
 
-                        <!-- Notes -->
-                        <div class="row mb-3">
-                            <div class="col-md-12 form-group">
-                                <label for="notes">Notes (optional)</label>
-                                <textarea id="notes" class="form-control" rows="3" placeholder="Enter any notes or reference"></textarea>
-                            </div>
-                        </div>
 
-                        <!-- Summary Section -->
-                        <div class="content mb-4">
-                            <h5>Transfer Summary</h5>
-                            <ul class="list-group">
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    From Account
-                                    <span id="summaryFromAccount" class="badge bg-secondary">Savings Account</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    To Account
-                                    <span id="summaryToAccount" class="badge bg-secondary">123456789</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Amount
-                                    <span id="summaryAmount" class="badge bg-secondary">$500</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Transfer Date
-                                    <span id="summaryDate" class="badge bg-secondary">2024-09-30</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Notes
-                                    <span id="summaryNotes" class="badge bg-secondary">Payment for invoice #1234</span>
-                                </li>
-                            </ul>
-                        </div>
+                        
 
                         <!-- Submit Button -->
                         <div class="row">
