@@ -10,38 +10,144 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=GFS Didot">
     <style>
+        /* Body Section */
         body {
-            font-family: 'GFS Didot','Arial', sans-serif;
-            background-color: #f7f9fb;
+            font-family: 'Roboto', sans-serif; /* Clean, modern sans-serif font for general readability */
+            font-size: 16px; /* Base font size for body text */
+            line-height: 1.6; /* Ensure sufficient line height for readability */
+            color: #333; /* Dark text for high contrast against background */
+            background-color: #f7f9fb; /* Light, soft background color for the body */
         }
+    
+        /* Sidebar Section */
         .sidebar {
-            height: 100vh;
-            background-color: #343a40; 
-            color: white;
+            height: 100vh; /* Full viewport height */
+            background-color: #343a40; /* Dark background for sidebar */
+            color: white; /* White text for readability */
             position: sticky;
             top: 0;
             padding-top: 20px;
+            font-family: 'Roboto', sans-serif; /* Matching font family to body */
         }
-        .sidebar a ,b {
-            color: white;
+    
+        /* Sidebar Links */
+        .sidebar a, .sidebar b {
+            color: white; /* White text for sidebar links */
             text-decoration: none;
             padding: 15px;
             display: block;
-            transition: background-color 0.3s;
+            font-size: 14px; /* Smaller size for sidebar links */
+            transition: background-color 0.3s ease; /* Smooth background transition on hover */
         }
+    
+        /* Sidebar Link Hover */
         .sidebar a:hover {
-            background-color: #495057;
+            background-color: #495057; /* Darker background on hover */
         }
+    
+        /* Navbar Section */
         .navbar-custom {
-            background-color: #007bff;
+            background-color: #007bff; /* Branding color for the navbar */
+            padding: 10px 20px; /* Spacing inside the navbar */
         }
-        .navbar-custom .navbar-brand,
+    
+        .navbar-custom .navbar-brand {
+            font-family: 'Montserrat', sans-serif; /* Strong font for the brand */
+            font-size: 20px; /* Larger font size for branding */
+            color: white; /* White color for the brand */
+            font-weight: bold; /* Make the brand text bold */
+        }
+    
         .navbar-custom .nav-link {
-            color: white;
+            color: white; /* White text for navigation links */
+            font-size: 16px; /* Standard font size for navbar links */
+            font-family: 'Roboto', sans-serif; /* Matching font family to body */
+            text-transform: uppercase; /* Capitalized text for a modern look */
+            letter-spacing: 1px; /* Slight letter spacing for clarity */
+            padding: 10px 15px; /* Padding inside the links */
+            transition: background-color 0.3s ease; /* Smooth transition on hover */
         }
-     
-
+    
+        /* Navbar Link Hover */
+        .navbar-custom .nav-link:hover {
+            background-color: #0056b3; /* Darker blue on hover for the links */
+            border-radius: 5px; /* Rounded corners on hover */
+        }
+    
+        /* Header Section */
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif; /* Strong, bold font for headers */
+            color: #333; /* Dark color for headings */
+            font-weight: bold;
+            line-height: 1.2;
+        }
+    
+        h1 {
+            font-size: 36px; /* Larger font for main headings */
+            margin-bottom: 20px;
+        }
+    
+        h2 {
+            font-size: 28px; /* Smaller font for secondary headings */
+            margin-bottom: 15px;
+        }
+    
+        h3 {
+            font-size: 22px; /* Smaller font for tertiary headings */
+            margin-bottom: 10px;
+        }
+    
+        /* General Text Styling */
+        p, ul, ol {
+            font-size: 16px; /* Standard font size for paragraphs and lists */
+            line-height: 1.6; /* Ensure readability with good line height */
+            font-family: 'Roboto', sans-serif; /* Clean, legible font for content */
+            margin-bottom: 20px; /* Spacing between paragraphs */
+        }
+    
+        /* Button Styles */
+        .btn-custom {
+            background-color: #007bff; /* Branding color for buttons */
+            color: white;
+            font-size: 16px; /* Consistent button font size */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px; /* Rounded corners for buttons */
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* Smooth transition for hover */
+        }
+    
+        /* Button Hover */
+        .btn-custom:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+    
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            /* For small screens (tablets and below) */
+            .navbar-custom .nav-link {
+                font-size: 14px; /* Slightly smaller text for small screens */
+                padding: 10px 12px; /* Adjust padding */
+            }
+    
+            .sidebar {
+                font-size: 12px; /* Reduce font size in the sidebar */
+            }
+    
+            h1 {
+                font-size: 28px; /* Adjust heading size for smaller screens */
+            }
+    
+            h2 {
+                font-size: 24px; /* Adjust heading size for smaller screens */
+            }
+    
+            h3 {
+                font-size: 18px; /* Adjust heading size for smaller screens */
+            }
+        }
     </style>
+    
 </head>
 <body>
 
