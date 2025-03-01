@@ -29,7 +29,7 @@ class Transaction(models.Model):
         return f'Transaction of {self.amount} from {self.sender.username} {self.receiver.username} on {self.timestamp}'
     
     
-     @classmethod
+    @classmethod
     def transfer_funds(cls, sender, receiver, amount):
         '''Handles the fund transfer between users with
         balance updates and transaction creation'''
