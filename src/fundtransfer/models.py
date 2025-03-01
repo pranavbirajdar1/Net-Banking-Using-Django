@@ -2,7 +2,6 @@ from django.db import models
 from model_utils import FieldTracker
 from django.contrib.auth.models import User
 from django.db import transaction
-from statements.models import Statement
 from django.core.exceptions import ValidationError
 from django.utils.timezone import now
 
@@ -15,6 +14,9 @@ class Accbalance(models.Model):
     def __str__(self):
         return f'{self.user.username} : {self.current_balance}'
     
+    
+    
+
         
         
 class Transaction(models.Model):
@@ -90,3 +92,19 @@ class Transaction(models.Model):
             Statement.objects.create(**receiver_statement)
 
             return tx
+        
+        
+        
+        
+
+class Statement(models.Model):
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING,related_name='statements')
+    transaction =models.ForeignKey(Transaction, on_delete=models.DO_NOTHING,related_name='transactions')
+    transaction_type = models. CharField(max_length=10, choices=[('Credit','Credit'),('Debit','Debit')])
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    balance_before = models.DecimalField(max_digits=10, decimal_places=2)
+    balance_after = models.DecimalField(max_digits=10, decimal_places=2)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    tracker = FieldTracker()
+    def __str__(self):
+        return f'{self.transaction_type} of {self.amount} on {self.timestamp}.'
