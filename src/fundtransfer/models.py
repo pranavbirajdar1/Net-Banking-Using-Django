@@ -8,7 +8,7 @@ from django.utils.timezone import now
 
 # Create your models here.
 class Accbalance(models.Model):
-    user = models.OneToOneField(User,on_delete=models.DO_NOTHING,related_name='account_balance',related_query_name='acc_bal')
+    user = models.OneToOneField(User,on_delete=models.DO_NOTHING,related_name='account_balance',related_query_name='account_balance')
     current_balance = models.DecimalField(max_digits=12,decimal_places=2)
     tracker = FieldTracker()
     def __str__(self):
@@ -25,7 +25,7 @@ class Transaction(models.Model):
     sender_balance = models.ForeignKey(Accbalance , on_delete=models.DO_NOTHING , related_name='transactons_as_sender')
     receiver_balance = models.ForeignKey(Accbalance , on_delete=models.DO_NOTHING , related_name='transactons_as_receiver')
     amount = models.DecimalField(max_digits=12 , decimal_places=2)
-    timestamp = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField(auto_now_add=True ,editable=False)
     
     def __str__(self):
         return f'Transaction of {self.amount} from {self.sender.username} {self.receiver.username} on {self.timestamp}'
