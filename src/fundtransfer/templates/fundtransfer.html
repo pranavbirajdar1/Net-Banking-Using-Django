@@ -43,7 +43,8 @@
                 <!-- Fund Transfer Form -->
                 <div class="content">
                     
-                    <form>
+                    <form method="POST" action="{% url 'fundtransfer' %}">
+                        {% csrf_token %}
                         <!-- From Account -->
                         <div class="row mb-3">
                            
