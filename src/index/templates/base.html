@@ -192,7 +192,7 @@
         <div class="row">
             <!-- Sidebar -->
             <div class="col-md-2 sidebar p-0">
-                <a href="{% url "userdashboard" %}">Dashboard</a>
+                <a href="{% url 'userdashboard' %}">Dashboard</a>
                 <a href="{% url "accounts" %}">Accounts</a>
                 <a href="{% url "fundtransfer" %}">Fund Transfer</a>
                 <a href="{% url "payment" %}">Payments</a>
@@ -214,7 +214,9 @@
                 {% if messages %}
                 <div class="alert alert-info alert-dismissible fade show" role="alert">
                     {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
                         {{ message }}
+                    </div>
                     {% endfor %}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
