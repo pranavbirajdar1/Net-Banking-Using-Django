@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
 from .models import  Transaction
+from decimal import Decimal,InvalidOperation
 # Create your views here.
 
 
@@ -25,13 +26,22 @@ def fundtransfer(request):
        
         #Validate the amt must be +ve Number
         try:
-            amounts = float(amounts)
+            amounts = Decimal(amounts)
             if amounts <= 0:
                 messages.error(request, 'Amount must be greater than zero')
                 return redirect('fundtransfer')
+            
         except ValueError:
             messages.error(request, 'Invalid amount. Please enter valid Number.')
             return redirect('fundtransfer')
+        
+        
+        except InvalidOperation:
+            # This will catch invalid inputs (like non-numeric or malformed input)
+            messages.error(request, 'Invalid amount format. Please enter a valid number')
+            return redirect('fundtransfer')
+        
+        
         #check if sender has sufficient balance
         sender_balance = sender.account_balance.current_balance
         if sender_balance < amounts:
@@ -46,7 +56,7 @@ def fundtransfer(request):
             return redirect('fundtransfer')
             
         except Exception as e:
-            messages.error(request, f'Error occurred during transfer{str(e)}')
+            messages.error(request, f'Error occurred during transfer {str(e)}')
             return redirect('fundtransfer')
     # Fetch users excluding logged in user  (for dropdown option in template)
     users = User.objects.exclude(username=user.username).exclude(is_superuser=True)
