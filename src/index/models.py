@@ -131,7 +131,7 @@ class AccountDetails(models.Model):
         editable=False,
         unique=True,
         help_text="Account Number",
-        default=uuid.uuid4  # Automatically generate a UUID if not provided
+
     )
     account_type = CustomerPersonalInfo.account_type
     account_status = models.CharField(max_length=20, verbose_name='Account Status',default='active')
@@ -141,6 +141,10 @@ class AccountDetails(models.Model):
     def save(self, *args, **kwargs):
         # Automatically set the isverified field based on the user's authentication status
         self.account_status = self.user.is_active
+        if not self.account_number:  # Check if account_number is not already set
+            self.account_number = uuid.uuid4().int  # Set account_number to integer UUID
+            self.account_number.save()  # Save the instance to update the account_number field
+
         super(AccountDetails, self).save(*args, **kwargs)  # Call the superclass's save method to save the instance
 
     
