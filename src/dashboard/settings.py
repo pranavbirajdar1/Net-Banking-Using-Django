@@ -82,7 +82,10 @@ ROOT_URLCONF = 'dashboard.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'templates',  # Ensure this points to your global template folder
+            BASE_DIR / 'accounts/templates',  # Ensure this points to your app templates
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -163,6 +166,7 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
 #EMAIL ADD THESE TO ENVIORNMENT VARIABLES
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBAckend'
 
 
 EMAIL_HOST = "smtp.gmail.com"
