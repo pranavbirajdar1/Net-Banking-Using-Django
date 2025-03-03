@@ -135,7 +135,6 @@ class AccountDetails(models.Model):
     )
     account_type = CustomerPersonalInfo.account_type
     account_status = models.CharField(max_length=20, verbose_name='Account Status',default='active')
-    account_balance = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Account')
     ifsc = models.CharField(max_length=11,verbose_name='IFSC CODE',default='LACF0001234')
     tracker = FieldTracker() 
     
@@ -147,3 +146,13 @@ class AccountDetails(models.Model):
     
                
                                           
+                                          
+                                          
+
+class CustomUserLogin(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    login_time = models.DateTimeField(auto_now_add=True)
+    ip_address = models.GenericIPAddressField(null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.user.username} logged in at {self.login_time}"
