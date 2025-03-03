@@ -55,7 +55,7 @@
                                     <select id="username" name="username" class="form-control" required>
                                         <option value="" disabled selected>Select a User</option>
                                         {% for u in users %}
-                                            <option value="{{ u.id }}">{{ u.username }}</option>
+                                            <option value="{{ u.username }}">{{ u.username }}</option>
                                         {% endfor %}
                                     </select>
                                     <span class="input-group-text"><i class="bi bi-person"></i></span>
