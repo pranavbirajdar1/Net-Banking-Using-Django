@@ -29,14 +29,31 @@
   <div class="profile-card mb-4">
     <div class="row">
       <div class="col-md-3 text-center profile-picture">
-        <img src="https://via.placeholder.com/150" alt="Profile Picture" />
-        <form class="mt-3">
-          <input class="form-control" type="file" id="profilePicture" />
+
+              <!-- Check if the user has a profile picture -->
+      {% if user.profile.profile_picture %}
+
+      <img src="{{ user.profile.profile_picture.url }}" alt="Profile Picture" class="img-fluid" />
+    
+      {% else %}
+
+      <!-- Show a placeholder image if no profile picture is available -->
+      <img src="https://via.placeholder.com/150" alt="Profile Picture" class="img-fluid" />
+    
+      {% endif %}
+
+        <!-- Profile Picture Upload Form -->
+<form method="POST" enctype="multipart/form-data" action="{% url 'profile_update' user.id %}" class="mt-3">
+
+          {% csrf_token %}
+
+          <input class="form-control" type="file" id="profilePicture" name='profilePicture' />
           <button type="submit" class="btn btn-primary mt-2">Upload</button>
+
         </form>
       </div>
       <div class="col-md-15">
-        <h5><p>{{ user.username | upper}}</p></h5>
+        <h5><p><strong>UserName:</strong> {{ user.username | upper}}</p></h5>
 
         <p><strong>Email:</strong> {{con.email }}</p>
         <p><strong>Phone:</strong> {{con.contact}}</p>
