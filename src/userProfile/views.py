@@ -2,9 +2,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.db import transaction
 from django.contrib import messages
 from index.models import CustomerPersonalInfo, Contact, AddressInfo, User
-from .models import ContactPreference 
+from .models import ContactPreference , Profile 
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
+from django.core.files.storage import FileSystemStorage
 
 # Profile view (unchanged)
 
@@ -17,20 +18,36 @@ def profile(request, id):
     cust = get_object_or_404(CustomerPersonalInfo, user=user)
     contact = get_object_or_404(Contact, user=user)
     add = get_object_or_404(AddressInfo, user=user)
+   # Try to get the user's profile, if it doesn't exist, handle the exception
+    try:
+        profile = Profile.objects.get(user=request.user)
+    except Profile.DoesNotExist:
+        profile = None  # If no profile exists, profile will be None
+   
     try:
         pref = get_object_or_404(ContactPreference, user=user)
-
     except Http404:
         # Handle case where no ContactPreference is found for the user
-        pref = None
+        pref = None    
     context = {
         'user': user,
         'c': cust,
         'con': contact,
         'add': add,
         'pref': pref,
+        'profile': profile
     }
+    if request.method == 'POST' and request.FILES.get('profile_picture'):
+         profile_picture = request.FILES['profile_picture']
+         fs = FileSystemStorage()
+         filename = fs.save(profile_picture.name, profile_picture)
+        
+        # Save the profile picture URL to the profile
+         profile.user_profile = fs.url(filename)
+         profile.save()
 
+         return redirect('profile_update')  # Redirect after uploading the picture
+     
     return render(request, 'profile.html', context)
 
 
@@ -208,3 +225,4 @@ def conpref(request, id):
 
     else:
         return redirect('contact_pref', id=id )
+    
