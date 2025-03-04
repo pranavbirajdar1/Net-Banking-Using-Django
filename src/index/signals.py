@@ -9,7 +9,7 @@ from .models import CustomUserLogin
 def log_user_login(sender, request: HttpRequest, user, **kwargs):
    if sender == User:
         ip_address = request.META.get('REMOTE_ADDR')
-        UserLogin.objects.create(
+        CustomUserLogin.objects.create(
             user=user,
             login_time=now(),
             ip_address=ip_address
