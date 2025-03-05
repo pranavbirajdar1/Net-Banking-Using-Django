@@ -106,6 +106,7 @@ class Statement(models.Model):
     balance_after = models.DecimalField(max_digits=10, decimal_places=2)
     timestamp = models.DateTimeField(auto_now_add=True)
     tracker = FieldTracker()
+
     def __str__(self):
         return f'{self.transaction_type} of {self.amount} on {self.timestamp}.'
     
@@ -117,4 +118,14 @@ class TransactionLog(models.Model):
         ("Successful","Successful"),
         ("Failed","Failed"),
     )
+    status = models.CharField(max_length=13,choices=STATUS,verbose_name='status')
+    timestamp = models.DateTimeField(auto_now_add=True)
+    sender = models.CharField(max_length=50,verbose_name='sender')
+    receiver = models.CharField(max_length=50 , verbose_name='receiver')
+    
+    
+    def __str__(self):
+        return f'{self.status} Transaction Between {self.sender.capitalize()} And {self.receiver.capitalize()}.'
+    
+    
     
