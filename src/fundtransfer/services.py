@@ -56,12 +56,16 @@ def fund_transferrs(self,sender_id,receiver_id,amount):
             #bulk creation
             Statement.objects.bulk_create(statements)
             logger.info(f'Successful Transfer : {amount} from {sender.username} to {receiver.username}')
+            senderforlog =sender.username
+            receiverforlog = receiver.username
+            TransactionLog.objects.bulk_create(status='Successful',sender =senderforlog , receiver = receiverforlog)
             return f'Transfer of {amount} from {sender.username} to {receiver.username} completed'
         
     
     except ValidationError as e:
         logger.error(f'Failed Transfer : {amount} from {sender.username} to {receiver.username}')
         send_failure_email(sender.email,receiver.username,amount)
+        TransactionLog.objects.bulk_create(status='Failed',sender =senderforlog , receiver = receiverforlog)
         raise self.retry(exe = e)
     
     
