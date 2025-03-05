@@ -169,8 +169,8 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
 #EMAIL ADD THESE TO ENVIORNMENT VARIABLES
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBAckend'
-
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBAckend'
+EMAIL_FILE_PATH = '/tmp/emails'  # Directory where emails will be saved
 
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_USE_TLS = True
