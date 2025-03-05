@@ -56,6 +56,7 @@ def fund_transferrs(self,sender_id,receiver_id,amount):
             #bulk creation
             Statement.objects.bulk_create(statements)
             logger.info(f'Successful Transfer : {amount} from {sender.username} to {receiver.username}')
+            send_sucessful_email(sender.email,receiver.username,amount)
             senderforlog =sender.username
             receiverforlog = receiver.username
             TransactionLog.objects.bulk_create(status='Successful',sender =senderforlog , receiver = receiverforlog)
@@ -76,6 +77,21 @@ def fund_transferrs(self,sender_id,receiver_id,amount):
             f'Hello {sender_email},\n\n'
             f'We have emailed inform you that Your Transfer of amount {amount} to {receiver_username} has failed due to technical errors,'
             f'Please try again later or contact Support if the issue persists.\n\n'
+            f'Best regards,\n\n Your Banking Team'
+        )
+        send_mail(
+            subject=subject,
+            message=messsage,
+            from_email='your_email@gmail.com',
+            recipient_list=[sender_email],
+            fail_silently=False,
+        )
+    def send_sucessful_email(sender_email,receiver_username,amount):
+        #send email to sender for failed transaction
+        subject = f'Fund Transfer Sucessful'
+        messsage = (
+            f'Hello {sender_email},\n\n'
+            f'We have emailed inform you that Your Transfer of amount {amount} to {receiver_username} has been Sucessful,'
             f'Best regards,\n\n Your Banking Team'
         )
         send_mail(
