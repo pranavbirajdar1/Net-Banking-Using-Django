@@ -28,7 +28,7 @@ class Transaction(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True ,editable=False)
     
     def __str__(self):
-        return f'Transaction of {self.amount} from {self.sender.username} {self.receiver.username} on {self.timestamp}'
+        return f'Transaction of {self.amount} from {self.sender.username} TO {self.receiver.username} on {self.timestamp}'
     
     
     @classmethod
@@ -108,3 +108,13 @@ class Statement(models.Model):
     tracker = FieldTracker()
     def __str__(self):
         return f'{self.transaction_type} of {self.amount} on {self.timestamp}.'
+    
+    
+    
+    
+class TransactionLog(models.Model):
+    STATUS = (
+        ("Successful","Successful"),
+        ("Failed","Failed"),
+    )
+    
