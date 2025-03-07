@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 class IsAuthenticated(models.Model):
     id = models.BigAutoField(primary_key=True,default=1)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Verification',default=1)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Verification')
     isverified = models.BooleanField(verbose_name="Is Authenticated?", default=False)
 
     def save(self, *args, **kwargs):
@@ -16,7 +16,7 @@ class IsAuthenticated(models.Model):
 
     
 class EmailPreferences(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Verification', default=1) 
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Verification') 
     email = models.EmailField(max_length=255, unique=True ,null=True ,blank=True, verbose_name='Email')
     preferences = models.CharField(max_length=255, blank=True, null=True , verbose_name='PReferences')
     notifications = models.BooleanField(default=False , verbose_name='Notification Preference')
@@ -24,7 +24,7 @@ class EmailPreferences(models.Model):
             
             
 class SmsAlert(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Verification', default=1) 
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Verification') 
     phone_number = models.CharField(max_length=10, unique=True, verbose_name='Phone Number')
     alert = models.CharField(max_length=255, blank=True, null=True , verbose_name='Alert')
     status = models.BooleanField(default=False , verbose_name='Status')

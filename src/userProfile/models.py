@@ -26,7 +26,7 @@ class ContactPreference(models.Model):
         ('important', 'Important Only'),
         ('none', 'None'),
     ]
-    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Verification', default=1) 
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Verification') 
     emailnotification = models.CharField(max_length=30,choices=EMAIL_CHOICES, default="none",verbose_name="Email Notifications")
     smsnotification = models.CharField(max_length=30, choices=SMS_CHOICES ,default="none",verbose_name="SMS Notifications")
    

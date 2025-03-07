@@ -37,7 +37,7 @@ SECURITY_QUESTIONS = [
 ]
 class CustomerPersonalInfo(models.Model):
     index = models.BigAutoField(db_index=True, primary_key=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Personal Details', default=1)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Personal Details')
     title_choices = [
         ('Mr', 'Mr'),
         ('Mrs', 'Mrs'),
@@ -74,7 +74,7 @@ class CustomerPersonalInfo(models.Model):
         
 class AddressInfo(models.Model):
     id = models.BigAutoField(primary_key=True)
-    user = models.ForeignKey(User, verbose_name='Address Info', on_delete=models.CASCADE, default=1)
+    user = models.ForeignKey(User, verbose_name='Address Info', on_delete=models.CASCADE)
     address_type = models.CharField(max_length=20, verbose_name='Address Type')
     house_no = models.CharField(max_length=5, verbose_name="House No")
     street = models.CharField(max_length=20, verbose_name="Street")
@@ -100,7 +100,7 @@ class AddressInfo(models.Model):
 
 class Contact(models.Model):
     id = models.BigAutoField(primary_key=True)
-    user = models.ForeignKey(User, verbose_name='Contact', on_delete=models.CASCADE, default=1)
+    user = models.ForeignKey(User, verbose_name='Contact', on_delete=models.CASCADE)
     contact_type = models.CharField(max_length=20, verbose_name='Contact Type')
     contact = models.BigIntegerField(verbose_name='Contact')
     email = models.EmailField(verbose_name="Email")
@@ -111,7 +111,7 @@ class Contact(models.Model):
 
 class SecurityQuestion(models.Model):
     id = models.BigAutoField(primary_key=True)
-    user = models.OneToOneField(User, verbose_name='Security Question', on_delete=models.CASCADE, default=1)
+    user = models.OneToOneField(User, verbose_name='Security Question', on_delete=models.CASCADE)
     question = models.CharField(max_length=50, choices=SECURITY_QUESTIONS, verbose_name='Security Question')
     answer = models.CharField(max_length=100, verbose_name='Answer')
     tracker = FieldTracker()  # Tracks all fields on the model
@@ -125,7 +125,7 @@ class SecurityQuestion(models.Model):
     
 class AccountDetails(models.Model):
     id = models.BigAutoField(primary_key=True)
-    user = models.OneToOneField(User, verbose_name='Account Details', on_delete=models.CASCADE, default=1,related_name='account_details')
+    user = models.OneToOneField(User, verbose_name='Account Details', on_delete=models.CASCADE,related_name='account_details')
     account_number = models.UUIDField(
         db_index=True,
         editable=False,
