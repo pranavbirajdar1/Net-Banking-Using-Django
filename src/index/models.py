@@ -37,7 +37,7 @@ SECURITY_QUESTIONS = [
 ]
 class CustomerPersonalInfo(models.Model):
     index = models.BigAutoField(db_index=True, primary_key=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Personal Details')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Personal Details',related_query_name='custinfo')
     title_choices = [
         ('Mr', 'Mr'),
         ('Mrs', 'Mrs'),
@@ -74,7 +74,7 @@ class CustomerPersonalInfo(models.Model):
         
 class AddressInfo(models.Model):
     id = models.BigAutoField(primary_key=True)
-    user = models.ForeignKey(User, verbose_name='Address Info', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, verbose_name='Address Info', on_delete=models.CASCADE,related_query_name='con')
     address_type = models.CharField(max_length=20, verbose_name='Address Type')
     house_no = models.CharField(max_length=5, verbose_name="House No")
     street = models.CharField(max_length=20, verbose_name="Street")
@@ -100,7 +100,7 @@ class AddressInfo(models.Model):
 
 class Contact(models.Model):
     id = models.BigAutoField(primary_key=True)
-    user = models.ForeignKey(User, verbose_name='Contact', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, verbose_name='Contact', on_delete=models.CASCADE,related_query_name='con')
     contact_type = models.CharField(max_length=20, verbose_name='Contact Type')
     contact = models.BigIntegerField(verbose_name='Contact')
     email = models.EmailField(verbose_name="Email")
@@ -111,7 +111,7 @@ class Contact(models.Model):
 
 class SecurityQuestion(models.Model):
     id = models.BigAutoField(primary_key=True)
-    user = models.OneToOneField(User, verbose_name='Security Question', on_delete=models.CASCADE)
+    user = models.OneToOneField(User, verbose_name='Security Question', on_delete=models.CASCADE,related_query_name='secque')
     question = models.CharField(max_length=50, choices=SECURITY_QUESTIONS, verbose_name='Security Question')
     answer = models.CharField(max_length=100, verbose_name='Answer')
     tracker = FieldTracker()  # Tracks all fields on the model
@@ -120,8 +120,7 @@ class SecurityQuestion(models.Model):
         return f"Security Question for {self.user.first_name} {self.user.last_name}"
 
 
-    
-    
+
     
 class AccountDetails(models.Model):
     id = models.BigAutoField(primary_key=True)
@@ -135,6 +134,9 @@ class AccountDetails(models.Model):
     )
     account_type = CustomerPersonalInfo.account_type
     account_status = models.CharField(max_length=20, verbose_name='Account Status',default='active')
+    bankname = models.CharField(max_length=15,verbose_name="Bank Name")
+    bankbranch = models.CharField(max_length=60,verbose_name="Bank Branch",default='Saiful Branch')
+    bankadd = models.CharField(max_length=60,verbose_name="Bank Address",default='Saiful,Vijapur Road, Solapur,Maharastra')
     ifsc = models.CharField(max_length=11,verbose_name='IFSC CODE',default='LACF0001234')
     tracker = FieldTracker() 
     
@@ -154,7 +156,7 @@ class AccountDetails(models.Model):
                                           
 
 class CustomUserLogin(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,related_query_name='userlogininfo')
     login_time = models.DateTimeField(auto_now_add=True)
     ip_address = models.GenericIPAddressField(null=True, blank=True)
 

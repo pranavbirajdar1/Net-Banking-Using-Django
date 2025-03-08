@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.db import transaction
 from django.core.exceptions import ValidationError
 from django.utils.timezone import now
+import uuid
 
 
 # Create your models here.
@@ -17,19 +18,23 @@ class Accbalance(models.Model):
     
     
 
-        
-        
 class Transaction(models.Model):
+    transactionid = models.PositiveIntegerField(unique=True,editable=False)
     sender = models.ForeignKey(User,on_delete=models.DO_NOTHING,related_name='sent_transactions')
     receiver = models.ForeignKey(User,on_delete=models.DO_NOTHING,related_name='received_transactions')
     sender_balance = models.ForeignKey(Accbalance , on_delete=models.DO_NOTHING , related_name='transactons_as_sender')
     receiver_balance = models.ForeignKey(Accbalance , on_delete=models.DO_NOTHING , related_name='transactons_as_receiver')
-    amount = models.DecimalField(max_digits=12 , decimal_places=2)
-    timestamp = models.DateTimeField(auto_now_add=True ,editable=False)
+    amount = models.DecimalField(max_digits=12 , decimal_places=2,db_index=True)
+    timestamp = models.DateTimeField(auto_now_add=True ,editable=False,db_index=True)
     
     def __str__(self):
         return f'Transaction of {self.amount} from {self.sender.username} TO {self.receiver.username} on {self.timestamp}'
     
+    def save(self, *args, **kwargs):
+        if not self.transactionid:  # Check if account_number is not already set
+            self.transactionid = uuid.uuid4().int  # Set account_number to integer UUID
+            self.transactionid.save()
+        super(Transaction, self).save(*args, **kwargs)
     
     @classmethod
     def transfer_funds(cls, sender, receiver, amount):
@@ -100,11 +105,11 @@ class Transaction(models.Model):
 class Statement(models.Model):
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING,related_name='statements')
     transaction =models.ForeignKey(Transaction, on_delete=models.DO_NOTHING,related_name='transactions')
-    transaction_type = models. CharField(max_length=10, choices=[('Credit','Credit'),('Debit','Debit')])
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    transaction_type = models. CharField(max_length=10, choices=[('Credit','Credit'),('Debit','Debit')],db_index=True)
+    amount = models.DecimalField(max_digits=10, decimal_places=2,db_index=True)
     balance_before = models.DecimalField(max_digits=10, decimal_places=2)
     balance_after = models.DecimalField(max_digits=10, decimal_places=2)
-    timestamp = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField(auto_now_add=True,db_index=True)
     tracker = FieldTracker()
 
     def __str__(self):
