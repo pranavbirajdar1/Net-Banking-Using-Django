@@ -52,12 +52,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "debug_toolbar",   # for debug toolbar
+    'django_celery_results',
+  
 
-    
     #Custom Apps
     'userdash','accounts','fundtransfer','index','investments',
-    'payments','settings','statements','support','loan',
+    'settings','statements','support','loan',
     'userProfile','nomminee','apii',
+      'celery',
 ]
 
 MIDDLEWARE = [
@@ -108,9 +110,22 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+         'OPTIONS': {
+            'timeout': 30,  # Increase timeout to 30 seconds
+        }
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'Net_Banking',
+#         'USER': 'postgres',
+#         'PASSWORD': 'postgres',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -169,7 +184,7 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
 #EMAIL ADD THESE TO ENVIORNMENT VARIABLES
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBAckend'
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_FILE_PATH = '/tmp/emails'  # Directory where emails will be saved
 
 EMAIL_HOST = "smtp.gmail.com"
@@ -213,3 +228,12 @@ SESSION_COOKIE_AGE = 600  # Expire after 10 minutes of inactivity
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 SESSION_SAVE_EVERY_REQUEST = True
+
+
+#celery settings
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Asia/Kolkata'
