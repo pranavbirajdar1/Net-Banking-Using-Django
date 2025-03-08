@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class IsAuthenticated(models.Model):
-    id = models.BigAutoField(primary_key=True,default=1)
+    id = models.BigAutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Verification')
     isverified = models.BooleanField(verbose_name="Is Authenticated?", default=False)
 
