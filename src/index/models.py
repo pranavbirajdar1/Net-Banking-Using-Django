@@ -81,7 +81,7 @@ class AddressInfo(models.Model):
     city = models.CharField(max_length=20, verbose_name="City")
     state = models.CharField(max_length=20, verbose_name="State")
     country = models.CharField(max_length=20, verbose_name="Country")
-    pincode = models.IntegerField(verbose_name="Pincode",max_length=6,null=True,blank=True)
+    pincode = models.IntegerField(verbose_name="Pincode",null=True,blank=True)
     tracker = FieldTracker()  # Tracks all fields on the model
 
 
