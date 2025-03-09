@@ -154,6 +154,10 @@ STATIC_URL = 'static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # Directory where uploaded media is saved.
 MEDIA_URL = '/media/' # Public URL at the browser
 
+#login-logout settings
+LOGIN_URL = "/''-login/"
+LOGIN_REDIRECT_URL = "/userdashboar-userdashboard/"
+LOGOUT_REDIRECT_URL = "/''-logout/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
