@@ -112,30 +112,34 @@
           </div>
         </div>
   
-        <!-- Notification Preferences -->
-        <div class="col">
-          <div class="settings-section">
-            <div class="section-title" data-bs-toggle="collapse" data-bs-target="#notificationsSection">
-              <i class="fas fa-bell"></i> Notification Preferences
-            </div>
-            <div id="notificationsSection" class="collapse section-content">
-              <ul>
-                <li class="checkbox-container">
-                  <input type="checkbox" id="emailNotif" checked />
-                  <label for="emailNotif"><i class="fas fa-envelope"></i> Email Notifications</label>
-                </li>
-                <li class="checkbox-container">
-                  <input type="checkbox" id="smsNotif" />
-                  <label for="smsNotif"><i class="fas fa-sms"></i> SMS Alerts</label>
-                </li>
-                <li class="checkbox-container">
-                  <input type="checkbox" id="pushNotif" checked />
-                  <label for="pushNotif"><i class="fas fa-mobile-alt"></i> Push Notifications</label>
-                </li>
-              </ul>
+        <form method="POST" action="{% url 'settings' %}">
+          {% csrf_token %}
+          <div class="col">
+            <div class="settings-section">
+              <div class="section-title" data-bs-toggle="collapse" data-bs-target="#notificationsSection">
+                <i class="fas fa-bell"></i> Notification Preferences
+              </div>
+              <div id="notificationsSection" class="collapse section-content">
+                <ul>
+                  <li class="checkbox-container">
+                    <input type="checkbox" id="emailNotif" name="emailNotif" {% if email_prefs.notifications %}checked{% endif %} />
+                    <label for="emailNotif"><i class="fas fa-envelope"></i> Email Notifications</label>
+                  </li>
+                  <li class="checkbox-container">
+                    <input type="checkbox" id="smsNotif" name="smsNotif" {% if sms_prefs.status %}checked{% endif %} />
+                    <label for="smsNotif"><i class="fas fa-sms"></i> SMS Alerts</label>
+                  </li>
+                  <li class="checkbox-container">
+                    <input type="checkbox" id="pushNotif" name="pushNotif" {% if push_prefs.enabled %}checked{% endif %} />
+                    <label for="pushNotif"><i class="fas fa-mobile-alt"></i> Push Notifications</label>
+                  </li>
+                </ul>
+                <button type="submit" class="btn btn-primary mt-3">Save Preferences</button>
+              </div>
             </div>
           </div>
-        </div>
+        </form>
+        
   
         <!-- Account Management -->
         <div class="col">

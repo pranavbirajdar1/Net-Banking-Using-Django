@@ -14,18 +14,28 @@ class IsAuthenticated(models.Model):
     def __str__(self):
         return f"{self.user.username} - Verified: {self.isverified}"
 
-    
+
 class EmailPreferences(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Verification') 
-    email = models.EmailField(max_length=255, unique=True ,null=True ,blank=True, verbose_name='Email')
-    preferences = models.CharField(max_length=255, blank=True, null=True , verbose_name='PReferences')
-    notifications = models.BooleanField(default=False , verbose_name='Notification Preference')
-  
-            
-            
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Verification") 
+    email = models.EmailField(max_length=255, unique=True, null=True, blank=True, verbose_name="Email")
+    preferences = models.CharField(max_length=255, blank=True, null=True, verbose_name="Preferences")
+    notifications = models.BooleanField(default=False, verbose_name="Notification Preference")  # Email Notification Toggle
+
+    def __str__(self):
+        return f"Email Preferences for {self.user.username}"
+
 class SmsAlert(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Verification') 
-    phone_number = models.CharField(max_length=10, unique=True, verbose_name='Phone Number')
-    alert = models.CharField(max_length=255, blank=True, null=True , verbose_name='Alert')
-    status = models.BooleanField(default=False , verbose_name='Status')
-    
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Verification") 
+    phone_number = models.CharField(max_length=10, unique=True, verbose_name="Phone Number")
+    alert = models.CharField(max_length=255, blank=True, null=True, verbose_name="Alert")
+    status = models.BooleanField(default=False, verbose_name="Status")  # SMS Notification Toggle
+
+    def __str__(self):
+        return f"SMS Alerts for {self.user.username}"
+
+class PushNotificationPreferences(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Verification")
+    enabled = models.BooleanField(default=False, verbose_name="Push Notifications Enabled")  # Push Notification Toggle
+
+    def __str__(self):
+        return f"Push Notifications for {self.user.username}"

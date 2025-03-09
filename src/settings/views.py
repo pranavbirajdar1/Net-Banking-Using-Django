@@ -3,6 +3,7 @@ from django.db import transaction
 from django.contrib import messages
 from index.models import CustomerPersonalInfo, Contact, AddressInfo, User
 from userProfile.models import ContactPreference
+from .models import *
 from django.contrib.auth.decorators import login_required
 # Profile view (unchanged)
 
@@ -10,9 +11,37 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def settings(request):
+    user = request.user
 
+    # Fetch existing preferences or create them if they don't exist
+    email_prefs, _ = EmailPreferences.objects.get_or_create(user=user)
+    sms_prefs, _ = SmsAlert.objects.get_or_create(user=user)
+    push_prefs, _ = PushNotificationPreferences.objects.get_or_create(user=user)
 
-    return render(request, 'settings.html')
+    if request.method == "POST":
+        email_notifications = request.POST.get("emailNotif") == "on"  # Check if checkbox is checked
+        sms_notifications = request.POST.get("smsNotif") == "on"
+        push_notifications = request.POST.get("pushNotif") == "on"
+
+        # Update preferences in the database
+        email_prefs.notifications = email_notifications
+        email_prefs.save()
+
+        sms_prefs.status = sms_notifications
+        sms_prefs.save()
+
+        push_prefs.enabled = push_notifications
+        push_prefs.save()
+
+        messages.success(request, "Notification preferences updated successfully!")
+        return redirect("suc")  # Redirect to the same page
+
+    context = {
+        "email_prefs": email_prefs,
+        "sms_prefs": sms_prefs,
+        "push_prefs": push_prefs,
+    }
+    return render(request, "settings.html", context)
 
 def suc(request):
     return render(request, 'success.html')
