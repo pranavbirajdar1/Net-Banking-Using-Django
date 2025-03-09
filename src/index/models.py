@@ -52,7 +52,7 @@ class CustomerPersonalInfo(models.Model):
     pan = models.CharField(max_length=15, unique=True, verbose_name="PAN")
     aadhaar = models.CharField(max_length=12, unique=True, verbose_name="Aadhaar Card")
     occupation = models.CharField(max_length=13, choices=OCCUPATION_CHOICES, verbose_name="Occupation")
-    annual_income = models.DecimalField(decimal_places=2,max_digits=10,verbose_name="Annual Income")
+    annual_income = models.DecimalField(decimal_places=2,max_digits=10,verbose_name="Annual Income",default=0.00)
     nationality = models.CharField(max_length=19, verbose_name="Nationality")
     account_opening_date_time = models.DateTimeField(auto_now_add=True)
     account_type = models.CharField(max_length=22, choices=ACCOUNT_TYPE_CHOICES, verbose_name="Account Type")
@@ -81,7 +81,7 @@ class AddressInfo(models.Model):
     city = models.CharField(max_length=20, verbose_name="City")
     state = models.CharField(max_length=20, verbose_name="State")
     country = models.CharField(max_length=20, verbose_name="Country")
-    pincode = models.IntegerField(verbose_name="Pincode")
+    pincode = models.IntegerField(verbose_name="Pincode",max_length=6,null=True,blank=True)
     tracker = FieldTracker()  # Tracks all fields on the model
 
 
