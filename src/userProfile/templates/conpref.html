@@ -29,7 +29,7 @@
   
    
   
-        <form method="POST" action="{% url 'pref' user.id %}">
+        <form method="POST" action="{% url 'pref' %}">
           <!-- Set the action URL correctly -->
           {% csrf_token %}
           <!-- Contact Preferences -->
