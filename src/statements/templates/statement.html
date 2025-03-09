@@ -21,32 +21,39 @@
             <div class="col-md-15 p-4">
                 <h3>Statements</h3>
 
+                
+                {% load humanize %}
+                
+                
                 <!-- Filter Section -->
                 <div class="statement-card">
                     <h5>Filter Statements</h5>
-                    <form>
+                    <form method="GET">
                         <div class="row mb-3">
                             <div class="col-md-4">
                                 <label for="fromDate" class="form-label">From Date</label>
-                                <input type="date" class="form-control" id="fromDate">
+                                <input type="date" class="form-control" id="fromDate" name="fromDate" value="{{ request.GET.fromDate }}" />
                             </div>
                             <div class="col-md-4">
                                 <label for="toDate" class="form-label">To Date</label>
-                                <input type="date" class="form-control" id="toDate">
+                                <input type="date" class="form-control" id="toDate" name="toDate" value="{{ request.GET.toDate }}">
                             </div>
                             <div class="col-md-4">
                                 <label for="transactionType" class="form-label">Transaction Type</label>
-                                <select class="form-select" id="transactionType">
-                                    <option value="all">All</option>
-                                    <option value="debit">Debit</option>
-                                    <option value="credit">Credit</option>
+                                <select class="form-select" id="transactionType" name="transactionType">
+                                    <option value="" {% if request.GET.transactionType == "" %}selected{% endif %}>All</option>
+                                    <option value="debit" {% if request.GET.transactionType == "debit" %}selected{% endif %}>Debit</option>
+                                    <option value="credit" {% if request.GET.transactionType == "credit" %}selected{% endif %}>Credit</option>
                                 </select>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Search</button>
                     </form>
+                    
+                    
                 </div>
 
+                {% if data %}
                 <!-- Statement Table -->
                 <div class="statement-card">
                     <h5>Statement History</h5>
@@ -54,28 +61,22 @@
                         <thead>
                             <tr>
                                 <th>Date</th>
-                                <th>Description</th>
                                 <th>Type</th>
+                                <th>Balance Before</th>
                                 <th>Amount</th>
-                                <th>Balance</th>
+                                <th>Balance After</th>
                             </tr>
                         </thead>
                         <tbody>
+                            {% for item in data %}
                             <tr>
-                                <td>12/09/2024</td>
-                                <td>ATM Withdrawal</td>
-                                <td>Debit</td>
-                                <td>$200</td>
-                                <td>$15,100.50</td>
+                                <td>{{ item.timestamp }}</td>
+                                <td>{{ item.transaction_type }}</td>
+                                <td>{{ item.balance_before }}</td>
+                                <td>{{ item.amount }}</td>
+                                <td>{{ item.balance_after }}</td>
                             </tr>
-                            <tr>
-                                <td>10/09/2024</td>
-                                <td>Salary Credit</td>
-                                <td>Credit</td>
-                                <td>$3,000</td>
-                                <td>$15,300.50</td>
-                            </tr>
-                            <!-- Additional rows for statements -->
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -88,6 +89,12 @@
             </div>
         </div>
     </div>
+
+
+                    {% else %}
+                    <p>No data available.</p>
+                {% endif %}
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
    
