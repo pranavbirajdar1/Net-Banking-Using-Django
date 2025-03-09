@@ -49,7 +49,7 @@
 
   
     
-      <form method="POST" action="{% url 'address_updated' user.id %}">
+      <form method="POST" action="{% url 'address_up' user.id %}">
         <!-- Set the action URL correctly -->
         {% csrf_token %}
         <!-- Address Information -->
