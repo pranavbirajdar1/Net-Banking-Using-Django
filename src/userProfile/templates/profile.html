@@ -64,7 +64,7 @@
 
   
       <div class="profile-card mb-6">
-        <form method="POST" action="{% url 'profile_updated' user.id %}">
+        <form >
           <!-- Set the action URL correctly -->
           {% csrf_token %}
           <!-- Personal Information -->
@@ -79,7 +79,7 @@
                   name="username"
                   class="form-control"
                   value="{{ user.username | upper }}"
-                  required
+                  readonly
                 />
               </div>
               <div class="col-md-6 form-group">
@@ -90,6 +90,7 @@
                   name="title"
                   class="form-control"
                   value="{{ c.title | upper }}"
+                  readonly
                 />
               </div>
               <div class="col-md-6 form-group">
@@ -100,7 +101,7 @@
                   name="firstname"
                   class="form-control"
                   value="{{ c.first_name | upper }}"
-                  required
+                  readonly
                 />
               </div>
               <div class="col-md-6 form-group">
@@ -110,6 +111,7 @@
                   name="middlename"
                   class="form-control"
                   value="{{ c.middle_name | upper }}"
+                  readonly
                 />
               </div>
               <div class="col-md-6 form-group">
@@ -119,7 +121,7 @@
                   name="lastname"
                   class="form-control"
                   value="{{ c.last_name | upper }}"
-                  required
+                  readonly
                 />
               </div>
               <div class="col-md-6 form-group">
@@ -129,6 +131,7 @@
                   name="gender"
                   class="form-control"
                   value="{{ c.gender | upper }}"
+                  readonly
                 />
               </div>
               <div class="col-md-6 form-group">
@@ -138,6 +141,7 @@
                   name="pan"
                   class="form-control"
                   value="{{ c.pan | upper }}"
+                  readonly
                 />
               </div>
               <div class="col-md-6 form-group">
@@ -147,6 +151,7 @@
                   name="addhar"
                   class="form-control"
                   value="{{ c.aadhaar | upper }}"
+                  readonly
                 />
               </div>
               <div class="col-md-6 form-group">
@@ -156,6 +161,7 @@
                   name="occupation"
                   class="form-control"
                   value="{{ c.occupation | upper }}"
+                  readonly
                 />
               </div>
               <div class="col-md-6 form-group">
@@ -165,6 +171,7 @@
                   name="annum"
                   class="form-control"
                   value="{{ c.annual_income | upper }}"
+                  readonly
                 />
               </div>
               <div class="col-md-6 form-group">
@@ -174,6 +181,7 @@
                   name="nationality"
                   class="form-control"
                   value="{{ c.nationality | upper }}"
+                  readonly
                 />
               </div>
               <div class="col-md-6 form-group">
@@ -183,27 +191,9 @@
                   class="form-control"
                   value="{{ c.account_opening_date_time | upper }}"
                   readonly
+                  readonly
                 />
-              </div>
-              <div class="col-md-6 form-group">
-                <label for="email">Email Address</label>
-                <input
-                  type="email"
-                  name="email"
-                  class="form-control"
-                  placeholder="Enter your email"
-                  value="{{ con.email }}"
-                />
-              </div>
-              <div class="col-md-6 form-group">
-                <label for="phoneNumber">Phone Number</label>
-                <input
-                  type="tel"
-                  name="phone"
-                  class="form-control"
-                  placeholder="Enter your phone number"
-                  value="{{ con.contact }}"
-                />
+              </div>          
               </div>
               <div class="col-md-6 form-group">
                 <label for="dob">Date of Birth</label>
@@ -212,17 +202,16 @@
                   name="dob"
                   class="form-control"
                   value="{{ c.dob }}"
+                  readonly
                 />
               </div>
               <div class="row">
-                <div class="col-md-12">
-                  <button type="submit" class="btn btn-primary">Save</button>
-                </div>
+               
               </div>
             </div>
           </div>
         </form>
-        <form method="POST" action="{% url 'address_updated' user.id %}">
+        <form method="POST" action="#">
           <!-- Set the action URL correctly -->
           {% csrf_token %}
           <!-- Address Information -->
@@ -236,6 +225,7 @@
                   name="addresstype"
                   class="form-control"
                   value="{{ add.address_type | capfirst }}"
+                  readonly
                 />
               </div>
               <div class="col-md-6 form-group">
@@ -245,6 +235,7 @@
                   name="hono"
                   class="form-control"
                   value="{{ add.house_no | capfirst }}"
+                  readonly
                 />
               </div>
               <div class="col-md-6 form-group">
@@ -254,6 +245,7 @@
                   name="street"
                   class="form-control"
                   value="{{ add.street | capfirst }}"
+                  readonly
                 />
               </div>
               <div class="col-md-6 form-group">
@@ -263,6 +255,7 @@
                   name="city"
                   class="form-control"
                   value="{{ add.city | capfirst }}"
+                  readonly
                 />
               </div>
               <div class="col-md-6 form-group">
@@ -272,6 +265,7 @@
                   name="state"
                   class="form-control"
                   value="{{ add.state | capfirst }}"
+                  readonly
                 />
               </div>
               <div class="col-md-6 form-group">
@@ -281,6 +275,7 @@
                   name="country"
                   class="form-control"
                   value="{{ add.country | capfirst }}"
+                  readonly
                 />
               </div>
               <div class="col-md-6 form-group">
@@ -290,23 +285,14 @@
                   name="pincode"
                   class="form-control"
                   value="{{ add.pincode }}"
+                  readonly
                 />
               </div>
-              <div class="col-md-12">
-                <button
-                  type="submit"
-                  name="action"
-                  value="update_address"
-                  class="btn btn-primary"
-                >
-                Save
-                </button>
-         
-              </div>
+             
             </div>
           </div>
         </form>
-        <form method="POST" action="{% url 'contact_updated' user.id %}">
+        <form method="POST" action="#">
           <!-- Set the action URL correctly -->
           {% csrf_token %}
           <!-- Contact Information -->
@@ -320,6 +306,7 @@
                   name="contacttype"
                   class="form-control"
                   value="{{ con.contact_type | capfirst }}"
+                  readonly
                 />
               </div>
               <div class="col-md-6 form-group">
@@ -329,6 +316,7 @@
                   name="contact"
                   class="form-control"
                   value="{{ con.contact }}"
+                  readonly
                 />
               </div>
               <div class="col-md-6 form-group">
@@ -338,23 +326,17 @@
                   name="contact_email"
                   class="form-control"
                   value="{{ con.email }}"
+                  readonly
                 />
               </div>
               <div class="col-md-12">
-                <button
-                  type="submit"
-                  name="action"
-                  value="update_contact"
-                  class="btn btn-primary"
-                >
-                  Save
-                </button>
+              
            
               </div>
             </div>
           </div>
         </form>
-        <form method="POST" action="{% url 'contact_pref' user.id %}">
+        <form method="POST" action="#">
           {% csrf_token %}
           <!-- Contact Preferences -->
           <div class="profile-card mb-4">
@@ -368,7 +350,7 @@
                       <p>No email preferences set.</p>
                   {% endif %}
       
-                  <select id="emailNotifications" name="emailNotifications" class="form-select">
+                  <select id="emailNotifications" name="emailNotifications" class="form-select" >
                       <option value="all" {% if pref and pref.emailnotification == 'all' %}selected{% endif %}>All</option>
                       <option value="important" {% if pref and pref.emailnotification == 'important' %}selected{% endif %}>Important Only</option>
                       <option value="none" {% if pref and pref.emailnotification == 'none' %}selected{% endif %}>None</option>
@@ -390,9 +372,7 @@
                   </select>
               </div>
       
-              <button type="submit" name="action" value="save_preferences" class="btn btn-primary mt-3">
-                  Save Preferences
-              </button>
+              
           </div>
       </form>
       
@@ -406,14 +386,12 @@
           </p>
           <form>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="enable2FA" />
+              <input class="form-check-input" type="checkbox" id="enable2FA" readonly/>
               <label class="form-check-label" for="enable2FA">
                 Enable Two-Factor Authentication
               </label>
             </div>
-            <button type="submit" class="btn btn-primary mt-3">
-              Update Settings
-            </button>
+          
           </form>
         </div>
 

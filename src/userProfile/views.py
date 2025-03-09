@@ -51,178 +51,178 @@ def profile(request, id):
     return render(request, 'profile.html', context)
 
 
-# Update view
-@login_required
-def update(request, id):
-    if request.method == 'POST':
-        # Get all the fields, use '' as a default for missing data
-        a = request.POST.get('firstname', '')
-        b = request.POST.get('middlename', '')
-        c = request.POST.get('lastname', '')
-        d = request.POST.get('gender', '')
-        e = request.POST.get('pan', '')
-        f = request.POST.get('addhar', '')
-        g = request.POST.get('occupation', '')
-        h = request.POST.get('email', '')
-        i = request.POST.get('phone', '')
-        hono = request.POST.get('hono', '')
-        me = request.POST.get('street', '')
-        k = request.POST.get('city', '')
-        l = request.POST.get('state', '')
-        m = request.POST.get('country', '')
-        n = request.POST.get('pincode', None)  # Handle pincode as optional
-        o = request.POST.get('addresstype', '')
-        p = request.POST.get('username', '')
-        q = request.POST.get('annum', '')
-        r = request.POST.get('nationality', '')
-        s = request.POST.get('title', '')
-        t = request.POST.get('contacttype', '')
+# # Update view
+# @login_required
+# def update(request, id):
+#     if request.method == 'POST':
+#         # Get all the fields, use '' as a default for missing data
+#         a = request.POST.get('firstname', '')
+#         b = request.POST.get('middlename', '')
+#         c = request.POST.get('lastname', '')
+#         d = request.POST.get('gender', '')
+#         e = request.POST.get('pan', '')
+#         f = request.POST.get('addhar', '')
+#         g = request.POST.get('occupation', '')
+#         h = request.POST.get('email', '')
+#         i = request.POST.get('phone', '')
+#         hono = request.POST.get('hono', '')
+#         me = request.POST.get('street', '')
+#         k = request.POST.get('city', '')
+#         l = request.POST.get('state', '')
+#         m = request.POST.get('country', '')
+#         n = request.POST.get('pincode', None)  # Handle pincode as optional
+#         o = request.POST.get('addresstype', '')
+#         p = request.POST.get('username', '')
+#         q = request.POST.get('annum', '')
+#         r = request.POST.get('nationality', '')
+#         s = request.POST.get('title', '')
+#         t = request.POST.get('contacttype', '')
 
-        try:
-            #with transaction.atomic():
-                # Update CustomerPersonalInfo
-                newpersonal = get_object_or_404(CustomerPersonalInfo, user_id=id)
-                newpersonal.first_name = a
-                newpersonal.middle_name = b
-                newpersonal.last_name = c
-                newpersonal.gender = d
-                newpersonal.pan = e
-                newpersonal.aadhaar = f
-                newpersonal.title = s
-                newpersonal.occupation = g
-                newpersonal.nationality = r
-                newpersonal.annual_income = q
-                newpersonal.save()
+#         try:
+#             #with transaction.atomic():
+#                 # Update CustomerPersonalInfo
+#                 newpersonal = get_object_or_404(CustomerPersonalInfo, user_id=id)
+#                 newpersonal.first_name = a
+#                 newpersonal.middle_name = b
+#                 newpersonal.last_name = c
+#                 newpersonal.gender = d
+#                 newpersonal.pan = e
+#                 newpersonal.aadhaar = f
+#                 newpersonal.title = s
+#                 newpersonal.occupation = g
+#                 newpersonal.nationality = r
+#                 newpersonal.annual_income = q
+#                 newpersonal.save()
 
-                # Update Contact
-                newcontact = get_object_or_404(Contact, user_id=id)
-                newcontact.contact_type = t
-                newcontact.contact = i
-                newcontact.email = h
-                newcontact.save()
+#                 # Update Contact
+#                 newcontact = get_object_or_404(Contact, user_id=id)
+#                 newcontact.contact_type = t
+#                 newcontact.contact = i
+#                 newcontact.email = h
+#                 newcontact.save()
 
-                # Update AddressInfo
-                newadd = get_object_or_404(AddressInfo, user_id=id)
-                newadd.address_type = o
-                newadd.house_no = hono
-                newadd.street = me
-                newadd.city = k
-                newadd.state = l
-                newadd.country = m
-                # Handle pincode validation - only save if it's not empty
-                if n and n.isdigit():
-                    newadd.pincode = int(n)
-                else:
-                    newadd.pincode = None  # Or some default value if pincode can be optional
-                newadd.save()
+#                 # Update AddressInfo
+#                 newadd = get_object_or_404(AddressInfo, user_id=id)
+#                 newadd.address_type = o
+#                 newadd.house_no = hono
+#                 newadd.street = me
+#                 newadd.city = k
+#                 newadd.state = l
+#                 newadd.country = m
+#                 # Handle pincode validation - only save if it's not empty
+#                 if n and n.isdigit():
+#                     newadd.pincode = int(n)
+#                 else:
+#                     newadd.pincode = None  # Or some default value if pincode can be optional
+#                 newadd.save()
 
-                # Update User (Username)
-                newname = get_object_or_404(User, id=id)
-                newname.username = p
-                newname.save()
+#                 # Update User (Username)
+#                 newname = get_object_or_404(User, id=id)
+#                 newname.username = p
+#                 newname.save()
 
-                # Success message
-                messages.success(request, 'Profile updated successfully!')
-                return redirect('profile_updatedcontact_updated', id=id)
+#                 # Success message
+#                 messages.success(request, 'Profile updated successfully!')
+#                 return redirect('profile_updatedcontact_updated', id=id)
 
-        except Exception as e:
-             # Handle any errors, rollback the transaction
-                messages.error(request, f"An error occurred: {str(e)}")
+#         except Exception as e:
+#              # Handle any errors, rollback the transaction
+#                 messages.error(request, f"An error occurred: {str(e)}")
 
-    else:
-    # If not a POST request, redirect back
-        return redirect('profile_updatedcontact_updated', id=id)
+#     else:
+#     # If not a POST request, redirect back
+#         return redirect('profile_updatedcontact_updated', id=id)
 
 
 
-@login_required
-def addupdate(request,id):
-    if request.method == 'POST':
-        hono = request.POST.get('hono', '')
-        me = request.POST.get('street', '')
-        k = request.POST.get('city', '')
-        l = request.POST.get('state', '')
-        m = request.POST.get('country', '')
-        n = request.POST.get('pincode', None)  # Handle pincode as optional
-        o = request.POST.get('addresstype', '')
+# @login_required
+# def addupdate(request,id):
+#     if request.method == 'POST':
+#         hono = request.POST.get('hono', '')
+#         me = request.POST.get('street', '')
+#         k = request.POST.get('city', '')
+#         l = request.POST.get('state', '')
+#         m = request.POST.get('country', '')
+#         n = request.POST.get('pincode', None)  # Handle pincode as optional
+#         o = request.POST.get('addresstype', '')
         
-        try:
-            with transaction.atomic():        
-        # Update AddressInfo
-                newadd = get_object_or_404(AddressInfo, user_id=id)
-                newadd.address_type = o
-                newadd.house_no = hono
-                newadd.street = me
-                newadd.city = k
-                newadd.state = l
-                newadd.country = m
-                # Handle pincode validation - only save if it's not empty
-                if n and n.isdigit():
-                    newadd.pincode = int(n)
-                else:
-                    newadd.pincode = None  # Or some default value if pincode can be optional
-                newadd.save()
-                                # Success message
+#         try:
+#             with transaction.atomic():        
+#         # Update AddressInfo
+#                 newadd = get_object_or_404(AddressInfo, user_id=id)
+#                 newadd.address_type = o
+#                 newadd.house_no = hono
+#                 newadd.street = me
+#                 newadd.city = k
+#                 newadd.state = l
+#                 newadd.country = m
+#                 # Handle pincode validation - only save if it's not empty
+#                 if n and n.isdigit():
+#                     newadd.pincode = int(n)
+#                 else:
+#                     newadd.pincode = None  # Or some default value if pincode can be optional
+#                 newadd.save()
+#                                 # Success message
                                 
-                messages.success(request, 'Address updated successfully!')
-                return redirect('address_updated', id=id)
+#                 messages.success(request, 'Address updated successfully!')
+#                 return redirect('address_updated', id=id)
         
-        except Exception as e:
-             # Handle any errors, rollback the transaction
-                messages.error(request, f"An error occurred: {str(e)}")
+#         except Exception as e:
+#              # Handle any errors, rollback the transaction
+#                 messages.error(request, f"An error occurred: {str(e)}")
     
     
-    else:
-        return redirect('address_updated', id=id)
+#     else:
+#         return redirect('address_updated', id=id)
 
 
-def conupdate(request,id):
-    if request.method == 'POST':
-        t = request.POST.get('contacttype', '')
-        h = request.POST.get('contact_email', '')
-        i = request.POST.get('contact', '')
+# def conupdate(request,id):
+#     if request.method == 'POST':
+#         t = request.POST.get('contacttype', '')
+#         h = request.POST.get('contact_email', '')
+#         i = request.POST.get('contact', '')
         
-        try:
-            #with transaction.atomic():
+#         try:
+#             #with transaction.atomic():
             
-            # Update Contact
-                newcontact = get_object_or_404(Contact, user_id=id)
-                newcontact.contact_type = t
-                newcontact.contact = i
-                newcontact.email = h
-                newcontact.save()
+#             # Update Contact
+#                 newcontact = get_object_or_404(Contact, user_id=id)
+#                 newcontact.contact_type = t
+#                 newcontact.contact = i
+#                 newcontact.email = h
+#                 newcontact.save()
             
-                messages.success(request, 'Contact updated successfully!')
-                return redirect('contact_updated', id=id)
+#                 messages.success(request, 'Contact updated successfully!')
+#                 return redirect('contact_updated', id=id)
         
-        except Exception as e:
-             # Handle any errors, rollback the transaction
-                messages.error(request, f"An error occurred: {str(e)}")
+#         except Exception as e:
+#              # Handle any errors, rollback the transaction
+#                 messages.error(request, f"An error occurred: {str(e)}")
     
     
-    else:    
-        return redirect('contact_updated', id=id)
+#     else:    
+#         return redirect('contact_updated', id=id)
  
  
 
-@login_required
-def conpref(request, id):
-    if request.method == 'POST':
-        email_notifications = request.POST.get('emailNotifications', '')
-        sms_notifications = request.POST.get('smsNotifications', '')
-        try:
-            with transaction.atomic():
-                contact_preference = get_object_or_404(ContactPreference, id=id)
-                contact_preference.emailnotification = email_notifications
-                contact_preference.smsnotification = sms_notifications
-                contact_preference.save()
-                messages.success(request, 'Contact preference updated successfully!')
-                return redirect('contact_pref', id=id)
+# @login_required
+# def conpref(request, id):
+#     if request.method == 'POST':
+#         email_notifications = request.POST.get('emailNotifications', '')
+#         sms_notifications = request.POST.get('smsNotifications', '')
+#         try:
+#             with transaction.atomic():
+#                 contact_preference = get_object_or_404(ContactPreference, id=id)
+#                 contact_preference.emailnotification = email_notifications
+#                 contact_preference.smsnotification = sms_notifications
+#                 contact_preference.save()
+#                 messages.success(request, 'Contact preference updated successfully!')
+#                 return redirect('contact_pref', id=id)
 
-        except Exception as e:
-            messages.error(request, f"An error occurred: {str(e)}")
-            return redirect('contact_pref', id=id)
+#         except Exception as e:
+#             messages.error(request, f"An error occurred: {str(e)}")
+#             return redirect('contact_pref', id=id)
 
-    else:
-        return redirect('contact_pref', id=id )
+#     else:
+#         return redirect('contact_pref', id=id )
     
