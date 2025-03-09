@@ -34,7 +34,7 @@ def settings(request):
         push_prefs.save()
 
         messages.success(request, "Notification preferences updated successfully!")
-        return redirect("suc")  # Redirect to the same page
+        return redirect("suces")  # Redirect to the same page
 
     context = {
         "email_prefs": email_prefs,
@@ -43,11 +43,21 @@ def settings(request):
     }
     return render(request, "settings.html", context)
 
+
+
+
 def suc(request):
     return render(request, 'success.html')
 
+
+
 def success(request):
     return render(request, 'success2.html')
+
+
+
+def success2(request):
+    return render(request, 'suc3.html')
 
 
 # Update view
