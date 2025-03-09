@@ -8,28 +8,40 @@ from django.contrib.auth.decorators import login_required
 # Profile view (unchanged)
 
 
-
 @login_required
 def settings(request):
     user = request.user
 
-    # Fetch existing preferences or create them if they don't exist
+    # Fetch existing preferences
     email_prefs, _ = EmailPreferences.objects.get_or_create(user=user)
-    sms_prefs, _ = SmsAlert.objects.get_or_create(user=user)
     push_prefs, _ = PushNotificationPreferences.objects.get_or_create(user=user)
+
+    # Handle SMS Alert separately to avoid IntegrityError
+    try:
+        sms_prefs = SmsAlert.objects.get(user=user)
+    except SmsAlert.DoesNotExist:
+        sms_prefs = None  # No existing record
 
     if request.method == "POST":
         email_notifications = request.POST.get("emailNotif") == "on"  # Check if checkbox is checked
         sms_notifications = request.POST.get("smsNotif") == "on"
         push_notifications = request.POST.get("pushNotif") == "on"
 
-        # Update preferences in the database
+        # Update email preferences
         email_prefs.notifications = email_notifications
         email_prefs.save()
 
-        sms_prefs.status = sms_notifications
-        sms_prefs.save()
+        # Update SMS preferences (ensure no duplicate phone number)
+        if sms_prefs:
+            sms_prefs.status = sms_notifications
+            sms_prefs.save()
+        else:
+            # If no record exists, create a new one with a phone number
+            phone_number = request.POST.get("phone_number")  # Ensure this is coming from the form
+            if phone_number:
+                SmsAlert.objects.create(user=user, phone_number=phone_number, status=sms_notifications)
 
+        # Update push notifications
         push_prefs.enabled = push_notifications
         push_prefs.save()
 

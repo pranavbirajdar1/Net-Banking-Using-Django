@@ -12,6 +12,7 @@ urlpatterns = [
     path('settings/acc-deactivate/<int:id>/',deactivate_acc , name="deactivation"),
     path('settings/acc-deletion/<int:id>/',delete_account , name="deletion"),
     path('settings/suc',suc , name="success"),
+    path('settings/suces',success2 , name="suces"),
     path('settings/sucess',success , name="suc"),
    
    
