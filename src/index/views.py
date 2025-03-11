@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login ,logout, authenticate 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
+from userdash.models import NewsLetter
 from .forms import CustomerPersonalInfoForm, AddressInfoForm, ContactForm, SecurityQuestionForm
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -93,3 +94,11 @@ def logout_view(request):
     return redirect('home')  # Redirect to login page or another page as needed
 
 
+
+def newsletterrr2(request):
+    if request.method == 'POST':
+        email = request.POST.get('email','').strip()
+        NewsLetter.objects.create(email=email)
+        return redirect('home')
+    
+    return render(request,'newsletter.html')
