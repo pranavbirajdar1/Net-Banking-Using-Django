@@ -1,19 +1,10 @@
 {% extends "base.html" %}
 
-{% block title %}Nominee - Management{% endblock title %}
-
-
-{% block css %}
-
-
-
-{% endblock css %}
-
-
-
 
 
 {% block body %}
+
+
 
 
 
@@ -57,51 +48,34 @@
 
 
 
+
+
 <div class="col-md-10">
     <h2 class="my-4">Manage Nominees</h2>
 
-
-
-    <div class="card">
-        <div class="card-header">Nominee :</div>
+    <div class="card mb-4">
+        <div class="card-header">Add Nominee</div>
         <div class="card-body">
-            
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                    
-                        <th>Name</th>
-                        <th>Relationship</th>
-                        <th> Contact </th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                  
-                    <tr>
-                        
-                        <td>{{ nominee.name | capfirst }}</td>
-                        <td>{{ nominee.relation | capfirst }}</td>
-                        <td>{{ nominee.contact }}</td>
-                        <td>
-                            <a href="{% url "editnom" user.id %}" class="btn btn-warning btn-sm">Edit</a>
-                            <form method="POST" action="{% url "delnom" user.id %}" style="display:inline;">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                
-                  
-                   
-                </tbody>
-            </table>
+            <form method="POST" action="{% url "addnom" user.id %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nominee Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="relation" class="form-label">Relationship</label>
+                    <input type="text" class="form-control" id="relation" name="relation" required>
+                </div>
+                <div class="mb-3">
+                    <label for="percentage" class="form-label">Contact</label>
+                    <input type="number" class="form-control" id="contact" name="contact" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
         </div>
     </div>
-</div>
+
+
+
 
 {% endblock body %}
-
-
-
-
