@@ -140,42 +140,79 @@
             <p>Join us for a seamless banking experience.</p>
         </div>
         
-        {% comment "" %}
-        {% if messages %}
-            <div class="messages">
-                {% for message in messages %}
-                <div class="alert alert-primary" role="alert">{{ message }}</div>
-                {% endfor %}
-            </div>
-        {% endif %}
-        {% endcomment %}
+
 
         {% load crispy_forms_tags %}
-        <form method="post" id="signupForm">
+        <form method="post" id="multiStepForm">
             {% csrf_token %}
+
+
+
+            <div class="progress mb-4">
+                <div class="progress-bar" id="progress-bar" style="width: 33%;"></div>
+            </div>
             
+
+            <!-- Step 1 -->
+          <div class="step active">
             <h2>User Details</h2>
             {{ user_form.as_p }}
-
+                <button type="button" class="btn btn-primary next-step">Next</button>
+        </div>
+                    
+           
+         <!-- Step 2 -->
+         <div class="step">
             <h2>Personal Information</h2>
+    
             {{ personal_info_form.as_p }}
 
+            <button type="button" class="btn btn-secondary prev-step">Previous</button>
+            <button type="button" class="btn btn-primary next-step">Next</button>
+        </div>
+         <!-- Step 2 -->
+         <div class="step">
             <h2>Address Information</h2>
+    
             {{ address_info_form.as_p }}
 
+            <button type="button" class="btn btn-secondary prev-step">Previous</button>
+            <button type="button" class="btn btn-primary next-step">Next</button>
+        </div>
+         <!-- Step 2 -->
+         <div class="step">
             <h2>Contact Information</h2>
+    
             {{ contact_form.as_p }}
 
+            <button type="button" class="btn btn-secondary prev-step">Previous</button>
+            <button type="button" class="btn btn-primary next-step">Next</button>
+        </div>
+         <!-- Step 2 -->
+         <div class="step">
             <h2>Security Question</h2>
+    
             {{ security_question_form.as_p }}
 
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" id="password" class="form-control" required>
-                <small class="strong-password">Password must be at least 8 characters long, include a number and a special character.</small>
-                <button type="button" id="togglePassword" class="btn btn-link">Show</button>
-                <div class="password-strength" id="passwordStrength"></div>
-            </div>
+            <button type="button" class="btn btn-secondary prev-step">Previous</button>
+           <br>
+           <br>
+           
+      
+
+            
+            
+
+           
+      
+
+
+           
+
+           
+            
+
+      
 
             <h2>Terms and Conditions</h2>
             <div class="form-check">
@@ -195,3 +232,54 @@
     </script>
 </body>
 </html>
+
+
+
+<style>
+    .step {
+        display: none;
+    }
+    .step.active {
+        display: block;
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let currentStep = 0;
+        const steps = document.querySelectorAll(".step");
+        const progressBar = document.getElementById("progress-bar");
+
+        function showStep(step) {
+            steps.forEach((s, index) => {
+                s.classList.toggle("active", index === step);
+            });
+            progressBar.style.width = `${(step + 1) / steps.length * 100}%`;
+        }
+
+        document.querySelectorAll(".next-step").forEach(button => {
+            button.addEventListener("click", function () {
+                if (currentStep < steps.length - 1) {
+                    currentStep++;
+                    showStep(currentStep);
+                }
+            });
+        });
+
+        document.querySelectorAll(".prev-step").forEach(button => {
+            button.addEventListener("click", function () {
+                if (currentStep > 0) {
+                    currentStep--;
+                    showStep(currentStep);
+                }
+            });
+        });
+
+        document.getElementById("multiStepForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+            alert("Form Submitted Successfully!");
+        });
+
+        showStep(currentStep);
+    });
+</script>
