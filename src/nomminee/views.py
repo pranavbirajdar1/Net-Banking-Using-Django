@@ -17,7 +17,7 @@ def nominee(request, id):
         return render(request, 'new2.html')
     
 
-
+@login_required
 def addnom(request ,id):
     user = request.user
     if request.method == 'POST':
@@ -35,6 +35,9 @@ def addnom(request ,id):
             return redirect('nominee',id=id)
     return render(request,'new2.html')
 
+
+
+@login_required
 def delnom(request, id ):
     nominee = Nominee.objects.get( user_id = id).delete()
     #nominee.save()
@@ -42,6 +45,9 @@ def delnom(request, id ):
     
 
 
+
+
+@login_required
 def editnom(request ,id):
     user = request.user
     nominee = Nominee.objects.get(user_id =id)
