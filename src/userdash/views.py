@@ -27,6 +27,6 @@ from .models import NewsLetter
 @login_required
 def newsletter(request):
     if request.method == 'POST':
-        email = request.POST.get('email')
+        email = request.POST.get('email','').strip()
         NewsLetter.objects.create(email=email)
     return redirect(request.META.get('HTTP_REFERER'))
