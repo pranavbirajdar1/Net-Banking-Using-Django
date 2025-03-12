@@ -2,7 +2,7 @@ from django.db import models
 import uuid
 from django.contrib.auth.models import User
 from model_utils import FieldTracker
-from django.contrib import admin
+
 
 
 
@@ -105,6 +105,11 @@ class Contact(models.Model):
     contact = models.BigIntegerField(verbose_name='Contact')
     email = models.EmailField(verbose_name="Email")
     tracker = FieldTracker()  # Tracks all fields on the model
+
+    def save(self, *args, **kwargs):
+        self.user.email = self.email
+        super(Contact, self).save(*args, **kwargs)
+
 
     def __str__(self):
         return f"Contact: {self.contact} ({self.email})"
