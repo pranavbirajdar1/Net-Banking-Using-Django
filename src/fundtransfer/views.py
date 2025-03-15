@@ -95,6 +95,8 @@ def send_failure_email(sender_email,receiver_username,amount):
         recipient_list=[sender_email],
         fail_silently=False,
     )
+
+    
 def send_sucessful_email(sender_email,receiver_username,amount):
     #send email to sender for failed transaction
     subject = f'Fund Transfer Sucessful'
