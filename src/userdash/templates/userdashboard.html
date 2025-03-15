@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load humanize %}
 {% block title %} Welcome {{user.username | upper}}{% endblock title %}
 {% block css %}
     <style>
@@ -33,7 +33,7 @@
                         <div class="account-summary">
                             <h5>Total Balance</h5>
                             {% if balance %}
-                            <p><strong>${{ balance.current_balance }}</strong></p>
+                            <p><strong>${{ balance.current_balance|intword|intcomma }}</strong></p>
                         {% else %}
                             <p><strong>No Data Available .</strong></p>
                         {% endif %}
@@ -42,17 +42,27 @@
                     <div class="col-md-4">
                         <div class="account-summary">
                             <h5>Recent Transactions</h5>
+                            {% if transaction %}
                             <ul>
-                                <li>Deposit: $500 - 12/09/2024</li>
-                                <li>Withdrawal: $200 - 10/09/2024</li>
-                                <li>Transfer: $1,000 - 09/09/2024</li>
+                                {% for t in transaction %}
+                                <li>{{t.transaction_type}}: ${{t.amount}} - {{ t.timestamp|naturalday|naturaltime }}</li>
+                                {% endfor %}
                             </ul>
+                            {% else %}
+                            <p><strong>No Data Available .</strong></p>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="account-summary">
-                            <h5>Credit Card Balance</h5>
-                            <p><strong>$2,800</strong> due on 30/09/2024</p>
+                            <h5>Last Login Information</h5>
+                            {% if last_login %}
+                                <p><strong>Login:</strong> {{ last_login.login_time|date:"Y-m-d H:i:s" }}</p>
+                                <p><strong>Logout:</strong> {{ last_login.logout_time|date:"Y-m-d H:i:s" }}</p>
+                                <p><strong>IP Address:</strong> {{ last_login.ip_address }}</p>
+                            {% else %}
+                                <p>No login records found.</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -94,7 +104,7 @@
                 <div class="row mt-4">
                     <div class="col-md-12">
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                           <a href='{% url "fundtransfer"  %}' class="btn btn-primary">Fund Transfer</a>
+                           <a href='{% url "fundtransfer"  %}' class="btn btn-primary"> Transfer Money </a>
                         </div>
                     </div>
                 </div>
