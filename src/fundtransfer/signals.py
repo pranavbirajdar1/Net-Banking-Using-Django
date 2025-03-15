@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from .models import Accbalance
 import logging 
 
-logger = getLogger(__name__)
+logger = logging.getLogger(__name__)
 @receiver(post_save, sender=User)
 def log_user_login(sender, instance, created, **kwargs):
     if created:
