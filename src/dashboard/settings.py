@@ -43,8 +43,8 @@ INSTALLED_APPS = [
   
 
     #Custom Apps
-    'userdash','accounts','fundtransfer','index','investments',
-    'settings','statements','support','loan',
+    'userdash','fundtransfer','index',
+    'settings','statements','support',
     'userProfile','nomminee','apii',
       'celery',
 ]

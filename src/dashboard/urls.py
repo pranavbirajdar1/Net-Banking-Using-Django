@@ -11,10 +11,10 @@ urlpatterns = [
     path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
     path('', include('index.urls')),
     path('userdashboar/', include('userdash.urls')),
-    path('account/', include('accounts.urls')),
-    path('investme/', include('investments.urls')),
+    # path('account/', include('accounts.urls')),
+    # path('investme/', include('investments.urls')),
     path('fundtrans/', include('fundtransfer.urls')),
-    path('payme/', include('payments.urls')),
+    # path('payme/', include('payments.urls')),
     path('settin/', include('settings.urls')),
     path('statement/', include('statements.urls')),
     path('suppor/', include('support.urls')),
@@ -22,7 +22,7 @@ urlpatterns = [
     path('suppor/', include('support.urls')),
     path('nomine/', include('nomminee.urls')),
     path('api/', include('apii.urls')),
-    path('loan/', include('loan.urls')),
+    # path('loan/', include('loan.urls')),
     
 ]
 
