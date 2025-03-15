@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class Nominee(models.Model):
     id = models.BigAutoField(db_index=True, primary_key=True)
     user = models.OneToOneField(User, verbose_name=("nominee"), on_delete=models.CASCADE , related_query_name='nominee')
-    name = models.CharField(max_length=10, verbose_name="First Name" , blank =True , null =True)
+    name = models.CharField(max_length=50, verbose_name="First Name" , blank =True , null =True)
     relation = models.CharField(max_length=18 , verbose_name='Relation' , blank=True , null= False)
     contact = models.CharField(max_length=10, verbose_name="Contact Number" , blank =True , null =True)
 
