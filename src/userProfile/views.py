@@ -37,16 +37,19 @@ def profile(request, id):
         'pref': pref,
         'profile': profile
     }
-    if request.method == 'POST' and request.FILES.get('profile_picture'):
-         profile_picture = request.FILES['profile_picture']
-         fs = FileSystemStorage()
-         filename = fs.save(profile_picture.name, profile_picture)
+    if request.method == 'POST' and request.FILES.get('profilePicture'):
+        #  profile_picture = request.FILES['profilePicture']
+        #  fs = FileSystemStorage()
+        #  filename = fs.save(profile_picture.name, profile_picture)
         
-        # Save the profile picture URL to the profile
-         profile.user_profile = fs.url(filename)
-         profile.save()
-
-         return redirect('profile_update')  # Redirect after uploading the picture
+        # # Save the profile picture URL to the profile
+        #  profile.user_profile = fs.url(filename)
+        #  profile.save()
+        profile = request.user.profile
+        profile.image = request.FILES['profilePicture']
+        profile.save()
+        messages.success(request, 'Profile picture updated successfully')
+        return redirect('profile_update')  # Redirect after uploading the picture
      
     return render(request, 'profile.html', context)
 
