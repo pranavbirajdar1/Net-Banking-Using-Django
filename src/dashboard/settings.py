@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.humanize',
     'django.contrib.staticfiles',
-    "debug_toolbar",   # for debug toolbar
+   # "debug_toolbar",   # for debug toolbar
     'django_celery_results',
   
 
@@ -50,7 +50,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
+   # "debug_toolbar.middleware.DebugToolbarMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'silk.middleware.SilkyMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -189,11 +189,11 @@ REGISTERED_EMAIL = 'demosonimail2023@gmail.com'  # Replace with your actual emai
 
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-INTERNAL_IPS = [
-   "localhost",
-    "127.0.0.1",
+# INTERNAL_IPS = [
+#    "localhost",
+#     "127.0.0.1",
    
-]
+# ]
 STATIC_URL = "static/"
 LOGGING = {
     'version': 1,
