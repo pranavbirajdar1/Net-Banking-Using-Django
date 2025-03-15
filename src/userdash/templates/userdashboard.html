@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %} Welcome {{user.username | capfirst}}{% endblock title %}
+{% block title %} Welcome {{user.username | upper}}{% endblock title %}
 {% block css %}
     <style>
         
@@ -25,7 +25,7 @@
             <!-- Main Dashboard -->
             <div class="col-md-15 p-4">
                 {% if  user.is_authenticated %}
-                <h3>Welcome, {{user.username | capfirst}}</h3>
+                <h3>Welcome, {{user.username | upper}}</h3>
                 {% endif %}
                 <!-- Account Summary -->
                 <div class="row">
@@ -35,7 +35,7 @@
                             {% if balance %}
                             <p><strong>${{ balance.current_balance }}</strong></p>
                         {% else %}
-                            <p><strong>$</strong></p>
+                            <p><strong>No Data Available .</strong></p>
                         {% endif %}
                         </div>
                     </div>
@@ -56,31 +56,45 @@
                         </div>
                     </div>
                 </div>
+             
+               
 
-                <!-- Graph Section -->
-                <div class="row mt-4">
-                    <div class="col-md-8">
-                        <div class="graph">
-                            <h5>Monthly Spending</h5>
-                            <!-- Replace with a real graph -->
-                            <p>[Graph Placeholder]</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="graph">
-                            <h5>Spending Categories</h5>
-                            <!-- Replace with a pie chart -->
-                            <p>[Pie Chart Placeholder]</p>
-                        </div>
-                    </div>
-                </div>
 
+                                <!-- Account Statistics -->
+                                <div class="row">
+                                    <div class="col-md-12 account-statistics">
+                                        <h5>Account Statistics</h5>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Statistic</th>
+                                                    <th>Value</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Total Credit</td>
+                                                    <td>{{totalc}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Total Debit</td>
+                                                    <td>{{totald}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Number of Transactions</td>
+                                                    <td>{{totalt}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                  
                 <!-- Quick Actions -->
                 <div class="row mt-4">
                     <div class="col-md-12">
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <button class="btn btn-primary me-md-2" type="button">Transfer Money</button>
-                            <button class="btn btn-secondary" type="button">Pay Bills</button>
+                           <a href='{% url "fundtransfer"  %}' class="btn btn-primary">Fund Transfer</a>
                         </div>
                     </div>
                 </div>
