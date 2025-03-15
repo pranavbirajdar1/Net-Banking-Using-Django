@@ -1,270 +1,181 @@
 {% extends "base.html" %}
 
-{% block title %}Settings{% endblock title  %}
+{% block title %}Settings{% endblock title %}
 
-{% block css %} 
-
-
+{% block css %}
 <style>
-    .container {
-      margin-top: 2rem;
-    }
-    h1 {
-      text-align: center;
-      color: #007acc;
-      margin-bottom: 2rem;
-    }
-    .settings-section {
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      padding: 1.5rem;
-      transition: transform 0.2s ease;
-    }
-    .settings-section:hover {
-      transform: translateY(-5px);
-    }
-    .section-title {
-      color: #007acc;
-      font-size: 1.25rem;
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-    }
-    .section-title:before {
-      content: "⚙";
-      margin-right: 0.5rem;
-    }
-    .section-content {
-      margin-top: 1rem;
-      line-height: 1.5;
-    }
-    .collapse-toggle {
-      display: none;
-    }
-    .settings-section ul {
-      list-style-type: none;
-      padding-left: 0;
-    }
-    .settings-section ul li {
-      margin: 10px 0;
-    }
-    .settings-section ul li a {
-      text-decoration: none;
-      color: #333;
-      display: flex;
-      align-items: center;
-      font-size: 1.1rem;
-    }
-    .settings-section ul li a:hover {
-      color: #007acc;
-    }
-    .settings-section ul li a i {
-      margin-right: 0.5rem;
-    }
-    .checkbox-container {
-      display: flex;
-      align-items: center;
-    }
-    .checkbox-container input {
-      margin-right: 10px;
-    }
-  </style>
-  {% endblock css %}
+  .settings-container {
+    max-width: 700px;
+    margin: 4rem auto;
+    padding: 2rem 2.5rem;
+    background: #fdfdfd;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+    font-family: 'Segoe UI', sans-serif;
+  }
+  .settings-header {
+    text-align: center;
+    color: #1e1e2f;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+  .settings-section {
+    border-bottom: 1px solid #eaeaea;
+    padding: 1.2rem 0;
+    transition: all 0.3s ease;
+  }
+  .settings-section:last-child {
+    border-bottom: none;
+  }
+  .section-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    color: #2c3e50;
+    padding: 0.3rem 0;
+  }
+  .section-title i {
+    margin-right: 0.75rem;
+    color: #555;
+  }
+  .section-content {
+    display: none;
+    padding-top: 0.5rem;
+  }
+  .settings-section.active .section-content {
+    display: block;
+  }
+  .settings-section ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .settings-section a {
+    text-decoration: none;
+    color: #34495e;
+    display: inline-block;
+    padding: 0.25rem 0;
+    transition: color 0.2s ease;
+  }
+  .settings-section a:hover {
+    color: #007acc;
+  }
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-top: 0.75rem;
+  }
+  .checkbox-container input {
+    margin-right: 12px;
+    transform: scale(1.2);
+  }
+  .btn-primary {
+    background-color: #007acc;
+    border: none;
+    padding: 0.5rem 1.2rem;
+    color: #fff;
+    border-radius: 6px;
+    margin-top: 1rem;
+    transition: background-color 0.2s ease;
+  }
+  .btn-primary:hover {
+    background-color: #005f99;
+  }
+  .danger-zone {
+    color: #e74c3c;
+    font-weight: 600;
+  }
+</style>
+{% endblock css %}
 
+{% block body %}
+<div class="settings-container">
+  <h2 class="settings-header">Settings</h2>
 
-  {% block body %}
-  <div class="col-md-15 mb-4">
-    <div class="container mt-3">
-      <h1>Banking App Settings</h1>
-      <div class="row row-cols-1 row-cols-md-2 g-4">
-        <!-- Profile & Personal Information -->
-        <div class="col">
-          <div class="settings-section">
-            <div class="section-title" data-bs-toggle="collapse" data-bs-target="#profileSection">
-              <i class="fas fa-user"></i> Profile & Personal Information
-            </div>
-            <div id="profileSection" class="collapse section-content">
-              <ul>
-                <li><a href="{% url "profile_up" id=user.id %}"><i class="fas fa-edit"></i> Edit Profile</a></li>
-                <li><a href="{% url "address_up" user.id %}"><i class="fas fa-map-marker-alt"></i> Address Management</a></li>
-                <li><a href="{% url "contact_up" user.id %}"><i class="fas fa-language"></i> Contact Management</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-  
-        <!-- Security & Login Settings -->
-        <div class="col">
-          <div class="settings-section">
-            <div class="section-title" data-bs-toggle="collapse" data-bs-target="#securitySection">
-              <i class="fas fa-lock"></i> Security & Login Settings
-            </div>
-            <div id="securitySection" class="collapse section-content">
-              <ul>
-                <li><a href="/security/change-password"><i class="fas fa-key"></i> Change Password</a></li>
-                <li><a href="/security/2fa"><i class="fas fa-shield-alt"></i> Two-Factor Authentication (2FA)</a></li>
-                <li><a href="/security/biometric"><i class="fas fa-fingerprint"></i> Biometric Login</a></li>
-                <li><a href="/security/questions"><i class="fas fa-question-circle"></i> Security Questions</a></li>
-                <li><a href="/security/devices"><i class="fas fa-desktop"></i> Device Management</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-  
-        <form method="POST" action="{% url 'settings' %}">
-          {% csrf_token %}
-          <div class="col">
-            <div class="settings-section">
-              <div class="section-title" data-bs-toggle="collapse" data-bs-target="#notificationsSection">
-                <i class="fas fa-bell"></i> Notification Preferences
-              </div>
-              <div id="notificationsSection" class="collapse section-content">
-                <ul>
-                  <li class="checkbox-container">
-                    <input type="checkbox" id="emailNotif" name="emailNotif" {% if email_prefs.notifications %}checked{% endif %} />
-                    <label for="emailNotif"><i class="fas fa-envelope"></i> Email Notifications</label>
-                  </li>
-                  <li class="checkbox-container">
-                    <input type="checkbox" id="smsNotif" name="smsNotif" {% if sms_prefs.status %}checked{% endif %} />
-                    <label for="smsNotif"><i class="fas fa-sms"></i> SMS Alerts</label>
-                  </li>
-                  <li class="checkbox-container">
-                    <input type="checkbox" id="pushNotif" name="pushNotif" {% if push_prefs.enabled %}checked{% endif %} />
-                    <label for="pushNotif"><i class="fas fa-mobile-alt"></i> Push Notifications</label>
-                  </li>
-                </ul>
-                <button type="submit" class="btn btn-primary mt-3">Save Preferences</button>
-              </div>
-            </div>
-          </div>
-        </form>
-        
-  
-        <!-- Account Management -->
-        <div class="col">
-          <div class="settings-section">
-            <div class="section-title" data-bs-toggle="collapse" data-bs-target="#accountSection">
-              <i class="fas fa-credit-card"></i> Account Management
-            </div>
-            <div id="accountSection" class="collapse section-content">
-              <ul>
-                <li><a href="/accounts/linked"><i class="fas fa-link"></i> Linked Accounts</a></li>
-                <li><a href="/accounts/alias"><i class="fas fa-tag"></i> Account Alias/Nickname</a></li>
-                <li><a href="/accounts/currency"><i class="fas fa-dollar-sign"></i> Currency Preferences</a></li>
-                <li><a href="/accounts/payees"><i class="fas fa-users"></i> Manage Payees</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-  
-        <!-- Privacy & Data Sharing -->
-        <div class="col">
-          <div class="settings-section">
-            <div class="section-title" data-bs-toggle="collapse" data-bs-target="#privacySection">
-              <i class="fas fa-user-shield"></i> Privacy & Data Sharing
-            </div>
-            <div id="privacySection" class="collapse section-content">
-              <ul>
-                <li><a href="/privacy/data-sharing"><i class="fas fa-share-alt"></i> Data Sharing Preferences</a></li>
-                <li><a href="/privacy/personalization"><i class="fas fa-cogs"></i> Personalization Settings</a></li>
-                <li><a href="/privacy/download"><i class="fas fa-download"></i> Download Data</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-  
-        <!-- Transaction Settings -->
-        <div class="col">
-          <div class="settings-section">
-            <div class="section-title" data-bs-toggle="collapse" data-bs-target="#transactionSection">
-              <i class="fas fa-credit-card"></i> Transaction Settings
-            </div>
-            <div id="transactionSection" class="collapse section-content">
-              <ul>
-                <li><a href="/transactions/limits"><i class="fas fa-chart-line"></i> Spending Limits</a></li>
-                <li><a href="/transactions/preferences"><i class="fas fa-cogs"></i> Payment Preferences</a></li>
-                <li><a href="/transactions/recurring"><i class="fas fa-sync-alt"></i> Recurring Payments</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-  
-        <!-- Card Settings -->
-        <div class="col">
-          <div class="settings-section">
-            <div class="section-title" data-bs-toggle="collapse" data-bs-target="#cardSection">
-              <i class="fas fa-credit-card"></i> Card Settings
-            </div>
-            <div id="cardSection" class="collapse section-content">
-              <ul>
-                <li><a href="/card/activation"><i class="fas fa-check-circle"></i> Card Activation/Deactivation</a></li>
-                <li><a href="/card/pin"><i class="fas fa-key"></i> Set PIN</a></li>
-                <li><a href="/card/spending-alerts"><i class="fas fa-bell"></i> Spending Alerts</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-  
-        <!-- Additional Settings -->
-        <div class="col">
-          <div class="settings-section">
-            <div class="section-title" data-bs-toggle="collapse" data-bs-target="#additionalSection">
-              <i class="fas fa-cogs"></i> Additional Settings
-            </div>
-            <div id="additionalSection" class="collapse section-content">
-              <ul>
-                <li><a href="/settings/insights"><i class="fas fa-chart-bar"></i> Transaction & Spending Insights</a></li>
-                <li><a href="/settings/investments"><i class="fas fa-piggy-bank"></i> Investment Account Settings</a></li>
-                <li><a href="/settings/loans"><i class="fas fa-credit-card"></i> Loan Management & Preferences</a></li>
-                
-                <li>
-                  <a href="{% url 'deactivation' user.id %}" onclick="confirmDeactivation(event)">
-                      <i class="fas fa-user-slash"></i> Deactivate Account
-                  </a>
-              </li>
-
-                <li>
-                  <a href="{% url "deletion" user.id %}" onclick="confirmDeletion(event)">
-                      <i class="fas fa-trash-alt"></i> Delete Account
-                  </a>
-              </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
+  <!-- Profile & Personal Information -->
+  <div class="settings-section">
+    <div class="section-title" onclick="toggleSection(this)">
+      <span><i class="fas fa-user"></i> Profile & Personal Information</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="section-content">
+      <ul>
+        <li><a href="{% url 'profile_up' user.id %}"><i class="fas fa-edit"></i> Edit Profile</a></li>
+        <li><a href="{% url 'address_up' user.id %}"><i class="fas fa-map-marker-alt"></i> Address Management</a></li>
+        <li><a href="{% url 'contact_up' user.id %}"><i class="fas fa-language"></i> Contact Management</a></li>
+      </ul>
     </div>
   </div>
 
+  <!-- Notification Preferences -->
+  <form method="POST" action="{% url 'settings' %}">
+    {% csrf_token %}
+    <div class="settings-section">
+      <div class="section-title" onclick="toggleSection(this)">
+        <span><i class="fas fa-bell"></i> Notification Preferences</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="section-content">
+        <div class="checkbox-container">
+          <input type="checkbox" id="emailNotif" name="emailNotif" {% if email_prefs.notifications %}checked{% endif %}>
+          <label for="emailNotif"><i class="fas fa-envelope"></i> Email Notifications</label>
+        </div>
+        <div class="checkbox-container">
+          <input type="checkbox" id="smsNotif" name="smsNotif" {% if sms_prefs.status %}checked{% endif %}>
+          <label for="smsNotif"><i class="fas fa-sms"></i> SMS Alerts</label>
+        </div>
+        <div class="checkbox-container">
+          <input type="checkbox" id="pushNotif" name="pushNotif" {% if push_prefs.enabled %}checked{% endif %}>
+          <label for="pushNotif"><i class="fas fa-mobile-alt"></i> Push Notifications</label>
+        </div>
+        <button type="submit" class="btn-primary">Save Preferences</button>
+      </div>
+    </div>
+  </form>
 
-  <script type="text/javascript">
-    // JavaScript function to show the confirmation dialog
-    function confirmDeactivation(event) {
-        var confirmation = confirm("Are you sure you want to deactivate your account?");
-        
-        if (!confirmation) {
-            // Prevent the link from being followed if the user clicks "Cancel"
-            event.preventDefault();
-        }
+  <!-- Deactivate & Delete Account -->
+  <div class="settings-section">
+    <div class="section-title danger-zone" onclick="toggleSection(this)">
+      <span><i class="fas fa-user-slash"></i> Deactivate Account</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="section-content">
+      <a href="{% url 'deactivation' user.id %}" onclick="confirmDeactivation(event)">Deactivate your account</a>
+    </div>
+  </div>
+
+  <div class="settings-section">
+    <div class="section-title danger-zone" onclick="toggleSection(this)">
+      <span><i class="fas fa-trash-alt"></i> Delete Account</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="section-content">
+      <a href="{% url 'deletion' user.id %}" onclick="confirmDeletion(event)">Delete your account permanently</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  function toggleSection(element) {
+    element.parentElement.classList.toggle('active');
+  }
+
+  function confirmDeactivation(event) {
+    if (!confirm("Are you sure you want to deactivate your account?")) {
+      event.preventDefault();
     }
+  }
 
-
-        // JavaScript function to show the confirmation dialog
-        function confirmDeletion(event) {
-          var confirmation = confirm("Are you sure you want to delete your account? This action cannot be undone.");
-          
-          if (!confirmation) {
-              // Prevent the link from being followed if the user clicks "Cancel"
-              event.preventDefault();
-          }
-      }
-
-
-
+  function confirmDeletion(event) {
+    if (!confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
+      event.preventDefault();
+    }
+  }
 </script>
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-  {% endblock %}
-  
+{% endblock %}
