@@ -83,3 +83,4 @@ uv==0.3.5
 vine==5.1.0
 wcwidth==0.2.13
 Werkzeug==3.0.4
+weasyprint 64.1
