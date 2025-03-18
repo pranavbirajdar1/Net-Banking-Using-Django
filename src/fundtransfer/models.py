@@ -19,7 +19,7 @@ class Accbalance(models.Model):
     
 
 class Transaction(models.Model):
-    transactionid = models.PositiveIntegerField(unique=True,editable=False)
+    
     sender = models.ForeignKey(User,on_delete=models.DO_NOTHING,related_name='sent_transactions')
     receiver = models.ForeignKey(User,on_delete=models.DO_NOTHING,related_name='received_transactions')
     sender_balance = models.ForeignKey(Accbalance , on_delete=models.DO_NOTHING , related_name='transactons_as_sender')
@@ -30,12 +30,9 @@ class Transaction(models.Model):
     def __str__(self):
         return f'Transaction of {self.amount} from {self.sender.username} TO {self.receiver.username} on {self.timestamp}'
     
-    def save(self, *args, **kwargs):
-        if not self.transactionid:  # Check if account_number is not already set
-            self.transactionid = uuid.uuid4().int  # Set account_number to integer UUID
-            self.transactionid.save()
-        super(Transaction, self).save(*args, **kwargs)
+
     
+
     @classmethod
     def transfer_funds(cls, sender, receiver, amount):
         '''Handles the fund transfer between users with
