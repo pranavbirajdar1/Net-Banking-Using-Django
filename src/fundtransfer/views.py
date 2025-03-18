@@ -59,7 +59,7 @@ def fundtransfer(request):
             messages.success(request, f'Successfully Transferred {amounts} to {receiver.username}.')
             senderforlog =sender.username
             receiverforlog = receiver.username
-            TransactionLog.objects.bulk_create(status='Successful',sender =senderforlog , receiver = receiverforlog)
+            TransactionLog.objects.create(status='Successful',sender =senderforlog , receiver = receiverforlog)
             send_sucessful_email(senderEmail,receiver_username,amounts)
             return redirect('fundtransfer')
             
@@ -67,7 +67,7 @@ def fundtransfer(request):
             messages.error(request, f'Error occurred during transfer {str(e)}')
             senderforlog =sender.username
             receiverforlog = receiver.username
-            TransactionLog.objects.bulk_create(status='Failed',sender =senderforlog , receiver = receiverforlog)
+            TransactionLog.objects.create(status='Failed',sender =senderforlog , receiver = receiverforlog)
             send_failure_email(senderEmail,receiver_username,amounts)
             return redirect('fundtransfer')
     # Fetch users excluding logged in user  (for dropdown option in template)
