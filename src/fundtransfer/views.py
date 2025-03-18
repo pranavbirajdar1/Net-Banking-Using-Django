@@ -12,7 +12,7 @@ from django.core.mail import send_mail
 
 @login_required
 def fundtransfer(request):
-    senderEmail = Contact.objects.get(user=request.user)
+    senderEmail = Contact.objects.get(user=request.user).email
     user = request.user
     if request.method == 'POST':
         receiver_usernames = request.POST.get('username')
