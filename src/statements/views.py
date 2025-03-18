@@ -71,6 +71,74 @@ class StatementList(LoginRequiredMixin, ListView):
 
 
 
+from xhtml2pdf import pisa
+from django.utils import timezone
+from datetime import datetime
+from index.models import *
+from fundtransfer.models import Statement
+from django.template.loader import get_template
+from io import BytesIO
+from django.http import HttpResponse
+from django.db.models import Sum, Q
+
+def pdf_generate(request):
+    user = request.user
+    cp = CustomerPersonalInfo.objects.get(user=user)
+    con = Contact.objects.get(user=user)
+    statement = Statement.objects.filter(user=user).order_by('-timezone')
+    bank = AccountDetails.objects.get(user=user)
+    time = timezone.now()
+
+    # Aggregate totals
+    totals = statement.aggregate(
+        total_debit=Sum('amount', filter=Q(transaction_type='debit')),
+        total_credit=Sum('amount', filter=Q(transaction_type='credit'))
+    )
+
+    # Default to 0 if None
+    total_debit = totals['total_debit'] or 0
+    total_credit = totals['total_credit'] or 0
+
+    context = {
+        'first': cp.first_name,
+        'middle': cp.middle_name,
+        'last': cp.last_name,
+        'aodt': cp.account_opening_date_time,
+        'type': cp.account_type,
+        'con': con,
+        'branch_name': bank.bankbranch,
+        'account_number': bank.account_number,
+        'ifsc': bank.ifsc,
+        'generated_time': time,
+        'statements': statement,
+        'totalcredit': total_credit,
+        'totaldebit': total_debit,
+    }
+
+    template = get_template('pdf_template.html')
+    html_string = template.render(context)
+
+    # Create a PDF from the HTML string using pisa
+    pdf_file = BytesIO()
+    pisa_status = pisa.CreatePDF(html_string, dest=pdf_file)
+
+    # Check if PDF generation was successful
+    if pisa_status.err:
+        return HttpResponse('Error generating PDF', status=500)
+
+    # Set the file pointer to the beginning of the PDF file
+    pdf_file.seek(0)
+
+    # Create the response with the PDF file
+    response = HttpResponse(pdf_file, content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="bank_statement.pdf"'
+    return response
+
+
+
+
+
+
 
 
 
@@ -124,4 +192,6 @@ class StatementList(LoginRequiredMixin, ListView):
 #     response = HttpResponse(pdf_file, content_type='application/pdf')
 #     response['Content-Disposition'] = 'attachment; filename="bank_statement.pdf"'
 #     return response
+
+
 
