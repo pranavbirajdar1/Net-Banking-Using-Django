@@ -130,7 +130,7 @@ class SecurityQuestion(models.Model):
 class AccountDetails(models.Model):
     id = models.BigAutoField(primary_key=True)
     user = models.OneToOneField(User, verbose_name='Account Details', on_delete=models.CASCADE,related_name='account_details')
-    account_number = models.UUIDField(
+    account_number = models.BigIntegerField (
         db_index=True,
         editable=False,
         unique=True,
@@ -144,13 +144,20 @@ class AccountDetails(models.Model):
     bankadd = models.CharField(max_length=60,verbose_name="Bank Address",default='Saiful,Vijapur Road, Solapur,Maharastra')
     ifsc = models.CharField(max_length=11,verbose_name='IFSC CODE',default='LACF0001234')
     tracker = FieldTracker() 
-    
+    counter = 1000000000
+
+
+
+    def __init__(self):
+        self.account_number = AccountDetails.counter
+        AccountDetails.counter += 1  # Increment the counter for the next account
+
     def save(self, *args, **kwargs):
         # Automatically set the isverified field based on the user's authentication status
         self.account_status = self.user.is_active
-        if not self.account_number:  # Check if account_number is not already set
-            self.account_number = uuid.uuid4().int  # Set account_number to integer UUID
-            self.account_number.save()  # Save the instance to update the account_number field
+        # if not self.account_number:  # Check if account_number is not already set
+        #     self.account_number = uuid.uuid4().int()  # Set account_number to integer UUID
+        #     self.account_number.save()  # Save the instance to update the account_number field
 
         super(AccountDetails, self).save(*args, **kwargs)  # Call the superclass's save method to save the instance
 
