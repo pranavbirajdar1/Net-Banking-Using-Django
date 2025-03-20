@@ -151,9 +151,9 @@
   <div>
     <h6 class="section-title transaction">Transaction History</h6>
     <div class="table-responsive">
-      <table class="table table-bordered table-sm table-striped">
+      <table class="table table-bordered table-sm ">
         <thead>
-          <tr>
+          <tr class="table-primary" >
             <th style="width: 20%;">Date</th>
             <th style="width: 20%;">Transaction Type</th>
             <th style="width: 20%;">Balance Before</th>
@@ -164,7 +164,7 @@
         <tbody>
           {% if statements %}
             {% for statement in statements %}
-            <tr>
+            <tr class="table-info">
               <td>{{ statement.timestamp|date:"d M Y, h:i A" }}</td>
               <td>{{ statement.transaction_type|title }}</td>
               <td>₹{{ statement.balance_before }}</td>
