@@ -148,19 +148,16 @@ class AccountDetails(models.Model):
 
 
 
-    def __init__(self):
-        self.account_number = AccountDetails.counter
-        AccountDetails.counter += 1  # Increment the counter for the next account
 
     def save(self, *args, **kwargs):
-        # Automatically set the isverified field based on the user's authentication status
-        self.account_status = self.user.is_active
-        # if not self.account_number:  # Check if account_number is not already set
-        #     self.account_number = uuid.uuid4().int()  # Set account_number to integer UUID
-        #     self.account_number.save()  # Save the instance to update the account_number field
-
-        super(AccountDetails, self).save(*args, **kwargs)  # Call the superclass's save method to save the instance
-
+        if not self.account_number:
+            # Set the account number only if it's not already set
+            self.account_number = AccountDetails.counter
+            AccountDetails.counter += 1  # Increment the counter for the next account
+        # Automatically set the account status based on the user's authentication status
+        self.account_status = 'active' if self.user.is_active else 'inactive'
+        
+        super(AccountDetails, self).save(*args, **kwargs)  # Call the superclass's save method
     
                
                                           
