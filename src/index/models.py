@@ -139,7 +139,7 @@ class AccountDetails(models.Model):
     )
     account_type = CustomerPersonalInfo.account_type
     account_status = models.CharField(max_length=20, verbose_name='Account Status',default='active')
-    bankname = models.CharField(max_length=15,verbose_name="Bank Name")
+    bankname = models.CharField(max_length=20,verbose_name="Bank Name",default='Laxmi Cheat Fund')
     bankbranch = models.CharField(max_length=60,verbose_name="Bank Branch",default='Saiful Branch')
     bankadd = models.CharField(max_length=60,verbose_name="Bank Address",default='Saiful,Vijapur Road, Solapur,Maharastra')
     ifsc = models.CharField(max_length=11,verbose_name='IFSC CODE',default='LACF0001234')
