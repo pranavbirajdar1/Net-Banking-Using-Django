@@ -85,7 +85,7 @@ def pdf_generate(request):
     user = request.user
     cp = CustomerPersonalInfo.objects.get(user=user)
     con = Contact.objects.get(user=user)
-    statement = Statement.objects.filter(user=user).order_by('-timezone')
+    statement = Statement.objects.filter(user=user).order_by('-timestamp')
     bank = AccountDetails.objects.get(user=user)
     time = timezone.now()
 
