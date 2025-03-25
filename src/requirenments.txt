@@ -85,3 +85,4 @@ wcwidth==0.2.13
 Werkzeug==3.0.4
 weasyprint==64.1
 xhtml2pdf 
+django_celery_results
