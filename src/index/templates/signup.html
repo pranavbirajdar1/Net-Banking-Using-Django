@@ -143,21 +143,87 @@
 
 
         {% load crispy_forms_tags %}
-        <form method="post" action="{% url 'signup' %}">
+        <form method="post" id="multiStepForm">
             {% csrf_token %}
+
+
+
+            <div class="progress mb-4">
+                <div class="progress-bar" id="progress-bar" style="width: 33%;"></div>
+            </div>
+            
+
+            <!-- Step 1 -->
+          <div class="step active">
+            <h2>User Details</h2>
             {{ user_form.as_p }}
+                <button type="button" class="btn btn-primary next-step">Next</button>
+        </div>
+                    
+           
+         <!-- Step 2 -->
+         <div class="step">
+            <h2>Personal Information</h2>
+    
             {{ personal_info_form.as_p }}
+
+            <button type="button" class="btn btn-secondary prev-step">Previous</button>
+            <button type="button" class="btn btn-primary next-step">Next</button>
+        </div>
+         <!-- Step 2 -->
+         <div class="step">
+            <h2>Address Information</h2>
+    
             {{ address_info_form.as_p }}
+
+            <button type="button" class="btn btn-secondary prev-step">Previous</button>
+            <button type="button" class="btn btn-primary next-step">Next</button>
+        </div>
+         <!-- Step 2 -->
+         <div class="step">
+            <h2>Contact Information</h2>
+    
             {{ contact_form.as_p }}
+
+            <button type="button" class="btn btn-secondary prev-step">Previous</button>
+            <button type="button" class="btn btn-primary next-step">Next</button>
+        </div>
+         <!-- Step 2 -->
+         <div class="step">
+            <h2>Security Question</h2>
+    
             {{ security_question_form.as_p }}
+
+            <button type="button" class="btn btn-secondary prev-step">Previous</button>
+           <br>
+           <br>
+           
+      
+
+            
+            
+
+           
+      
+
+
+           
+
+           
+            
+
+      
+
             <h2>Terms and Conditions</h2>
             <div class="form-check">
                 <input type="checkbox" class="form-check-input" id="terms" required>
                 <label class="form-check-label" for="terms">I agree to the <a href="#">terms and conditions</a>.</label>
             </div>
-            <button type="submit" id="signup-btn">Sign Up</button>
+
+            <button type="submit" class="btn btn-primary w-100 final-submit">Sign Up</button>
+
         </form>
-        
+
         <p class="text-center mt-3">Already have an account? <a href="{% url 'login' %}">Login here</a>.</p>
     </div>
 
@@ -171,19 +237,34 @@
 
 
 <style>
+
+
     .step {
         display: none;
     }
+    
     .step.active {
         display: block;
     }
+    
+    .step:not(.active) input:required {
+        visibility: hidden;
+        position: absolute;
+    }
+    
+
+
 </style>
 
 <script>
+
+
+  
     document.addEventListener("DOMContentLoaded", function () {
         let currentStep = 0;
         const steps = document.querySelectorAll(".step");
         const progressBar = document.getElementById("progress-bar");
+        const form = document.getElementById("multiStepForm");
     
         function showStep(step) {
             steps.forEach((s, index) => {
@@ -210,22 +291,19 @@
             });
         });
     
-        document.getElementById("multiStepForm").addEventListener("submit", function (event) {
-            event.preventDefault();
-            alert("Form Submitted Successfully!");  // Uncomment to test submission
+        form.addEventListener("submit", function (event) {
+            if (currentStep < steps.length - 1) {
+                event.preventDefault(); // Prevent submission when not on the last step
+                currentStep++;
+                showStep(currentStep);
+            }
         });
-    
-        // ✅ Move signup button listener inside DOMContentLoaded
-        const signupBtn = document.getElementById("signup-btn");
-        if (signupBtn) {
-            signupBtn.addEventListener("click", function () {
-                console.log("Signup button clicked!");
-            });
-        } else {
-            console.error("Signup button not found! Make sure it's in the DOM.");
-        }
     
         showStep(currentStep);
     });
     
+
+
+
+
 </script>
