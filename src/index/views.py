@@ -18,6 +18,11 @@ def signup(request):
         if (user_form.is_valid() and personal_info_form.is_valid() and 
                 address_info_form.is_valid() and contact_form.is_valid() and 
                 security_question_form.is_valid()):
+            print("Contact errors:", contact_form.errors)
+            print("Security Question errors:", security_question_form.errors)
+            print("Address Info errors:", address_info_form.errors)
+            print("Personal Info errors:", personal_info_form.errors)
+            print("User form errors:", user_form.errors)
             # Create the user
             user = user_form.save()
             user.refresh_from_db()  # Load the user instance to update it
@@ -74,6 +79,9 @@ def login_view(request):
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             user = authenticate(request, username=username, password=password)
+            print(f"User authenticated: {user}")
+            print(form.errors)
+
 
             if user is not None:
                 login(request, user)
