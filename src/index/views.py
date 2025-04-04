@@ -107,6 +107,7 @@ def newsletterrr2(request):
     if request.method == 'POST':
         email = request.POST.get('email','').strip()
         NewsLetter.objects.create(email=email)
+        print('email added successfully...')
         return redirect('home')
     
     return render(request,'newsletter.html')
