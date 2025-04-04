@@ -101,9 +101,9 @@ class AddressInfo(models.Model):
 class Contact(models.Model):
     id = models.BigAutoField(primary_key=True)
     user = models.ForeignKey(User, verbose_name='Contact', on_delete=models.CASCADE,related_query_name='con')
-    contact_type = models.CharField(max_length=20, verbose_name='Contact Type')
-    contact = models.BigIntegerField(verbose_name='Contact')
-    email = models.EmailField(verbose_name="Email")
+    contact_type = models.CharField(max_length=20, verbose_name='Contact Type', null=True, blank=True)
+    contact = models.BigIntegerField(verbose_name='Contact',null=True, blank=True)
+    email = models.EmailField(verbose_name="Email", null=True, blank=True)
     tracker = FieldTracker()  # Tracks all fields on the model
 
     def save(self, *args, **kwargs):
